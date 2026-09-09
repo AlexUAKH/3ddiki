@@ -68,7 +68,7 @@ onMounted(() => {
           />
           <v-row>
             <v-col>
-              <router-link :to="{ name: ERouteNames.homePage }">
+              <router-link :to="{ name: ERouteNames.forgotPassword }">
                 Forgot password?
               </router-link>
             </v-col>
@@ -77,7 +77,7 @@ onMounted(() => {
             <v-col align="end">
               <v-btn
                 type="submit"
-                color="primary"
+                color="success"
                 @click="onSubmit"
                 :disabled="isSubmitting"
               >

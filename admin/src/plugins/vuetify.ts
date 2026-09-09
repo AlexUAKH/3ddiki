@@ -12,6 +12,15 @@ export default createVuetify({
   theme: {
     defaultTheme: "dark", //'system',
     utilities: false,
+    themes: {
+      dark: {
+        colors: {
+          primary: "#fc7400",
+          secondary: "#6ee189",
+          error: "#ff0000",
+        },
+      },
+    },
   },
   display: {
     mobileBreakpoint: "md",
@@ -27,10 +36,10 @@ export default createVuetify({
   defaults: {
     VBtn: {
       variant: "outlined",
-      elevation: 2,
     },
     VTextField: {
       variant: "outlined",
+      density: "compact",
     },
   },
 });

@@ -11,8 +11,7 @@
   --color-surface: rgb(var(--v-theme-surface));
   --color-on-surface: rgb(var(--v-theme-on-surface));
 
-  --color-primary: 65df6a;
-  /* rgb(var(--v-theme-primary)); */
+  --color-primary: rgb(var(--v-theme-primary));
   --color-success: rgb(var(--v-theme-success));
   --color-info: rgb(var(--v-theme-info));
   --color-warning: rgb(var(--v-theme-warning));

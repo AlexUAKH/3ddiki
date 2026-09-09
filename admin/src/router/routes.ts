@@ -24,16 +24,16 @@ export const routes: RouteRecordRaw[] = [
   //     middleware: [guest]
   //   }
   // },
-  // {
-  //   path: "/forgot-password",
-  //   name: ERouteNames.forgotPassword,
-  //   component: () => import("@/views/auth/ForgotPassword.vue"),
-  //   meta: {
-  //     title: "Forgot password",
-  //     layout: EAppLayouts.auth,
-  //     middleware: [guest]
-  //   }
-  // },
+  {
+    path: "/forgot-password",
+    name: ERouteNames.forgotPassword,
+    component: () => import("@/pages/auth/ForgotPassword.vue"),
+    meta: {
+      title: "Forgot password",
+      layout: EAppLayouts.auth,
+      middleware: [guest],
+    },
+  },
   // {
   //   path: "/password-reset/:token",
   //   name: ERouteNames.resetPassword,
