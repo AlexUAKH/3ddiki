@@ -4,17 +4,17 @@
  * Framework documentation: https://vuetifyjs.com
  */
 
-import { createVuetify } from 'vuetify'
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
+import "@mdi/font/css/materialdesignicons.css";
+import { createVuetify } from "vuetify";
+import "vuetify/styles";
 
 export default createVuetify({
   theme: {
-    defaultTheme: 'system',
+    defaultTheme: "dark", //'system',
     utilities: false,
   },
   display: {
-    mobileBreakpoint: 'md',
+    mobileBreakpoint: "md",
     thresholds: {
       xs: 0,
       sm: 600,
@@ -24,4 +24,13 @@ export default createVuetify({
       xxl: 2138,
     },
   },
-})
+  defaults: {
+    VBtn: {
+      variant: "outlined",
+      elevation: 2,
+    },
+    VTextField: {
+      variant: "outlined",
+    },
+  },
+});
