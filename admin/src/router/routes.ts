@@ -34,23 +34,23 @@ export const routes: RouteRecordRaw[] = [
       middleware: [guest],
     },
   },
-  // {
-  //   path: "/password-reset/:token",
-  //   name: ERouteNames.resetPassword,
-  //   component: () => import("@/views/auth/ChangePassword.vue"),
-  //   meta: {
-  //     title: "Reset password",
-  //     layout: EAppLayouts.auth,
-  //     middleware: [guest]
-  //   }
-  // },
+  {
+    path: "/radobot",
+    name: ERouteNames.radobot,
+    component: () => import("@/pages/radobot/index.vue"),
+    meta: {
+      title: "Radobot image extractor",
+      layout: EAppLayouts.default,
+      middleware: [guest],
+    },
+  },
   {
     path: "/",
     name: ERouteNames.homePage,
     component: () => import("@/pages/index.vue"),
     meta: {
       title: "Home screen",
-      layout: EAppLayouts.auth,
+      layout: EAppLayouts.default,
 
       // middleware: [auth],
     },

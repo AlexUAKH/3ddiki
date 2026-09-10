@@ -20,4 +20,6 @@ export enum ERouteNames {
   resetPassword = "resetPassword",
   //
   homePage = "homePage",
+  // radobot image extractor
+  radobot = "radobot",
 }
