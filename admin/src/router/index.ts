@@ -1,6 +1,5 @@
 import { accessGuardMiddleware } from "@/middleware/acessMiddleware";
 import { layoutMiddleware } from "@/middleware/layoutMiddleware";
-import { useAuthStore } from "@/stores/auth";
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./routes";
 
@@ -24,20 +23,20 @@ router.beforeEach((to: any, from: any) => {
     window.document.title = to.meta.title ? to.meta.title : "Home";
   }
 
-  if (!to?.meta?.middleware) {
-    return true;
-  }
+  // if (!to?.meta?.middleware) {
+  //   return true;
+  // }
 
-  const middlewares = to.meta.middleware;
-  const authStore = useAuthStore();
+  // const middlewares = to.meta.middleware;
+  // const authStore = useAuthStore();
 
-  middlewares.forEach((middleware: any) => {
-    middleware({
-      to,
-      from,
-      store: authStore,
-    });
-  });
+  // middlewares.forEach((middleware: any) => {
+  //   middleware({
+  //     to,
+  //     from,
+  //     store: authStore,
+  //   });
+  // });
 
   // const context = {
   //   to,
