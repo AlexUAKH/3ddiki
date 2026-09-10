@@ -30,7 +30,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/auth/ForgotPassword.vue"),
     meta: {
       title: "Forgot password",
-      layout: EAppLayouts.auth,
+      layout: EAppLayouts.default,
       middleware: [guest],
     },
   },

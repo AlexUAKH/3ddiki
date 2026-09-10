@@ -103,7 +103,7 @@ export const useAuthStore = defineStore(
     persist: {
       // afterRestore: (ctx) => {
       afterHydrate: (ctx) => {
-        console.log("3ddiki_access_token: ", ctx.store.accessToken);
+        console.log("3ddiki_access_token: ", ctx.store);
         if (ctx.store.accessToken)
           Cookies.set("3ddiki_access_token", ctx.store.accessToken, {
             expires: 365,
