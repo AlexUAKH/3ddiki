@@ -45,6 +45,12 @@ const menuItems = computed(() => [
     icon: "mdi-robot-angry-outline",
     pageName: ERouteNames.radobot,
   },
+  {
+    title: "forgotPassword",
+    route: "forgot-password",
+    icon: "mdi-robot-angry-outline",
+    pageName: ERouteNames.forgotPassword,
+  },
 ]);
 
 const handleLogout = () => {
