@@ -1,4 +1,5 @@
 import { EAppLayouts } from "@/layouts/layouts.types";
+import auth from "@/middleware/authMiddleware";
 import guest from "@/middleware/guestMiddleware";
 import type { RouteRecordRaw } from "vue-router";
 import { ERouteNames } from "./router.types";
@@ -34,16 +35,16 @@ export const routes: RouteRecordRaw[] = [
       middleware: [guest],
     },
   },
-  {
-    path: "/radobot",
-    name: ERouteNames.radobot,
-    component: () => import("@/pages/radobot/index.vue"),
-    meta: {
-      title: "Radobot image extractor",
-      layout: EAppLayouts.default,
-      middleware: [guest],
-    },
-  },
+  // {
+  //   path: "/radobot",
+  //   name: ERouteNames.radobot,
+  //   component: () => import("@/pages/radobot/index.vue"),
+  //   meta: {
+  //     title: "Radobot image extractor",
+  //     layout: EAppLayouts.default,
+  //     middleware: [guest],
+  //   },
+  // },
   {
     path: "/",
     name: ERouteNames.homePage,
@@ -55,22 +56,22 @@ export const routes: RouteRecordRaw[] = [
       // middleware: [auth],
     },
   },
-  // {
-  //   path: "/accessError",
-  //   name: ERouteNames.accessError,
-  //   component: () => import("@/views/AccessError.vue"),
-  //   meta: {
-  //     title: "Access denied",
-  //     middleware: [guest, auth]
-  //   }
-  // },
-  // {
-  //   path: "/:pathMatch(.*)*",
-  //   name: ERouteNames.notFound,
-  //   component: () => import("@/views/PageNotFound.vue"),
-  //   meta: {
-  //     title: "Page Not Found",
-  //     middleware: [auth]
-  //   }
-  // }
+  {
+    path: "/accessError",
+    name: ERouteNames.accessError,
+    component: () => import("@/pages/AccessError.vue"),
+    meta: {
+      title: "Access denied",
+      middleware: [guest, auth],
+    },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: ERouteNames.notFound,
+    component: () => import("@/pages/PageNotFound.vue"),
+    meta: {
+      title: "Page Not Found",
+      // middleware: [auth]
+    },
+  },
 ];

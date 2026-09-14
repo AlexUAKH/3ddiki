@@ -5,5 +5,5 @@ export default createI18n({
   legacy: false,
   locale: "en",
   fallbackLocale: "en",
-  locales,
+  messages: locales,
 });

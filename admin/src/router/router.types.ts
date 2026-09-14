@@ -22,4 +22,6 @@ export enum ERouteNames {
   homePage = "homePage",
   // radobot image extractor
   radobot = "radobot",
+  // 404
+  notFound = "notFound",
 }

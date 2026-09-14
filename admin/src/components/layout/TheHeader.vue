@@ -1,5 +1,17 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { useTheme } from "vuetify";
+import LanguageSelect from "./languageSelect.vue";
+
 defineEmits(["handleDrawer"]);
+
+const theme = useTheme();
+
+const currentThemeIcon = computed(() => {
+  return theme.global.name.value === "dark"
+    ? "mdi-weather-sunny"
+    : "mdi-weather-night";
+});
 </script>
 
 <template>
@@ -9,6 +21,12 @@ defineEmits(["handleDrawer"]);
     <div class="ml-auto flex items-center gap-3">
       <v-btn icon>
         <v-icon>mdi-bell</v-icon>
+      </v-btn>
+
+      <language-select></language-select>
+
+      <v-btn icon @click="theme.toggle()">
+        <v-icon>{{ currentThemeIcon }}</v-icon>
       </v-btn>
 
       <v-btn>
@@ -24,22 +42,6 @@ defineEmits(["handleDrawer"]);
 </template>
 
 <style scoped lang="scss">
-.v-toolbar__content {
-  & > .v-toolbar-title {
-    margin-inline-start: 0;
-    height: 100%;
-    & .title {
-      width: 220px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      font-size: 21px;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      box-shadow: 0 2px 26px rgba(54, 54, 54, 0.25);
-    }
-  }
-}
 .title {
   width: 220px;
   height: 100%;
@@ -49,6 +51,6 @@ defineEmits(["handleDrawer"]);
   font-size: 21px;
   font-weight: 700;
   letter-spacing: 0.09em;
-  box-shadow: 0 2px 26px rgba(54, 54, 54, 0.25);
+  // box-shadow: 0 2px 26px rgba(54, 54, 54, 0.25);
 }
 </style>

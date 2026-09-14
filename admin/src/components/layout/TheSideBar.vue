@@ -8,6 +8,13 @@ import { useDisplay } from "vuetify";
 interface Props {
   isOpen: boolean;
 }
+interface MenuItem {
+  title: string;
+  icon: string;
+  route: string;
+  pageName: ERouteNames;
+  exact?: boolean;
+}
 
 const props = withDefaults(defineProps<Props>(), {
   isOpen: false,
@@ -32,25 +39,20 @@ const route = useRoute();
 const isMobile = computed(() => display.smAndDown.value);
 const isDesktop = computed(() => display.mdAndUp.value);
 
-const menuItems = computed(() => [
+const menuItems = computed<MenuItem[]>(() => [
   {
     title: "Home",
     icon: "mdi-home",
+    route: "",
     pageName: ERouteNames.homePage,
     exact: true,
   },
-  {
-    title: "Radobot",
-    route: "radobot",
-    icon: "mdi-robot-angry-outline",
-    pageName: ERouteNames.radobot,
-  },
-  {
-    title: "forgotPassword",
-    route: "forgot-password",
-    icon: "mdi-robot-angry-outline",
-    pageName: ERouteNames.forgotPassword,
-  },
+  // {
+  //   title: "Radobot",
+  //   route: "radobot",
+  //   icon: "mdi-robot-angry-outline",
+  //   pageName: ERouteNames.radobot,
+  // },
 ]);
 
 const handleLogout = () => {
@@ -118,7 +120,7 @@ const handleLogout = () => {
   }
 }
 .lmsdrawer {
-  z-index: 1008 !important;
+  // z-index: 1008 !important;
   //   box-shadow: none;
   height: calc(100vh - 64px) !important;
   top: 64px;
@@ -126,7 +128,7 @@ const handleLogout = () => {
   //   min-height: 520px;
   //   border-radius: 0 !important;
   //   color: #000;
-  //   padding-top: 30px;
+  padding-top: 30px;
   // background: linear-gradient(179.6deg, #c2c2c2 0.35%, #8b8b8b 99.66%);
 }
 </style>

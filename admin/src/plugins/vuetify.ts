@@ -10,8 +10,10 @@ import "vuetify/styles";
 
 export default createVuetify({
   theme: {
-    defaultTheme: "dark", //'system',
+    defaultTheme: "system", //'system',
     utilities: false,
+    transition: true, // default origin: top center
+    // or provide options:
     themes: {
       dark: {
         colors: {
