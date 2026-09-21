@@ -97,7 +97,7 @@ onMounted(async () => {
   <div class="">
     <PageHeader :header="t('filamentTypes.header')" :icon="FILAMENT_TYPES_ICON">
       <template #actions>
-        <v-btn color="info" variant="flat" @click="createHandler">
+        <v-btn color="secondary" variant="flat" @click="createHandler">
           {{ t("common.create") }}
         </v-btn>
       </template>

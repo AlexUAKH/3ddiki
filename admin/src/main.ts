@@ -8,7 +8,7 @@ import "./defineValidators";
 
 import "unfonts.css";
 import "./styles/main.scss";
-import "./styles/tailwind.css";
+import "./styles/styles.scss";
 
 const app = createApp(App);
 

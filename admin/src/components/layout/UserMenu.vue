@@ -33,8 +33,8 @@ const handleLogout = () => {
   <v-menu v-model="menu" location="bottom end" offset="4" viewport-margin="0">
     <template v-slot:activator="{ props }">
       <v-btn :icon="!mdAndUp" v-bind="props">
-        <span class="hidden md:inline-block">{{ user.email }}</span>
-        <v-icon class="ml-0 md:ml-2" size="x-large">mdi-account-circle</v-icon>
+        <span class="d-none d-md-inline-block">{{ user.email }}</span>
+        <v-icon class="ml-0 ml-md-2" size="x-large">mdi-account-circle</v-icon>
       </v-btn>
     </template>
 

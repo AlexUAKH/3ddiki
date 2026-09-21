@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageTitle from "@/components/common/PageTitle.vue";
+import PageHeader from "@/components/common/PageHeader.vue";
 import { ref } from "vue";
 
 const imagesUrl = ref("");
@@ -78,7 +78,7 @@ const extractImages = async () => {
 
 <template>
   <v-container fluid>
-    <PageTitle
+    <PageHeader
       header="Radobot image extractor"
       icon="mdi-robot-angry-outline"
     />

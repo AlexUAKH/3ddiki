@@ -8,26 +8,27 @@ import "@mdi/font/css/materialdesignicons.css";
 import { createVuetify } from "vuetify";
 import "vuetify/styles";
 
+const colors = {
+  primary: "#fc7400",
+  secondary: "#6ee189",
+  success: "#07bc0c",
+  warning: "#f1c40f",
+  error: "#ff0000",
+  info: "#3498db;",
+};
+
 export default createVuetify({
   theme: {
     defaultTheme: "system", //'system',
-    utilities: false,
+    utilities: true,
     transition: true, // default origin: top center
     // or provide options:
     themes: {
       dark: {
-        colors: {
-          primary: "#fc7400",
-          secondary: "#6ee189",
-          error: "#ff0000",
-        },
+        colors,
       },
       light: {
-        colors: {
-          primary: "#fc7400",
-          secondary: "#6ee189",
-          error: "#ff0000",
-        },
+        colors,
       },
     },
   },

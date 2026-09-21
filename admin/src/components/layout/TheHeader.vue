@@ -16,10 +16,10 @@ const currentThemeIcon = computed(() => {
 </script>
 
 <template>
-  <v-app-bar color="white" fixed app>
+  <v-app-bar fixed app>
     <div class="title">3Ddiki</div>
 
-    <div class="ml-auto flex items-center gap-1 md:gap-3">
+    <div class="ml-auto d-flex align-center ga-1 ga-md-3">
       <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
@@ -31,12 +31,13 @@ const currentThemeIcon = computed(() => {
       </v-btn>
 
       <UserMenu />
+
+      <v-app-bar-nav-icon
+        class="d-md-none ml-4 me-4"
+        variant="text"
+        @click.stop="$emit('handleDrawer')"
+      ></v-app-bar-nav-icon>
     </div>
-    <v-app-bar-nav-icon
-      class="md:hidden ml-4 me-4"
-      variant="text"
-      @click.stop="$emit('handleDrawer')"
-    ></v-app-bar-nav-icon>
   </v-app-bar>
 </template>
 
