@@ -47,3 +47,8 @@ export type FilamentBrand = Prisma.FilamentBrandModel
  * 
  */
 export type FilamentColor = Prisma.FilamentColorModel
+/**
+ * Model File
+ * 
+ */
+export type File = Prisma.FileModel

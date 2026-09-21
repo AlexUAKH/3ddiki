@@ -56,7 +56,8 @@ export const ModelName = {
   Filament: 'Filament',
   FilamentType: 'FilamentType',
   FilamentBrand: 'FilamentBrand',
-  FilamentColor: 'FilamentColor'
+  FilamentColor: 'FilamentColor',
+  File: 'File'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -139,6 +140,24 @@ export const FilamentColorScalarFieldEnum = {
 } as const
 
 export type FilamentColorScalarFieldEnum = (typeof FilamentColorScalarFieldEnum)[keyof typeof FilamentColorScalarFieldEnum]
+
+
+export const FileScalarFieldEnum = {
+  id: 'id',
+  filename: 'filename',
+  originalName: 'originalName',
+  path: 'path',
+  mimeType: 'mimeType',
+  size: 'size',
+  width: 'width',
+  height: 'height',
+  type: 'type',
+  ownerType: 'ownerType',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt'
+} as const
+
+export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
 export const SortOrder = {

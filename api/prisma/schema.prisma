@@ -84,3 +84,37 @@ model FilamentColor {
 
   @@map("filamentColors")
 }
+
+enum MediaOwnerType {
+  PRODUCT
+  USER
+  FILAMENT
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+model File {
+  id           Int            @id @default(autoincrement())
+  filename     String
+  originalName String
+  path         String
+  mimeType     String
+  size         Int
+  width        Int?
+  height       Int?
+  type         MediaType
+  ownerType    MediaOwnerType
+  ownerId      Int
+
+  createdAt DateTime @default(now())
+
+  // product   Filament? @relation(fields: [ownerId], references: [id])
+  // user      User?     @relation(fields: [ownerId], references: [id])
+  // product   Product?  @relation(fields: [ownerId], references: [id])
+
+  @@index([ownerType, ownerId])
+}
