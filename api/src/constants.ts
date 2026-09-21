@@ -1,0 +1,9 @@
+export const IS_PUBLIC_KEY = 'isPublic';
+export const ROLES_KEY = 'roles';
+
+export const tokens = {
+  access_token:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmOGQ0NGQ2ZC1hMTg3LTQ3MmItOTg1NC1lYjRhZDhiNmQ2OGQiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4OTU1ODE5MCwiZXhwIjoxNzg5NTU4MzEwfQ.ED5VbB798Lz-RUsDIyxNSCNCrQV1h42joe7Q8v-7HKQ',
+  refresh_token:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmOGQ0NGQ2ZC1hMTg3LTQ3MmItOTg1NC1lYjRhZDhiNmQ2OGQiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4OTU1ODE5MCwiZXhwIjoxNzkwMTYyOTkwfQ.bV_6pWcydIQZDP9qow3X9sPpV6XBhGtdQja4uWAe5uI',
+};

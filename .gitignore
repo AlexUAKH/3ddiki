@@ -1,0 +1,4 @@
+admin/.env
+api/.env
+
+deploy.ts
