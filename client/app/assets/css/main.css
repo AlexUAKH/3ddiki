@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #fc7400;
+  --color-secondary: #6ee189;
+  --color-success: #07bc0c;
+  --color-warning: #f1c40f;
+  --color-error: #78dcca;
+  --color-info: #3498db;
+
+  /* primary: "#121063",
+      secondary: "#3ab7bf",
+      success: "#78dcca,
+      warning: "#78dcca",
+      error: "#ff0000",
+      info: "#78dcca;" */
+  /* rgb(51, 193, 96); green for primary*/
+
+  --font-sans:
+    -apple-system, Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body,
+#_nuxt {
+  @apply min-h-screen bg-gray-200 text-black dark:bg-gray-950 dark:text-white;
+}
+
+:root {
+  user-select: none;
+  -webkit-user-select: none;
+}
