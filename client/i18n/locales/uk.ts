@@ -1,0 +1,36 @@
+import type { MessageSchema } from "./types";
+
+export default {
+  common: {
+    cancel: "Скасувати",
+    ok: "ok",
+    register: "Реєстрація",
+  },
+  footer: {
+    allRights: "Всі права захищено, розроблено ",
+  },
+  login: {
+    login: "Вхід",
+    email: "Пошта",
+    name: "Ім'я",
+    surname: "Прізвище",
+    phone: "Телефон",
+    password: "Пароль",
+    sent: "Увійти",
+    forgotPassword: "Забули пароль",
+    logout: "Вийти",
+    notRegistered: "Ще немає акаунту",
+    register: "Зареєструватися",
+  },
+  user: {
+    profile: "Особисті дані",
+    order: "Замовлення",
+    wishList: "Обране",
+  },
+  validation: {
+    validEmail: "Невірна електронна адреса",
+    phoneInvalid: "Невірний номер телефону",
+    fieldRequired: "Це поле є обов'язковим",
+    min: "Це поле має містити щонайменше {limit} символів",
+  },
+} as MessageSchema;

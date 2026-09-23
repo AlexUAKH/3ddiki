@@ -22,17 +22,18 @@
 <template>
   <header class="sticky shadow-gray-400 shadow-md">
     <div class=""></div>
-    <Container class="h-14 md:h-20 flex items-center justify-between">
+    <AppContainer class="h-14 md:h-20 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <Icon name="mdi:menu" class="md:hidden size-6" />
-        <TheLogo />
+        <AppLogo />
       </div>
       <div class=""></div>
-      <div class="flex items-center gap-4 md:gap-8">
-        <ColorModeSelect />
+      <div class="flex items-center gap-2 md:gap-8">
+        <AppColorModeSelect />
+        <AppLanguageSelect />
         <UserProfileWidget />
         <ShoppingCartWidget />
       </div>
-    </Container>
+    </AppContainer>
   </header>
 </template>

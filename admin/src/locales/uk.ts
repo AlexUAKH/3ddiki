@@ -58,8 +58,8 @@ export default {
   validation: {
     mustBeMinimum: "Це поле має містити щонайменше {limit} символів",
     required: "Це поле є обов'язковим",
-    email: "Невірна електронною адреса",
-    phone: "Невірний номер телефону ",
+    email: "Невірна електронна адреса",
+    phone: "Невірний номер телефону",
     passwordMatch: "Паролі мають збігатися",
   },
 } as MessageSchema;

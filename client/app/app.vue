@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useAppStore } from "./stores/app";
+
 useSeoMeta({
   title: "3Ddiki",
   ogTitle: "3Ddiki",
@@ -7,31 +9,48 @@ useSeoMeta({
   // ogImage: 'https://example.com/image.png',
   twitterCard: "summary_large_image",
 });
+
+const { showAuth } = storeToRefs(useAppStore());
 </script>
 
 <template>
   <div class="flex flex-col w-full h-screen">
     <NuxtRouteAnnouncer />
-    <TheHeader />
+    <AppHeader />
     <main class="grow">
-      <NuxtPage />
+      <NuxtLayout>
+        <NuxtPage
+          :transition="{
+            name: 'my',
+            mode: 'out-in',
+          }"
+        />
+      </NuxtLayout>
     </main>
-    <TheFooter />
+    <AppFooter />
 
-    <Teleport to="#teleports">
-      <Login />
+    <Teleport v-if="showAuth" to="#teleports">
+      <AuthBase />
     </Teleport>
   </div>
 </template>
 
 <style>
-.page-enter-active,
+.my-enter-active,
+.my-leave-active {
+  transition: opacity 0.3s;
+}
+.my-enter,
+.my-leave-active {
+  opacity: 0;
+}
+/* .page-enter-active,
 .page-leave-active {
   transition: all 0.4s;
 }
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-  filter: blur(1rem);
-}
+  filter: blur(1rem); 
+}*/
 </style>

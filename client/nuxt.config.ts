@@ -7,6 +7,8 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxt/icon",
     "@pinia/nuxt",
+    "@vueuse/nuxt",
+    "@nuxtjs/i18n",
   ],
   app: {
     head: {
@@ -15,20 +17,15 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
-
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-
   vite: {
     plugins: [tailwindcss()],
   },
-
   css: ["~/assets/css/main.css"],
-
   devServer: {
     port: 3001,
   },
-
   runtimeConfig: {
     // The private keys which are only available server-side
     apiSecret: "123",
@@ -37,11 +34,14 @@ export default defineNuxtConfig({
       apiBase: "/api",
     },
   },
-
   $production: {
     routeRules: {
       "/**": { isr: true },
     },
+  },
+  routeRules: {
+    // Set layout for specific route
+    "/profile": { appLayout: "profile" },
   },
   icon: {
     mode: "css",
@@ -67,6 +67,15 @@ export default defineNuxtConfig({
      *
      * @default ['stores']
      */
-    storesDirs: [],
+    storesDirs: ["stores"],
+  },
+  i18n: {
+    defaultLocale: "uk",
+    strategy: "no_prefix",
+    locales: [
+      { code: "en", name: "English", file: "en.ts" },
+      { code: "uk", name: "Ukrainian", file: "uk.ts" },
+    ],
+    // detectBrowserLanguage:false
   },
 });
