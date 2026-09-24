@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { t } = useI18n();
+</script>
 
 <template>
-  <h3>ordersList works</h3>
+  <div class="mt-6 p-4">
+    <div class="text-5xl mb-5">{{ t("user.order", 2) }}</div>
+  </div>
 </template>

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const isLoggedIn = ref(false);
-
 const showUserMenu = shallowRef(false);
 const userMenuRef = useTemplateRef("userMenuRef");
 
 const { setShowAuth } = useAppStore();
+const { isLoggedIn } = storeToRefs(useAuthStore());
 const { t } = useI18n();
 
 const userMenus = computed(() => [
@@ -17,7 +16,7 @@ const userMenus = computed(() => [
   {
     title: t("user.wishList"),
     icon: "mdi:heart-outline",
-    to: "profile-favorites",
+    to: "profile-wishList",
   },
 ]);
 
@@ -74,10 +73,13 @@ const logout = () => {};
           </AppLinkBtn>
         </li>
         <li class="border-t">
-          <AppBtn class="whitespace-nowrap px-5 text-xl gap-2" @click="logout">
+          <AppButton
+            class="whitespace-nowrap px-5 text-xl gap-2"
+            @click="logout"
+          >
             <Icon name="mdi:logout" />
-            <div>{{ t("user.logout") }}</div>
-          </AppBtn>
+            <div>{{ t("login.logout") }}</div>
+          </AppButton>
         </li>
       </ol>
     </div>

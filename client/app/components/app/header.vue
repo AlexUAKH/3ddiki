@@ -25,7 +25,9 @@
     <AppContainer class="h-14 md:h-20 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <Icon name="mdi:menu" class="md:hidden size-6" />
-        <AppLogo />
+        <NuxtLink to="/">
+          <AppLogo />
+        </NuxtLink>
       </div>
       <div class=""></div>
       <div class="flex items-center gap-2 md:gap-8">

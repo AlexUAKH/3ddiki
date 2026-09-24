@@ -23,13 +23,11 @@ const login = () => {};
       <FormTextField
         v-model="email"
         :label="t('login.email')"
-        block
         :error="errors.email"
       />
       <FormTextField
         v-model="password"
         :label="t('login.password')"
-        block
         :error="errors.password"
       />
     </form>

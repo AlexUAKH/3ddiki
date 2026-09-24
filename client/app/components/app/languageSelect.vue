@@ -13,8 +13,11 @@ const availableLocales = computed(() => {
 
 <template>
   <AppMenu :items="availableLocales">
-    <AppButton class="uppercase">
-      {{ locale }}
+    <AppButton class="">
+      <img
+        class="max-w-8 md:max-w-10 w-10 md:w-12"
+        :src="`/img/${locale}_flag.png`"
+      />
     </AppButton>
 
     <template #item="{ item }">

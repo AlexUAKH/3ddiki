@@ -42,6 +42,8 @@ export default defineNuxtConfig({
   routeRules: {
     // Set layout for specific route
     "/profile": { appLayout: "profile" },
+    "/profile/wishList": { appLayout: "profile" },
+    "/profile/ordersList": { appLayout: "profile" },
   },
   icon: {
     mode: "css",
