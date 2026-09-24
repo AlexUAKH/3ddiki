@@ -36,4 +36,9 @@ export default {
     fieldRequired: "Це поле є обов'язковим",
     min: "Це поле має містити щонайменше {limit} символів",
   },
+  delivery: {
+    header: "Оплата і доставка",
+    payment: "Payment",
+    delivery: "Delivery",
+  },
 } as MessageSchema;

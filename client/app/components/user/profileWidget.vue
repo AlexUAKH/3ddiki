@@ -1,22 +1,28 @@
 <script setup lang="ts">
+import {
+  PROFILE_ORDER_LIST_PAGE,
+  PROFILE_PAGE,
+  PROFILE_WISH_LIST_PAGE,
+} from "~/constants/routeNames";
+
 const showUserMenu = shallowRef(false);
 const userMenuRef = useTemplateRef("userMenuRef");
 
 const { setShowAuth } = useAppStore();
-const { isLoggedIn } = storeToRefs(useAuthStore());
+const { isLoggedIn } = storeToRefs(useUserStore());
 const { t } = useI18n();
 
 const userMenus = computed(() => [
-  { title: t("user.profile"), icon: "mdi:account-outline", to: "profile" },
+  { title: t("user.profile"), icon: "mdi:account-outline", to: PROFILE_PAGE },
   {
     title: t("user.order", 2),
     icon: "mdi:list-box-outline",
-    to: "profile-ordersList",
+    to: PROFILE_ORDER_LIST_PAGE,
   },
   {
     title: t("user.wishList"),
     icon: "mdi:heart-outline",
-    to: "profile-wishList",
+    to: PROFILE_WISH_LIST_PAGE,
   },
 ]);
 

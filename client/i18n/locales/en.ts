@@ -34,4 +34,9 @@ export default {
     fieldRequired: "This field is required",
     min: `This field must be at least {limit} characters`,
   },
+  delivery: {
+    header: "Оплата і доставка",
+    payment: "Payment",
+    delivery: "Delivery",
+  },
 };

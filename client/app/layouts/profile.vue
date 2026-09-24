@@ -1,16 +1,22 @@
 <script setup lang="ts">
+import {
+  PROFILE_ORDER_LIST_PAGE,
+  PROFILE_PAGE,
+  PROFILE_WISH_LIST_PAGE,
+} from "~/constants/routeNames";
+
 const { t } = useI18n();
 const route = useRoute();
 
 const menus = computed(() => [
-  { title: t("user.profile"), to: "profile" },
+  { title: t("user.profile"), to: PROFILE_PAGE },
   {
     title: t("user.order", 2),
-    to: "profile-ordersList",
+    to: PROFILE_ORDER_LIST_PAGE,
   },
   {
     title: t("user.wishList"),
-    to: "profile-wishList",
+    to: PROFILE_WISH_LIST_PAGE,
   },
 ]);
 </script>
