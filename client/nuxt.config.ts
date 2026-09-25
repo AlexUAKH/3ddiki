@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/i18n",
-    "nuxt-swiper",
+    "vue3-carousel-nuxt",
   ],
   app: {
     head: {
@@ -79,5 +79,8 @@ export default defineNuxtConfig({
       { code: "uk", name: "Ukrainian", file: "uk.ts" },
     ],
     // detectBrowserLanguage:false
+  },
+  carousel: {
+    prefix: "App",
   },
 });

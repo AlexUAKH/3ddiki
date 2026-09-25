@@ -37,7 +37,7 @@ const mainMenuItems = computed(() => [
 </script>
 
 <template>
-  <header class="sticky shadow-gray-400 shadow-md">
+  <header class="sticky shadow-gray-400 shadow-md z-1">
     <div class=""></div>
     <AppContainer class="h-14 md:h-20 flex items-center justify-between">
       <div class="flex items-center gap-3">

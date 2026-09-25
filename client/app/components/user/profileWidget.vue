@@ -57,7 +57,8 @@ const logout = () => {};
 
     <div
       v-if="showUserMenu"
-      class="absolute right-0 origin-top-right mt-2 py-2 border rounded-lg shadow-md bg-app"
+      ref="userMenuRef"
+      class="absolute z-50 right-0 origin-top-right mt-2 py-2 border rounded-lg shadow-md bg-app"
     >
       <ol class="list-none space-y-1">
         <li class="" v-for="menu in userMenus" :key="menu.title">

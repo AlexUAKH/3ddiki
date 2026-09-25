@@ -4,7 +4,10 @@ const { t } = useI18n();
 
 <template>
   <AppContainer class="mt-6 p-4 text-lg">
-    <h2 class="text-3xl md:text-5xl mb-5">{{ t("delivery.header") }}</h2>
+    <AppPageHeader class="mb-5">
+      {{ t("delivery.header") }}
+    </AppPageHeader>
+
     <h3 class="text-2xl font-bold">{{ t("delivery.payment") }}</h3>
     <div class="pl-4">
       <h4 class="text-xl font-bold">Готівкова оплата</h4>
@@ -14,6 +17,7 @@ const { t } = useI18n();
       <h4 class="mt-2 text-xl font-bold">Безотівкова оплата</h4>
       <ol class="list-disc pl-4">
         <li>Оплата на карту</li>
+        <li>Онлайн оплата</li>
         <li>Післясплата на НП, тільки на стокові товари</li>
       </ol>
     </div>

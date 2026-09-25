@@ -3,7 +3,9 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="mt-6 p-4">
-    <div class="text-5xl mb-5">{{ t("user.order", 2) }}</div>
+  <div class="md:mt-6 p-4">
+    <AppPageHeader class="mb-5">
+      {{ t("user.order", 2) }}
+    </AppPageHeader>
   </div>
 </template>

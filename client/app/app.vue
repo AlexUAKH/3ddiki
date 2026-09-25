@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import "vue3-carousel/carousel.css";
 import { useAppStore } from "./stores/app";
 
 useSeoMeta({
@@ -17,7 +18,7 @@ const { showAuth } = storeToRefs(useAppStore());
   <div class="flex flex-col w-full h-screen">
     <NuxtRouteAnnouncer />
     <AppHeader />
-    <main class="grow">
+    <main class="grow pb-10 pt-4 md:pt-8 relative z-0">
       <NuxtLayout>
         <NuxtPage
           :transition="{

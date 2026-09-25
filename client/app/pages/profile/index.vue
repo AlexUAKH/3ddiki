@@ -18,39 +18,41 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="mt-6 p-4">
-    <div class="text-5xl mb-5">{{ t("user.profile") }}</div>
+  <div class="md:mt-6 p-4">
+    <AppPageHeader class="mb-5">
+      {{ t("user.profile") }}
+    </AppPageHeader>
     <AppCard class="w-full">
       <form class="mt-4 space-y-3">
         <FormTextField
           v-model="name"
-          :label="t('login.name')"
+          :label="t('user.name')"
           :error="errors.name"
         />
         <FormTextField
           v-model="surName"
-          :label="t('login.surname')"
+          :label="t('user.surname')"
           :error="errors.surname"
         />
         <FormTextField
           v-model="email"
-          :label="t('login.email')"
+          :label="t('user.email')"
           :error="errors.email"
         />
         <FormTextField
           v-model="phone"
-          :label="t('login.phone')"
+          :label="t('user.phone')"
           example="380671112233"
           :error="errors.phone"
         />
         <FormTextField
           v-model="password"
-          :label="t('login.password')"
+          :label="t('user.password')"
           :error="errors.password"
         />
         <FormTextField
           v-model="city"
-          :label="t('login.city')"
+          :label="t('user.city')"
           :error="errors.city"
         />
       </form>

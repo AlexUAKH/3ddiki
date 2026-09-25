@@ -15,8 +15,8 @@ export default {
     sent: "Увійти",
     forgotPassword: "Забули пароль",
     logout: "Вийти",
-    notRegistered: "Ще немає акаунту",
     register: "Зареєструватися",
+    notRegistered: "Ще немає акаунту",
     confirmPassword: "Повторіть пароль",
   },
   user: {

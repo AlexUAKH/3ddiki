@@ -18,7 +18,7 @@ const menus = computed(() => props.items.filter((item) => !!item.title));
   <ol class="flex gap-4 items-center">
     <li v-for="menu in menus">
       <NuxtLink
-        :to="menu.to"
+        :to="{ name: menu.to }"
         class="flex items-center gap-1 px-2 py-1 hover:opacity-60 relative after:absolute after:-bottom-1 after:-translate-x-1/2 after:left-1/2 after:w-[0%] after:h-1 after:rounded-4xl transition-all duration-500"
         :class="{
           'after:w-[90%] after:bg-primary hover:opacity-100 cursor-default':

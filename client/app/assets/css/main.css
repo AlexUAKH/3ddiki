@@ -36,3 +36,8 @@ body,
 .bg-app {
   @apply bg-gray-200 text-black dark:bg-gray-950 dark:text-white;
 }
+
+/* Override Carousel styles in your CSS or SCSS files */
+.carousel__slide {
+  /* Your custom styles here */
+}

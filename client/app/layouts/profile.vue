@@ -23,8 +23,8 @@ const menus = computed(() => [
 
 <template>
   <AppContainer>
-    <div class="flex gap-4">
-      <div class="w-52">
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="hidden md:block w-52">
         <ol class="mt-10 text-xl">
           <li v-for="menu in menus">
             <AppLinkBtn
