@@ -5,7 +5,7 @@ const props = defineProps<{ class?: string }>();
 </script>
 
 <template>
-  <div :class="twMerge('fixed inset-0 bg-black/70 p-4', props.class)">
+  <div :class="twMerge('fixed inset-0 z-100 bg-black/70 p-4', props.class)">
     <slot />
   </div>
 </template>

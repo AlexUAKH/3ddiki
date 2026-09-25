@@ -4,11 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   modules: [
     "@nuxtjs/color-mode",
-    "@nuxtjs/color-mode",
     "@nuxt/icon",
     "@pinia/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/i18n",
+    "nuxt-swiper",
   ],
   app: {
     head: {

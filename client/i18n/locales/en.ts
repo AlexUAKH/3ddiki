@@ -28,6 +28,9 @@ export default {
     password: "Password",
     city: "City",
   },
+  products: {
+    menu: "Products",
+  },
   validation: {
     validEmail: "This field must be a valid email",
     phoneInvalid: "Phone number is invalid",
@@ -38,5 +41,11 @@ export default {
     header: "Оплата і доставка",
     payment: "Payment",
     delivery: "Delivery",
+  },
+  contacts: {
+    header: "Контакти",
+  },
+  reviews: {
+    header: "Відгуки",
   },
 };

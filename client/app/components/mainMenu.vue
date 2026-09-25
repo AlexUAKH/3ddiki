@@ -19,10 +19,12 @@ const menus = computed(() => props.items.filter((item) => !!item.title));
     <li v-for="menu in menus">
       <NuxtLink
         :to="menu.to"
-        class="flex items-center gap-1 px-2 py-1 hover:opacity-60 cursor-pointer relative"
+        class="flex items-center gap-1 px-2 py-1 hover:opacity-60 relative after:absolute after:-bottom-1 after:-translate-x-1/2 after:left-1/2 after:w-[0%] after:h-1 after:rounded-4xl transition-all duration-500"
         :class="{
-          'after:absolute after:-bottom-1 after:-translate-x-1/2 after:left-1/2 after:w-[90%] after:h-0.75 after:bg-primary after:rounded-4xl':
+          'after:w-[90%] after:bg-primary hover:opacity-100 cursor-default':
             menu.to === route.name,
+          'hover:after:w-[90%] hover:after:bg-primary/70 cursor-pointer':
+            menu.to !== route.name,
         }"
       >
         {{ menu.title }}

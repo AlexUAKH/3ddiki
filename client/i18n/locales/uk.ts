@@ -30,6 +30,9 @@ export default {
     password: "Пароль",
     city: "Місто",
   },
+  products: {
+    menu: "Каталог",
+  },
   validation: {
     validEmail: "Невірна електронна адреса",
     phoneInvalid: "Невірний номер телефону",
@@ -40,5 +43,11 @@ export default {
     header: "Оплата і доставка",
     payment: "Payment",
     delivery: "Delivery",
+  },
+  contacts: {
+    header: "Контакти",
+  },
+  reviews: {
+    header: "Відгуки",
   },
 } as MessageSchema;

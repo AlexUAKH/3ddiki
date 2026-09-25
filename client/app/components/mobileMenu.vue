@@ -20,7 +20,7 @@ const close = () => {
 </script>
 
 <template>
-  <AppOverlay class="bg-black">
+  <AppOverlay class="bg-app">
     <div class="mt-2 flex justify-end mr-2">
       <AppButton @click="close">
         <Icon class="size-8" name="mdi:close" />
@@ -33,7 +33,10 @@ const close = () => {
           <NuxtLink
             :to="menu.to"
             class="flex items-center gap-1 px-2 py-1 hover:opacity-60 cursor-pointer relative active:top-1"
-            :class="{ 'bg-gray-600 rounded-lg': menu.to === route.name }"
+            :class="{
+              'bg-gray-400/50 dark:bg-gray-600 rounded-lg':
+                menu.to === route.name,
+            }"
             @click="close"
           >
             {{ menu.title }}

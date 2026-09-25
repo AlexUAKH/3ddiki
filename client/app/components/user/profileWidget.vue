@@ -4,7 +4,6 @@ import {
   PROFILE_PAGE,
   PROFILE_WISH_LIST_PAGE,
 } from "~/constants/routeNames";
-
 const showUserMenu = shallowRef(false);
 const userMenuRef = useTemplateRef("userMenuRef");
 
@@ -31,12 +30,6 @@ onClickOutside(userMenuRef, (event) => {
   showUserMenu.value = false;
 });
 
-const openLogin = () => {
-  console.log("show login: ");
-
-  setShowAuth(true);
-};
-
 const setShowUserMenu = (val: boolean) => {
   showUserMenu.value = val;
 };
@@ -47,10 +40,10 @@ const closeUserMenu = () => {
 
 const handleWidgetClick = () => {
   if (isLoggedIn.value) {
-    setShowUserMenu(true);
+    setShowUserMenu(!showUserMenu.value);
     return;
   }
-  openLogin();
+  setShowAuth(true);
 };
 
 const logout = () => {};
@@ -64,7 +57,6 @@ const logout = () => {};
 
     <div
       v-if="showUserMenu"
-      ref="userMenuRef"
       class="absolute right-0 origin-top-right mt-2 py-2 border rounded-lg shadow-md bg-app"
     >
       <ol class="list-none space-y-1">

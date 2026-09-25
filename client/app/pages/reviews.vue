@@ -2,8 +2,12 @@
 interface ReviewsProps {}
 
 defineProps<ReviewsProps>();
+
+const { t } = useI18n();
 </script>
 
 <template>
-  <h3>reviews works</h3>
+  <AppContainer class="mt-6 p-4 text-lg">
+    <h2 class="text-3xl md:text-5xl mb-5">{{ t("reviews.header") }}</h2>
+  </AppContainer>
 </template>

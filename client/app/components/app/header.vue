@@ -2,6 +2,7 @@
 import {
   CONTACTS_PAGE,
   DELIVERY_PAGE,
+  PRODUCTS_PAGE,
   REVIEWS_PAGE,
 } from "~/constants/routeNames.ts";
 
@@ -28,11 +29,10 @@ const mobileMenu = ref(false);
 const { t } = useI18n();
 
 const mainMenuItems = computed(() => [
-  { title: "", to: "" },
+  { title: t("products.menu"), to: PRODUCTS_PAGE },
   { title: t("delivery.header"), to: DELIVERY_PAGE },
-  { title: "Контакти", to: CONTACTS_PAGE },
-  { title: "", to: "" },
-  { title: "Відгуки", to: REVIEWS_PAGE },
+  { title: t("contacts.header"), to: CONTACTS_PAGE },
+  { title: t("reviews.header"), to: REVIEWS_PAGE },
 ]);
 </script>
 
@@ -59,23 +59,25 @@ const mainMenuItems = computed(() => [
       </div>
     </AppContainer>
 
-    <Transition name="slide-fade">
-      <MobileMenu
-        v-if="mobileMenu"
-        :items="mainMenuItems"
-        @close="mobileMenu = false"
-      />
-    </Transition>
+    <Teleport to="#teleports">
+      <Transition name="slide-fade">
+        <MobileMenu
+          v-if="mobileMenu"
+          :items="mainMenuItems"
+          @close="mobileMenu = false"
+        />
+      </Transition>
+    </Teleport>
   </header>
 </template>
 
 <style lang="css" scoped>
 .slide-fade-enter-active {
-  transition: all 0.4s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-fade-leave-active {
-  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-enter-from,

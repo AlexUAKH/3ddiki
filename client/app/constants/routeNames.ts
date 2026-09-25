@@ -1,4 +1,6 @@
 // main
+export const PRODUCTS_PAGE = "products";
+
 export const DELIVERY_PAGE = "delivery";
 export const CONTACTS_PAGE = "contacts";
 export const REVIEWS_PAGE = "reviews";

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { twMerge } from "tailwind-merge";
+
 interface CardProps {}
 
 defineProps<CardProps>();
@@ -7,7 +9,7 @@ defineProps<CardProps>();
 <template>
   <div
     @click.stop
-    class="relative w-full bg-app max-w-lg border rounded-xl p-4"
+    :class="twMerge('relative w-full bg-app max-w-lg border rounded-xl p-4')"
   >
     <slot />
   </div>
