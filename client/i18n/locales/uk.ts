@@ -6,6 +6,7 @@ export default {
     ok: "ok",
     register: "Реєстрація",
     save: "Зберігти",
+    back: "Back",
   },
   footer: {
     allRights: "Всі права захищено, розроблено ",

@@ -9,6 +9,7 @@ const userMenuRef = useTemplateRef("userMenuRef");
 
 const { setShowAuth } = useAppStore();
 const { isLoggedIn } = storeToRefs(useUserStore());
+const router = useRouter();
 const { t } = useI18n();
 
 const userMenus = computed(() => [
@@ -46,7 +47,9 @@ const handleWidgetClick = () => {
   setShowAuth(true);
 };
 
-const logout = () => {};
+const logout = () => {
+  router.push("/");
+};
 </script>
 
 <template>

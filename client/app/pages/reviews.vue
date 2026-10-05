@@ -4,6 +4,10 @@ interface ReviewsProps {}
 defineProps<ReviewsProps>();
 
 const { t } = useI18n();
+
+useHead({
+  title: t("reviews.header"),
+});
 </script>
 
 <template>

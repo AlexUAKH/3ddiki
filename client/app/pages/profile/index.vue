@@ -15,12 +15,16 @@ const errors = ref({
 });
 
 const { t } = useI18n();
+
+useHead({
+  title: t("user.profile"),
+});
 </script>
 
 <template>
   <div class="md:mt-6 p-4">
     <AppPageHeader class="mb-5">
-      {{ t("user.profile") }}
+      {{ t("") }}
     </AppPageHeader>
     <AppCard class="w-full">
       <form class="mt-4 space-y-3">

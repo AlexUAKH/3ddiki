@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const { t } = useI18n();
+
+useHead({
+  title: t("delivery.header"),
+});
 </script>
 
 <template>

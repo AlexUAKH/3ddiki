@@ -37,12 +37,12 @@ const mainMenuItems = computed(() => [
 </script>
 
 <template>
-  <header class="sticky shadow-gray-400 shadow-md z-1">
+  <header class="sticky top-0 shadow-gray-400 shadow-md z-1 bg-app">
     <div class=""></div>
     <AppContainer class="h-14 md:h-20 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <AppButton @click="mobileMenu = !mobileMenu">
-          <Icon name="mdi:menu" class="md:hidden size-6" />
+        <AppButton @click="mobileMenu = !mobileMenu" class="md:hidden">
+          <Icon name="mdi:menu" class="size-6" />
         </AppButton>
         <NuxtLink to="/">
           <AppLogo />

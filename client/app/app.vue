@@ -11,6 +11,12 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 });
 
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - 3Ddiki` : "3Ddiki";
+  },
+});
+
 const { showAuth } = storeToRefs(useAppStore());
 </script>
 

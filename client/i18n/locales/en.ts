@@ -4,6 +4,7 @@ export default {
     ok: "ok",
     register: "Sign up",
     save: "Save",
+    back: "Back",
   },
   footer: {
     allRights: "All Rights Reserved, Powered by",

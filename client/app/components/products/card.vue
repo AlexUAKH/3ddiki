@@ -12,9 +12,6 @@ const carouselConfig = {
   itemsToShow: 1,
   wrapAround: true,
 };
-
-const getPriceWithDiscount = ({ price, discount }: ProductListItem) =>
-  price * (1 - discount / 100);
 </script>
 
 <template>
@@ -36,7 +33,7 @@ const getPriceWithDiscount = ({ price, discount }: ProductListItem) =>
         </AppSlide>
 
         <template #addons>
-          <Navigation />
+          <AppNavigation />
           <AppPagination />
         </template>
       </AppCarousel>
@@ -46,20 +43,11 @@ const getPriceWithDiscount = ({ price, discount }: ProductListItem) =>
       <div class="font-serif text-3xl font-bold">{{ product.name }}</div>
       <div class="mt-2 text-gray-400">{{ product.category }}</div>
       <div class="flex mt-4 mr-6 justify-between">
-        <ProductsRate :rate="product.rate" />
-        <div class="text-xl font-bold">
-          <template v-if="product.discount">{{
-            getPriceWithDiscount(product)
-          }}</template>
-          <span
-            :class="{
-              'ml-2 font-normal text-lg text-gray-400 line-through':
-                product.discount,
-            }"
-            >{{ product.price }}</span
-          >
-          грн
-        </div>
+        <ProductsRateWidget :rate="product.rate" />
+        <ProductsPriceWidget
+          :price="product.price"
+          :discount="product.discount"
+        />
       </div>
     </div>
   </AppCard>
