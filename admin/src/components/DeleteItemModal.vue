@@ -53,8 +53,8 @@ const deleteItem = async () => {
 </script>
 
 <template>
-  <v-dialog overlay :model-value="open">
-    <v-card>
+  <v-dialog overlay :model-value="open" max-width="400">
+    <v-card class="pa-4">
       <div class="text-center">
         <h2 class="text-error text-3xl font-bold">Warning!</h2>
         <p class="mt-6 text-xl">
@@ -62,7 +62,11 @@ const deleteItem = async () => {
         </p>
       </div>
       <div class="mt-6 flex justify-center gap-4">
-        <FormActions @confirm="deleteItem" @reject="$emit('reject')" />
+        <FormActions
+          @confirm="deleteItem"
+          @reject="$emit('reject')"
+          :processing="deleting"
+        />
       </div>
     </v-card>
   </v-dialog>

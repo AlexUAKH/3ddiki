@@ -31,7 +31,7 @@ const { mobile, mdAndDown } = useDisplay();
     </v-list>
   </v-menu>
 
-  <div class="flex items-center gap-4">
+  <div class="d-flex align-center ga-4">
     <div
       v-for="(button, idx) in actions"
       class="pa-1"
@@ -39,6 +39,7 @@ const { mobile, mdAndDown } = useDisplay();
     >
       <v-btn
         :prepend-icon="button.icon"
+        variant="flat"
         :text="button.label"
         :color="button.color"
         @click="$emit(button.action)"

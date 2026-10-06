@@ -45,7 +45,8 @@ export default createVuetify({
   },
   defaults: {
     VBtn: {
-      variant: "outlined",
+      // variant: "outlined",
+      variant: "flat",
     },
     VTextField: {
       variant: "outlined",

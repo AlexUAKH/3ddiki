@@ -15,9 +15,8 @@ defineEmits(["confirm", "reject"]);
 </script>
 
 <template>
-  <div class="flex justify-end items-center gap-4 capitalize">
+  <div class="d-flex justify-end align-center ga-4 capitalize">
     <v-btn
-      variant="outlined"
       density="compact"
       color="success"
       :disabled="processing"
@@ -28,7 +27,6 @@ defineEmits(["confirm", "reject"]);
     </v-btn>
 
     <v-btn
-      variant="outlined"
       density="compact"
       color="error"
       :disabled="processing"
