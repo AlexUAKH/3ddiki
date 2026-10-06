@@ -11,7 +11,7 @@ import { CreateFilamentColorDto } from '../dto/create-filament-color.dto';
 import { UpdateFilamentColorDto } from '../dto/update-filament-color.dto';
 import { FilamentColorService } from './filament-color.service';
 
-@Controller('filament-color')
+@Controller('filament-colors')
 export class FilamentColorController {
   constructor(private readonly filamentColorService: FilamentColorService) {}
 

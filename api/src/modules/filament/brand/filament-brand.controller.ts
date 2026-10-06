@@ -11,7 +11,7 @@ import { CreateFilamentBrandDto } from '../dto/create-filament-brand.dto';
 import { UpdateFilamentBrandDto } from '../dto/update-filament-brand.dto';
 import { FilamentBrandService } from './filament-brand.service';
 
-@Controller('filament-brand')
+@Controller('filament-brands')
 export class FilamentBrandController {
   constructor(private readonly filamentBrandService: FilamentBrandService) {}
 

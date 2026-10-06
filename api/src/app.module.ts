@@ -5,6 +5,7 @@ import { join } from 'path';
 import { AuthModule } from './modules/auth/auth.module';
 import { FilamentModule } from './modules/filament/filament.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
+import { ProductsModule } from './modules/products/products.module';
 import { UserModule } from './modules/users/users.module';
 
 @Module({
@@ -18,6 +19,28 @@ import { UserModule } from './modules/users/users.module';
     PrismaModule,
     UserModule,
     FilamentModule,
+    ProductsModule,
+    // MailerModule.forRoot({
+    //   transport: {
+    //     host: process.env.MAIL_HOST, // e.g., smtp.gmail.com
+    //     port: Number(process.env.MAIL_PORT || 465),
+    //     secure: true,
+    //     auth: {
+    //       user: process.env.MAIL_USER,
+    //       pass: process.env.MAIL_PASS,
+    //     },
+    //   },
+    //   defaults: {
+    //     from: process.env.MAIL_FROM,
+    //   },
+    //   template: {
+    //     dir: process.cwd() + '/templates/',
+    //     adapter: new HandlebarsAdapter(),
+    //     options: {
+    //       strict: true,
+    //     },
+    //   },
+    // }),
   ],
   controllers: [],
   providers: [],

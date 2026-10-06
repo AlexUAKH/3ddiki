@@ -42,6 +42,7 @@ export type Size = {
 export type Review = {
   id: number;
   user: string;
+  product: string;
   rate: number;
   date: string;
   text: string;

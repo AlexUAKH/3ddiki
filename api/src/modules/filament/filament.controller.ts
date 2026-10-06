@@ -8,7 +8,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards/jwt.auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateFilamentDto } from './dto/create-filament.dto';
 import { UpdateFilamentDto } from './dto/update-filament.dto';
 import { FilamentService } from './filament.service';

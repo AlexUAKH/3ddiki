@@ -74,3 +74,28 @@ export type FilamentColor = Prisma.FilamentColorModel
  * 
  */
 export type File = Prisma.FileModel
+/**
+ * Model ProductCategory
+ * 
+ */
+export type ProductCategory = Prisma.ProductCategoryModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
+ * Model ProductVariant
+ * 
+ */
+export type ProductVariant = Prisma.ProductVariantModel
+/**
+ * Model Favorite
+ * 
+ */
+export type Favorite = Prisma.FavoriteModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel

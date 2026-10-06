@@ -11,7 +11,7 @@ import { CreateFilamentTypeDto } from '../dto/create-filament-type.dto';
 import { UpdateFilamentTypeDto } from '../dto/update-filament-type.dto';
 import { FilamentTypeService } from './filament-type.service';
 
-@Controller('filament-type')
+@Controller('filament-types')
 export class FilamentTypeController {
   constructor(private readonly filamentTypeService: FilamentTypeService) {}
 

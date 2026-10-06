@@ -16,17 +16,19 @@ enum Role {
 // npx prisma migrate dev --name add_model_name to apply changes and create migration
 
 model User {
-  id               String    @id @default(uuid())
-  email            String    @unique
-  name             String    @default("") @map("name")
-  lastName         String    @default("") @map("last_name")
-  password         String    @map("password")
-  role             Role      @default(USER)
+  id               String     @id @default(uuid())
+  email            String     @unique
+  name             String     @default("") @map("name")
+  lastName         String     @default("") @map("last_name")
+  password         String     @map("password")
+  role             Role       @default(USER)
   sessions         Session[]
-  isEmailVerified  Boolean   @default(false)
-  stripeCustomerId String?   @map("stripe_customer_id")
-  createdAt        DateTime  @default(now()) @map("created_at")
-  updatedAt        DateTime  @updatedAt @map("updated_at")
+  reviews          Review[]
+  favorites        Favorite[]
+  isEmailVerified  Boolean    @default(false)
+  stripeCustomerId String?    @map("stripe_customer_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
 
   @@map("users")
 }
@@ -46,13 +48,14 @@ model Session {
 }
 
 model Filament {
-  id      Int             @id @default(autoincrement())
-  name    String          @unique @map("name")
-  typeId  Int
-  brandId Int
-  colors  FilamentColor[]
-  price   Int             @default(0) @map("price") // 1 kg
-  stock   Int             @default(0) @map("stock") // in grams
+  id              Int              @id @default(autoincrement())
+  name            String           @unique @map("name")
+  typeId          Int
+  brandId         Int
+  colors          FilamentColor[]
+  price           Int              @default(0) @map("price") // 1 kg
+  stock           Int              @default(0) @map("stock") // in grams
+  productVariants ProductVariant[]
 
   type  FilamentType  @relation(fields: [typeId], references: [id])
   brand FilamentBrand @relation(fields: [brandId], references: [id])
@@ -112,22 +115,83 @@ model File {
 
   createdAt DateTime @default(now())
 
-  // product   Filament? @relation(fields: [ownerId], references: [id])
+  //product   Filament? @relation(fields: [ownerId], references: [id])
   // user      User?     @relation(fields: [ownerId], references: [id])
-  // product   Product?  @relation(fields: [ownerId], references: [id])
+  productVariant ProductVariant? @relation(fields: [ownerId], references: [id])
 
   @@index([ownerType, ownerId])
 }
 
-// model Favorite {
-//   id        Int      @id @default(autoincrement())
-//   userId    String   @map("user_id")
-//   productId Int      @map("product_id")
-//   createdAt DateTime @default(now()) @map("created_at")
+model ProductCategory {
+  id       Int       @id @default(autoincrement())
+  title    String    @unique @map("title")
+  products Product[]
 
-//   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  @@map("productCategories")
+}
 
-//   @@unique([userId, productId])
-//   @@map("favorites")
-// }
+model Review {
+  id        Int      @id @default(autoincrement())
+  userId    String   @map("user_id")
+  productId Int?     @map("product_id")
+  rate      Int      @map("rate")
+  text      String   @default("") @map("text")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("reviews")
+}
+
+model ProductVariant {
+  id         Int @id @default(autoincrement())
+  productId  Int @map("product_id")
+  filamentId Int @map("filament_id")
+  price      Int @default(0) @map("price") // in cents
+  stock      Int @default(0) @map("stock") // in grams
+
+  files    File[] // @relation("ProductVariantFiles", fields: [id], references: [ownerId])
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  filament Filament @relation(fields: [filamentId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, filamentId])
+  @@map("productVariants")
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    String   @map("user_id")
+  productId Int      @map("product_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("favorites")
+}
+
+model Product {
+  id          Int    @id @default(autoincrement())
+  name        String @map("name")
+  categoryId  Int    @map("category_id")
+  description String @default("") @map("description")
+  weight      Int    @default(0) @map("weight") // in grams
+  sizeX       Int    @default(0) @map("size_x") // in cm
+  sizeY       Int    @default(0) @map("size_y") // in cm
+  sizeZ       Int    @default(0) @map("size_z") // in cm
+  rate        Float  @default(0) @map("rate")
+  discount    Int    @default(0) @map("discount") // in percents
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  favorites Favorite[]
+  reviews   Review[]
+  variants  ProductVariant[]
+  category  ProductCategory  @relation(fields: [categoryId], references: [id])
+
+  @@map("products")
+}
