@@ -1,20 +1,22 @@
 //user
-export const USERS_API = "/users";
-export const SEND_VERIFICATION_EMAIL_API = "/users/send-verification-email";
+export const USERS_API = "admin/users";
+export const SEND_VERIFICATION_EMAIL_API =
+  "admin/users/send-verification-email";
 
 // filament
-export const FILAMENT_API = "/filament";
-export const FILAMENT_BRANDS_API = "/filament-brands";
-export const FILAMENT_COLORS_API = "/filament-colors";
-export const FILAMENT_TYPES_API = "/filament-types";
-export const FILAMENT_BRANDS_API_FOR_SELECT = "/filament-brand/for-select";
-export const FILAMENT_COLORS_API_FOR_SELECT = "/filament-color/for-select";
-export const FILAMENT_TYPES_API_FOR_SELECT = "/filament-type/for-select";
+export const FILAMENT_API = "admin/filament";
+export const FILAMENT_BRANDS_API = "admin/filament-brands";
+export const FILAMENT_COLORS_API = "admin/filament-colors";
+export const FILAMENT_TYPES_API = "admin/filament-types";
+export const FILAMENT_BRANDS_API_FOR_SELECT = "/filament-brands/for-select";
+export const FILAMENT_COLORS_API_FOR_SELECT = "/filament-colors/for-select";
+export const FILAMENT_TYPES_API_FOR_SELECT = "/filament-types/for-select";
 export const FILAMENT_API_FOR_SELECT = "/filament/for-select";
 
 // products
-export const PRODUCT_CATEGORY_API = "/product-category";
-export const PRODUCT_API = "/product";
+export const PRODUCT_CATEGORY_API = "admin/product-category";
+export const PRODUCT_CATEGORY_API_FOR_SELECT = "/product-category/for-select";
+export const PRODUCT_API = "admin/products";
 
 //auth
 export const AUTH_LOGIN = "/auth/login";

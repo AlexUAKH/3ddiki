@@ -33,13 +33,17 @@ const headers = computed<Header[]>(() => [
   {
     title: "ID",
     key: "id",
+    align: "center",
+    sortable: false,
   },
   {
     title: t("common.nameObj"),
     key: "name",
+    align: "center",
+    sortable: false,
   },
   {
-    title: t("common.action", 2),
+    title: "", //t("common.action", 2),
     key: "actions",
     sortable: false,
   },
@@ -100,7 +104,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="">
+  <div>
     <PageHeader :header="t('filamentTypes.header')" :icon="FILAMENT_TYPES_ICON">
       <template #actions>
         <v-btn color="info" @click="createHandler">
@@ -110,21 +114,23 @@ onMounted(async () => {
     </PageHeader>
 
     <div class="mt-4">
-      <v-data-table
-        :headers="headers"
-        :items="types"
-        :loading="loading"
-        hide-default-footer
-        :no-data-text="t('common.noData')"
-      >
-        <template #item.actions="{ item }">
-          <TableActions
-            :actions="actions"
-            @delete="deleteType(item)"
-            @edit="editHandler(item.id)"
-          />
-        </template>
-      </v-data-table>
+      <v-card variant="outlined">
+        <v-data-table
+          :headers="headers"
+          :items="types"
+          :loading="loading"
+          hide-default-footer
+          :no-data-text="t('common.noData')"
+        >
+          <template #item.actions="{ item }">
+            <TableActions
+              :actions="actions"
+              @delete="deleteType(item)"
+              @edit="editHandler(item.id)"
+            />
+          </template>
+        </v-data-table>
+      </v-card>
     </div>
 
     <TypeManageModal

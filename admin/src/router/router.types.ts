@@ -24,6 +24,8 @@ export enum ERouteNames {
   customers = "customers",
   filaments = "filaments",
   products = "products",
+  productsCreate = "productsCreate",
+  productsEdit = "productsEdit",
   // settings
   filamentBrands = "filamentBrands",
   filamentColors = "filamentColors",

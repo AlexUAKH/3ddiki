@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateFilamentDto } from '../admin/filament/dto/create-filament.dto';
+import { UpdateFilamentDto } from '../admin/filament/dto/update-filament.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateFilamentDto } from './dto/create-filament.dto';
-import { UpdateFilamentDto } from './dto/update-filament.dto';
 
 @Injectable()
 export class FilamentService {
@@ -63,7 +63,7 @@ export class FilamentService {
   }
 
   async findAll() {
-    return await this.prisma.filament.findMany({
+    const filaments = await this.prisma.filament.findMany({
       include: {
         brand: true,
         type: true,
@@ -74,6 +74,13 @@ export class FilamentService {
         },
       },
     });
+
+    return filaments.map((filament) => ({
+      ...filament,
+      brand: filament.brand.name,
+      type: filament.type.name,
+      colors: filament.colors.map((c) => c.color),
+    }));
   }
 
   async findAllForSelect() {
@@ -86,10 +93,17 @@ export class FilamentService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.filament.findFirst({
+    const filament = await this.prisma.filament.findFirst({
       where: { id },
-      include: { colors: true },
+      include: {
+        colors: {
+          select: { id: true },
+        },
+      },
     });
+    if (!filament) return null;
+
+    return { ...filament, colors: filament.colors.map((c) => c.id) || [] };
   }
 
   async update(id: number, dto: UpdateFilamentDto) {

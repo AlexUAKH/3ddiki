@@ -76,6 +76,26 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/products/create",
+    name: ERouteNames.productsCreate,
+    component: () => import("@/pages/products/edit.vue"),
+    meta: {
+      title: "Create product",
+      layout: EAppLayouts.default,
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/products/:id/edit",
+    name: ERouteNames.productsEdit,
+    component: () => import("@/pages/products/edit.vue"),
+    meta: {
+      title: "Edit product",
+      layout: EAppLayouts.default,
+      middleware: [auth],
+    },
+  },
+  {
     path: "/products",
     name: ERouteNames.products,
     component: () => import("@/pages/products/index.vue"),

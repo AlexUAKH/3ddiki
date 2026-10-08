@@ -58,10 +58,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="self-center">
+  <div class="align-self-center w-100">
     <SpinnerFull :show="isSubmitting" />
 
-    <v-card max-width="500" elevation="4" class="px-2 py-2 w-100 ma-4">
+    <v-card max-width="500" elevation="4" class="px-2 py-2 mx-auto">
       <v-container>
         <div class="text-center text-2xl">Login to your account</div>
         <v-form @submit.prevent="onSubmit" class="mt-4">

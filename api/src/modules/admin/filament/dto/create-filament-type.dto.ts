@@ -1,7 +1,7 @@
 import { IsString, MinLength } from 'class-validator';
 
-export class CreateFilamentBrandDto {
+export class CreateFilamentTypeDto {
   @IsString()
   @MinLength(3)
-  name: string;
+  name!: string;
 }

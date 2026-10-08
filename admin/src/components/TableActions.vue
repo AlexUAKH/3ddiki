@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TableAction } from "@/composables/table";
+import { defineProps, withDefaults } from "vue";
 import { useDisplay } from "vuetify";
 
 interface Props {
@@ -12,10 +13,10 @@ const { mobile, mdAndDown } = useDisplay();
 </script>
 
 <template>
-  <v-menu v-if="mobile">
+  <v-menu v-if="mdAndDown">
     <template v-slot:activator="{ props }">
       <v-btn variant="text" v-bind="props" size="small">
-        <v-icon>mdi-dots-horizontal</v-icon>
+        <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </template>
 
@@ -25,13 +26,14 @@ const { mobile, mdAndDown } = useDisplay();
           :prepend-icon="button.icon"
           :text="button.label"
           :color="button.color"
+          block
           @click="$emit(button.action)"
         />
       </v-list-item>
     </v-list>
   </v-menu>
 
-  <div class="d-flex align-center ga-4">
+  <div v-else class="d-flex align-center ga-4">
     <div
       v-for="(button, idx) in actions"
       class="pa-1"

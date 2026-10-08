@@ -3,12 +3,14 @@ interface Props {
   okBtnLabel?: string;
   cancelBtnLabel?: string;
   processing?: boolean;
+  hideCancelBtn?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   okBtnLabel: "Ok",
   cancelBtnLabel: "Cancel",
   processing: false,
+  hideCancelBtn: false,
 });
 
 defineEmits(["confirm", "reject"]);
@@ -27,6 +29,7 @@ defineEmits(["confirm", "reject"]);
     </v-btn>
 
     <v-btn
+      v-if="!hideCancelBtn"
       density="compact"
       color="error"
       :disabled="processing"

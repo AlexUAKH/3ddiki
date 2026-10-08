@@ -52,5 +52,29 @@ export default createVuetify({
       variant: "outlined",
       density: "compact",
     },
+    VNumberInput: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VTextarea: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VSelect: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VAutocomplete: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VColorInput: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VDialog: {
+      scrim: true,
+      opacity: 0.7,
+    },
   },
 });

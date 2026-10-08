@@ -7,3 +7,10 @@
 .v-list-group__items .v-list-item {
   padding-inline-start: 30px;
 }
+
+.hover {
+  cursor: pointer;
+}
+.hover:hover {
+  opacity: 0.7;
+}

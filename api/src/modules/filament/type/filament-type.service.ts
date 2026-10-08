@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { CreateFilamentTypeDto } from '../dto/create-filament-type.dto';
-import { UpdateFilamentTypeDto } from '../dto/update-filament-type.dto';
+import { CreateFilamentTypeDto } from '../../admin/filament/dto/create-filament-type.dto';
+import { UpdateFilamentTypeDto } from '../../admin/filament/dto/update-filament-type.dto';
 
 @Injectable()
 export class FilamentTypeService {
@@ -16,8 +16,7 @@ export class FilamentTypeService {
   }
 
   async findAllForSelect() {
-    const types = await this.prisma.filamentType.findMany();
-    return types.map((type) => ({ label: type.name, value: type.id }));
+    return await this.prisma.filamentType.findMany();
   }
 
   async findOne(id: number) {

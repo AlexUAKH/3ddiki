@@ -9,6 +9,7 @@ export type SortByType = {
 export enum EActions {
   edit = "edit",
   delete = "delete",
+  changeDiscount = "changeDiscount",
 }
 
 export type Header = {

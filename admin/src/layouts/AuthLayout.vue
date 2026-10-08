@@ -8,7 +8,7 @@ useLifecycleLogger({ name: "Auth layout" });
   <v-card>
     <v-app>
       <v-main
-        class="h-screen flex justify-center align-center"
+        class="h-screen d-flex justify-center items-center"
         style="min-height: 300px"
       >
         <slot />

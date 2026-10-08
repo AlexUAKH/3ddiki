@@ -1,23 +1,81 @@
-import { Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateProductDto } from '../admin/product/dto/create-product.dto';
+import { UpdateProductDto } from '../admin/product/dto/update-product.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ProductsService {
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(dto: CreateProductDto) {
+    const category = await this.prisma.productCategory.findUnique({
+      where: { id: dto.categoryId },
+    });
+
+    if (!category) {
+      throw new BadRequestException('Invalid categoryId');
+    }
+
+    const product = await this.prisma.product.create({
+      data: {
+        name: dto.name,
+        categoryId: dto.categoryId,
+        description: dto.description,
+        weight: dto.weight,
+        sizeX: dto.sizeX,
+        sizeY: dto.sizeY,
+        sizeZ: dto.sizeZ,
+        discount: dto.discount,
+      },
+    });
+
+    return { id: product.id };
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAllForAdmin() {
+    return this.prisma.product.findMany({
+      select: {
+        id: true,
+        name: true,
+        category: true,
+        discount: true,
+        weight: true,
+        sizeX: true,
+        sizeY: true,
+        sizeZ: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findAll() {
+    return this.prisma.product.findMany();
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async findOne(id: number) {
+    return this.prisma.product.findUnique({
+      where: { id },
+    });
+  }
+
+  async findOneForAdmin(id: number) {
+    return this.prisma.product.findUnique({
+      where: { id },
+      omit: { rate: true },
+      include: {
+        variants: true,
+      },
+    });
+  }
+
+  update(id: number, dto: UpdateProductDto) {
+    return `This action updates a #${id} product: ${dto.name}`;
+  }
+
+  async updateProductDiscount(id: number, discount: number) {
+    return await this.prisma.product.update({
+      where: { id },
+      data: { discount },
+    });
   }
 
   remove(id: number) {

@@ -1,27 +1,41 @@
 <script setup lang="ts">
+import { BACK_ICON } from "@/constants/iconsMap";
+import { defineEmits, defineProps, withDefaults } from "vue";
+import { useI18n } from "vue-i18n";
+
 interface Props {
-  icon: string;
+  icon?: string;
   header: string;
   hiddenBorderBottom?: boolean;
+  showBack?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   icon: "mdi-home",
   hiddenBorderBottom: false,
 });
+
+defineEmits(["back"]);
+
+const { t } = useI18n();
 </script>
 
 <template>
   <div class="page-title" :class="{ hide_border_bottom: hiddenBorderBottom }">
     <div class="d-flex align-center title me-6">
-      <v-icon size="small" class="mr-3">{{ icon }}</v-icon>
+      <div v-if="showBack" class="mr-4 hover" @click="$emit('back')">
+        <v-icon>{{ BACK_ICON }}</v-icon>
+        <!-- <div class="">{{ t("common.back") }}</div> -->
+      </div>
+
+      <v-icon v-if="icon" size="small" class="mr-3">{{ icon }}</v-icon>
       {{ header }}
     </div>
 
-    <div class="actions d-flex align-center">
+    <div class="d-flex align-center flex-grow-1">
       <slot v-if="$slots.default" />
     </div>
-    <div class="">
+    <div class="actions">
       <slot v-if="$slots.actions" name="actions" />
     </div>
   </div>
@@ -34,13 +48,21 @@ withDefaults(defineProps<Props>(), {
   max-width: 100%;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  // justify-content: stretch;
   flex-wrap: wrap;
-  align-items: center;
+  gap: 8px;
+  align-items: stretch;
   box-shadow: none !important;
   border-radius: 0;
   & .actions {
-    flex-grow: 1;
+    // flex-grow: 1;
+    margin-left: auto;
+  }
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 .hide_border_bottom {

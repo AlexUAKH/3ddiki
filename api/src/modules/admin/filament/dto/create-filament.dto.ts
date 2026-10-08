@@ -5,21 +5,21 @@ import {
   IsInt,
   IsNumber,
   IsString,
-  MinLength
+  MinLength,
 } from 'class-validator';
 
 export class CreateFilamentDto {
   @IsString()
   @MinLength(3)
-  name: string;
+  name!: string;
 
   @Type(() => Number)
   @IsInt()
-  typeId: number;
+  typeId!: number;
 
   @Type(() => Number)
   @IsInt()
-  brandId: number;
+  brandId!: number;
 
   @Transform(({ value }) => {
     // Form-data often sends arrays as a single string "1,2,3"
@@ -32,13 +32,13 @@ export class CreateFilamentDto {
   @IsArray()
   @IsInt({ each: true })
   @ArrayMaxSize(3, { message: 'The array must contain no more than 3 items' })
-  colors: number[];
+  colors!: number[];
 
   @Type(() => Number)
   @IsNumber()
-  price: number;
+  price!: number;
 
   @Type(() => Number)
   @IsNumber()
-  stock: number;
+  stock!: number;
 }
