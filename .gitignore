@@ -1,4 +1,7 @@
 admin/.env
 api/.env
+api/.env.prod
+api/prisma-cloud.dump
+api/db_dump.bak
 
 deploy.ts

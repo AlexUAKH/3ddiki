@@ -14,7 +14,20 @@ enum Role {
 }
 
 // npx prisma migrate dev --name add_model_name to apply changes and create migration
+// export
+// "$(brew --prefix postgresql@17)/bin/pg_dump" \
+//  -Fc \
+//  -v \
+//  -d __DATABASE_URL__ \
+//  -n public \
+//  -f db_dump.bak
 
+// import
+// "$(brew --prefix postgresql@17)/bin/pg_restore" \
+//   -d 'postgres://c842075e41821b1c7674f82a328f0a9f69a65698b649cc2eb6d84319af4099f3:sk_vxL2naWJ662fRYZK27B01@db.prisma.io:5432/postgres?sslmode=require' \
+//   -v \
+//   ./db_dump.bak \
+//   && echo "-complete-"
 model User {
   id               String     @id @default(uuid())
   email            String     @unique
@@ -157,6 +170,7 @@ model ProductVariant {
   filament Filament @relation(fields: [filamentId], references: [id], onDelete: Cascade)
 
   @@unique([productId, filamentId])
+  @@index([productId])
   @@map("productVariants")
 }
 

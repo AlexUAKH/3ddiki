@@ -7,6 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
+  // admin part
   async create(dto: CreateProductDto) {
     const category = await this.prisma.productCategory.findUnique({
       where: { id: dto.categoryId },
@@ -47,23 +48,15 @@ export class ProductsService {
     });
   }
 
-  async findAll() {
-    return this.prisma.product.findMany();
-  }
-
-  async findOne(id: number) {
-    return this.prisma.product.findUnique({
-      where: { id },
-    });
-  }
-
   async findOneForAdmin(id: number) {
     return this.prisma.product.findUnique({
       where: { id },
-      omit: { rate: true },
-      include: {
-        variants: true,
+      omit: {
+        rate: true,
       },
+      // include: {
+      //   variants: true,
+      // },
     });
   }
 
@@ -79,6 +72,18 @@ export class ProductsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} product`;
+    return this.prisma.product.delete({ where: { id } });
+  }
+
+  // ===========================
+  // client part
+  async findAll() {
+    return this.prisma.product.findMany();
+  }
+
+  async findOne(id: number) {
+    return this.prisma.product.findUnique({
+      where: { id },
+    });
   }
 }

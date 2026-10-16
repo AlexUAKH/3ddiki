@@ -38,7 +38,11 @@ const name = useField("name", { required: true, min: minNameLength });
 const typeId = useField<any>("typeId", { required: true });
 const brandId = useField<any>("brandId", { required: true });
 const colors = useField<any>("colors", { required: true, one: true });
-const price = useField("price", { required: true, number: true });
+const price = useField("price", {
+  required: true,
+  number: true,
+  not_zero: true,
+});
 const stock = useField("stock", { required: true, number: true });
 
 const submit = handleSubmit(async (event) => {

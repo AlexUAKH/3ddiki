@@ -141,33 +141,35 @@ onMounted(async () => {
     </PageHeader>
 
     <div class="mt-4">
-      <v-data-table
-        :headers="headers"
-        :items="filaments"
-        :loading="loading"
-        hide-default-footer
-        :no-data-text="t('common.noData')"
-      >
-        <template #item.colors="{ item }">
-          <div
-            class="d-flex justify-center align-center ga-2 flex-row flex-wrap"
-          >
+      <v-card variant="outlined">
+        <v-data-table
+          :headers="headers"
+          :items="filaments"
+          :loading="loading"
+          hide-default-footer
+          :no-data-text="t('common.noData')"
+        >
+          <template #item.colors="{ item }">
             <div
-              v-for="color in item.colors"
-              :key="color"
-              :style="{ backgroundColor: color }"
-              style="width: 20px; height: 20px; border-radius: 50%"
-            ></div>
-          </div>
-        </template>
-        <template #item.actions="{ item }">
-          <TableActions
-            :actions="actions"
-            @delete="deleteBrand(item)"
-            @edit="editHandler(item.id)"
-          />
-        </template>
-      </v-data-table>
+              class="d-flex justify-center align-center ga-2 flex-row flex-wrap"
+            >
+              <div
+                v-for="color in item.colors"
+                :key="color"
+                :style="{ backgroundColor: color }"
+                style="width: 20px; height: 20px; border-radius: 50%"
+              ></div>
+            </div>
+          </template>
+          <template #item.actions="{ item }">
+            <TableActions
+              :actions="actions"
+              @delete="deleteBrand(item)"
+              @edit="editHandler(item.id)"
+            />
+          </template>
+        </v-data-table>
+      </v-card>
     </div>
 
     <ManageModal

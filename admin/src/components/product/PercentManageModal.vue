@@ -30,9 +30,10 @@ const discount = useField<number>("discount", { number: true });
 const submit = handleSubmit(async (event) => {
   processing.value = true;
   try {
-    console.log("changeProductDiscount: ", event);
-
-    await changeProductDiscount(props.id, event);
+    const data = {
+      discount: event.discount,
+    };
+    await changeProductDiscount(props.id, data);
 
     toast.success(t("product.discountChangedSuccessfully"));
 

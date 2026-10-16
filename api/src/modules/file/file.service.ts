@@ -30,22 +30,26 @@ export class FileService {
 
     const filesArray = Array.isArray(file) ? file : [file];
 
-    const data = filesArray.map((file) => ({
-      filename: file.filename,
-      originalName: file.originalname,
-      path: file.path,
-      mimeType: file.mimetype,
-      size: file.size,
-      width,
-      height,
-      type: (file.mimetype.includes('image')
+    const data = filesArray.map((file) => {
+      const type: MediaType = file.mimetype.includes('image')
         ? 'IMAGE'
         : file.mimetype.includes('video')
           ? 'VIDEO'
-          : 'DOCUMENT') as MediaType,
-      ownerType,
-      ownerId,
-    }));
+          : 'DOCUMENT';
+
+      return {
+        filename: file.filename,
+        originalName: file.originalname,
+        path: file.path,
+        mimeType: file.mimetype,
+        size: file.size,
+        width,
+        height,
+        type,
+        ownerType,
+        ownerId,
+      };
+    });
 
     return this.prisma.file.createMany({
       data,

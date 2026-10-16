@@ -2,8 +2,7 @@
 import { useHelpers } from "@/composables/helpers";
 import {
   useProducts,
-  type CreateProduct,
-  type ProductType,
+  type CreateProduct
 } from "@/composables/products";
 import { PRODUCT_CATEGORY_API_FOR_SELECT } from "@/constants/api-const.ts";
 import $http from "@/plugins/axios.ts";
@@ -14,7 +13,7 @@ import {
   onMounted,
   ref,
   shallowRef,
-  watch,
+  watchEffect,
 } from "vue";
 import { useI18n } from "vue-i18n";
 import { toast } from "vue3-toastify";
@@ -22,8 +21,7 @@ import FormActions from "../common/FormActions.vue";
 import MarkdownInstruction from "../common/markdownInstruction.vue";
 
 interface GeneralTabProps {
-  productId?: number | null;
-  product: Partial<ProductType> | null;
+  productId: number | null;
 }
 
 const props = defineProps<GeneralTabProps>();
@@ -39,7 +37,7 @@ const categories = ref([]);
 
 const { errorMessage } = useHelpers();
 const { handleSubmit, resetForm } = useForm({});
-const { createProduct, updateProduct } = useProducts();
+const { getProduct, createProduct, updateProduct } = useProducts();
 const { t } = useI18n();
 
 const name = useField<string>("name", { required: true, min: minLength });
@@ -95,24 +93,26 @@ const submit = handleSubmit(async (event) => {
   }
 });
 
-watch(
-  () => props.product,
-  () => {
+watchEffect(async () => {
+  if (props.productId) {
     loading.value = true;
-    if (props.product) {
-      name.value.value = props.product.name || "";
-      categoryId.value.value = props.product.categoryId || "";
-      description.value.value = props.product.description || "";
-      weight.value.value = props.product.weight || 0;
-      sizeX.value.value = props.product.sizeX || 0;
-      sizeY.value.value = props.product.sizeY || 0;
-      sizeZ.value.value = props.product.sizeZ || 0;
-      discount.value.value = props.product.discount || 0;
-    }
+    try {
+      const res = (await getProduct(props.productId)).data;
 
-    loading.value = false;
-  },
-);
+      name.value.value = res.name || "";
+      categoryId.value.value = res.categoryId || "";
+      description.value.value = res.description || "";
+      weight.value.value = res.weight || 0;
+      sizeX.value.value = res.sizeX || 0;
+      sizeY.value.value = res.sizeY || 0;
+      sizeZ.value.value = res.sizeZ || 0;
+      discount.value.value = res.discount || 0;
+    } catch (error) {
+    } finally {
+      loading.value = false;
+    }
+  }
+});
 
 onMounted(async () => {
   loadingCategories.value = true;

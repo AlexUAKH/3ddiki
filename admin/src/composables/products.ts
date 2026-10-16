@@ -1,4 +1,4 @@
-import { PRODUCT_API } from "@/constants/api-const";
+import { PRODUCT_API, PRODUCT_VARIANT_API } from "@/constants/api-const";
 import $http from "@/plugins/axios";
 import { ref } from "vue";
 import { toast } from "vue3-toastify";
@@ -94,6 +94,22 @@ export const useProducts = () => {
     return $http.patch(`${PRODUCT_API}/${id}/change-discount`, data);
   };
 
+  const getProductVariants = () => {
+    return $http.get(PRODUCT_VARIANT_API);
+  };
+
+  const getProductVariant = (id: number) => {
+    return $http.get(PRODUCT_VARIANT_API + "/" + id);
+  };
+
+  const createProductVariant = (data: CreateProductVariant) => {
+    return $http.patch(PRODUCT_VARIANT_API, data);
+  };
+
+  const updateProductVariant = (id: number, data: CreateProductVariant) => {
+    return $http.patch(`${PRODUCT_VARIANT_API}/${id}`, data);
+  };
+
   return {
     products,
     loading,
@@ -102,5 +118,9 @@ export const useProducts = () => {
     createProduct,
     updateProduct,
     changeProductDiscount,
+    getProductVariant,
+    getProductVariants,
+    createProductVariant,
+    updateProductVariant,
   };
 };

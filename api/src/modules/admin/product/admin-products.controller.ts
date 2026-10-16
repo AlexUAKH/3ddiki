@@ -23,7 +23,7 @@ export class AdminProductsController {
   }
 
   @Get()
-  findAll() {
+  findAllForAdmin() {
     return this.productsService.findAllForAdmin();
   }
 
