@@ -178,13 +178,6 @@ const changeProductDiscountHandler = () => {
       @change="changeProductDiscountHandler"
       @close="changeDiscountProduct = null"
     />
-    <!-- <ManageModal
-      v-if="showManageModal"
-      :open="showManageModal"
-      :id="editingId"
-      @change="changeProductHandler"
-      @close="closeManageModal"
-    /> -->
 
     <DeleteItemModal
       v-if="deletingProduct"

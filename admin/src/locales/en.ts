@@ -57,6 +57,8 @@ export default {
     header: "Products",
     create: "Create product",
     edit: "Edit product",
+    general: "General",
+    variant: "Variant | Variants",
   },
   filamentTypes: {
     header: "Filament types",

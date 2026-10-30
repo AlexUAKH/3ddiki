@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { FileService } from '../file/file.service';
 import { FilamentBrandController } from './brand/filament-brand.controller';
 import { FilamentBrandService } from './brand/filament-brand.service';
 import { FilamentColorController } from './color/filament-color.controller';
@@ -21,7 +20,6 @@ import { FilamentTypeService } from './type/filament-type.service';
     FilamentTypeService,
     FilamentBrandService,
     FilamentColorService,
-    FileService,
   ],
 })
 export class FilamentModule {}

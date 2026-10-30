@@ -31,7 +31,7 @@ export const useHelpers = () => {
     };
   };
 
-  const errorMessage = (e: any, fallBackMessage?: string) =>
+  const errorMessage = (e: any, fallBackMessage?: string): string =>
     e.response.data?.result?.message ||
     e.response.data?.message ||
     fallBackMessage ||

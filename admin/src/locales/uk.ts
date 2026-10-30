@@ -14,7 +14,7 @@ export default {
     brand: "Бренд | Бренди",
     color: "Колір | Кольори",
     price: "Ціна",
-    stock: "Склад",
+    stock: "Наявність",
     uah: "грн",
     kg: "кг",
     g: "г",
@@ -27,6 +27,8 @@ export default {
     category: "Категорія | Категорії",
     description: "Опис",
     filament: "Філамент",
+    chooseFile: "Обрати файл(и)",
+    dragAndDropFilesHere: "Перетягніть файл(и) сюди",
   },
   sideBar: {
     dashboard: "Статистіка",
@@ -59,6 +61,8 @@ export default {
     header: "Продукти",
     create: "Створення продукту",
     edit: "Редагування продукту",
+    general: "Загальне",
+    variant: "Варіант | Варіанти",
   },
   filamentTypes: {
     header: "Типи філаментів",

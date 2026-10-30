@@ -20,7 +20,8 @@ export type Role = (typeof Role)[keyof typeof Role]
 export const MediaOwnerType = {
   PRODUCT: 'PRODUCT',
   USER: 'USER',
-  FILAMENT: 'FILAMENT'
+  FILAMENT: 'FILAMENT',
+  PRODUCT_VARIANT: 'PRODUCT_VARIANT'
 } as const
 
 export type MediaOwnerType = (typeof MediaOwnerType)[keyof typeof MediaOwnerType]

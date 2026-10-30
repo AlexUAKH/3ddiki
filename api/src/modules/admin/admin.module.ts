@@ -6,6 +6,7 @@ import { FilamentTypeService } from '../filament/type/filament-type.service';
 import { ProductCategoryService } from '../products/categories/product-category.service';
 import { ProductVariantsService } from '../products/product-variant.service';
 import { ProductsService } from '../products/products.service';
+import { R2StorageService } from '../storage/r2-storage.service';
 import { AdminFilamentBrandController } from './filament/admin-filament-brand.controller';
 import { AdminFilamentColorController } from './filament/admin-filament-color.controller';
 import { AdminFilamentTypeController } from './filament/admin-filament-type.controller';
@@ -32,6 +33,7 @@ import { AdminProductsController } from './product/admin-products.controller';
     FilamentBrandService,
     FilamentColorService,
     FilamentService,
+    R2StorageService,
   ],
 })
 export class AdminModule {}

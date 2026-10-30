@@ -14,8 +14,8 @@ const getRefreshTokenExpireIn = () =>
   Number(import.meta.env.VITE_JWT_REFRESH_DAYS || 7) * 24 * 60 * 60;
 
 const headers = {
-  "Content-Type": "application/json",
-  "X-Requested-With": "XMLHttpRequest",
+  // "Content-Type": "application/json",
+  // "X-Requested-With": "XMLHttpRequest",
   // "Access-Control-Allow-Origin": "*",
 };
 
@@ -24,7 +24,7 @@ const $http = axios.create({
   headers,
   withCredentials: true,
 });
-$http.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
+// $http.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
 
 const token = Cookies.get(ACCESS_TOKEN_COOKIE);
 

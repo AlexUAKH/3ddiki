@@ -375,7 +375,7 @@ export type FileCreateInput = {
   type: $Enums.MediaType
   ownerType: $Enums.MediaOwnerType
   createdAt?: Date | string
-  productVariant?: Prisma.ProductVariantCreateNestedOneWithoutFilesInput
+  productVariant?: Prisma.ProductVariantCreateNestedOneWithoutImagesInput
 }
 
 export type FileUncheckedCreateInput = {
@@ -404,7 +404,7 @@ export type FileUpdateInput = {
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   ownerType?: Prisma.EnumMediaOwnerTypeFieldUpdateOperationsInput | $Enums.MediaOwnerType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  productVariant?: Prisma.ProductVariantUpdateOneWithoutFilesNestedInput
+  productVariant?: Prisma.ProductVariantUpdateOneWithoutImagesNestedInput
 }
 
 export type FileUncheckedUpdateInput = {

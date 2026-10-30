@@ -105,6 +105,7 @@ enum MediaOwnerType {
   PRODUCT
   USER
   FILAMENT
+  PRODUCT_VARIANT
 }
 
 enum MediaType {
@@ -165,7 +166,7 @@ model ProductVariant {
   price      Int @default(0) @map("price") // in cents
   stock      Int @default(0) @map("stock") // in grams
 
-  files    File[] // @relation("ProductVariantFiles", fields: [id], references: [ownerId])
+  images   File[] // @relation("ProductVariantFiles", fields: [id], references: [ownerId])
   product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   filament Filament @relation(fields: [filamentId], references: [id], onDelete: Cascade)
 

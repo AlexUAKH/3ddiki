@@ -232,7 +232,7 @@ export type ProductVariantWhereInput = {
   filamentId?: Prisma.IntFilter<"ProductVariant"> | number
   price?: Prisma.IntFilter<"ProductVariant"> | number
   stock?: Prisma.IntFilter<"ProductVariant"> | number
-  files?: Prisma.FileListRelationFilter
+  images?: Prisma.FileListRelationFilter
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   filament?: Prisma.XOR<Prisma.FilamentScalarRelationFilter, Prisma.FilamentWhereInput>
 }
@@ -243,7 +243,7 @@ export type ProductVariantOrderByWithRelationInput = {
   filamentId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   stock?: Prisma.SortOrder
-  files?: Prisma.FileOrderByRelationAggregateInput
+  images?: Prisma.FileOrderByRelationAggregateInput
   product?: Prisma.ProductOrderByWithRelationInput
   filament?: Prisma.FilamentOrderByWithRelationInput
 }
@@ -258,7 +258,7 @@ export type ProductVariantWhereUniqueInput = Prisma.AtLeast<{
   filamentId?: Prisma.IntFilter<"ProductVariant"> | number
   price?: Prisma.IntFilter<"ProductVariant"> | number
   stock?: Prisma.IntFilter<"ProductVariant"> | number
-  files?: Prisma.FileListRelationFilter
+  images?: Prisma.FileListRelationFilter
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   filament?: Prisma.XOR<Prisma.FilamentScalarRelationFilter, Prisma.FilamentWhereInput>
 }, "id" | "productId_filamentId">
@@ -290,7 +290,7 @@ export type ProductVariantScalarWhereWithAggregatesInput = {
 export type ProductVariantCreateInput = {
   price?: number
   stock?: number
-  files?: Prisma.FileCreateNestedManyWithoutProductVariantInput
+  images?: Prisma.FileCreateNestedManyWithoutProductVariantInput
   product: Prisma.ProductCreateNestedOneWithoutVariantsInput
   filament: Prisma.FilamentCreateNestedOneWithoutProductVariantsInput
 }
@@ -301,13 +301,13 @@ export type ProductVariantUncheckedCreateInput = {
   filamentId: number
   price?: number
   stock?: number
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutProductVariantInput
+  images?: Prisma.FileUncheckedCreateNestedManyWithoutProductVariantInput
 }
 
 export type ProductVariantUpdateInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
-  files?: Prisma.FileUpdateManyWithoutProductVariantNestedInput
+  images?: Prisma.FileUpdateManyWithoutProductVariantNestedInput
   product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
   filament?: Prisma.FilamentUpdateOneRequiredWithoutProductVariantsNestedInput
 }
@@ -318,7 +318,7 @@ export type ProductVariantUncheckedUpdateInput = {
   filamentId?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
-  files?: Prisma.FileUncheckedUpdateManyWithoutProductVariantNestedInput
+  images?: Prisma.FileUncheckedUpdateManyWithoutProductVariantNestedInput
 }
 
 export type ProductVariantCreateManyInput = {
@@ -444,20 +444,20 @@ export type ProductVariantUncheckedUpdateManyWithoutFilamentNestedInput = {
   deleteMany?: Prisma.ProductVariantScalarWhereInput | Prisma.ProductVariantScalarWhereInput[]
 }
 
-export type ProductVariantCreateNestedOneWithoutFilesInput = {
-  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutFilesInput, Prisma.ProductVariantUncheckedCreateWithoutFilesInput>
-  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutFilesInput
+export type ProductVariantCreateNestedOneWithoutImagesInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutImagesInput, Prisma.ProductVariantUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutImagesInput
   connect?: Prisma.ProductVariantWhereUniqueInput
 }
 
-export type ProductVariantUpdateOneWithoutFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutFilesInput, Prisma.ProductVariantUncheckedCreateWithoutFilesInput>
-  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutFilesInput
-  upsert?: Prisma.ProductVariantUpsertWithoutFilesInput
+export type ProductVariantUpdateOneWithoutImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutImagesInput, Prisma.ProductVariantUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutImagesInput
+  upsert?: Prisma.ProductVariantUpsertWithoutImagesInput
   disconnect?: Prisma.ProductVariantWhereInput | boolean
   delete?: Prisma.ProductVariantWhereInput | boolean
   connect?: Prisma.ProductVariantWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutFilesInput, Prisma.ProductVariantUpdateWithoutFilesInput>, Prisma.ProductVariantUncheckedUpdateWithoutFilesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutImagesInput, Prisma.ProductVariantUpdateWithoutImagesInput>, Prisma.ProductVariantUncheckedUpdateWithoutImagesInput>
 }
 
 export type ProductVariantCreateNestedManyWithoutProductInput = {
@@ -505,7 +505,7 @@ export type ProductVariantUncheckedUpdateManyWithoutProductNestedInput = {
 export type ProductVariantCreateWithoutFilamentInput = {
   price?: number
   stock?: number
-  files?: Prisma.FileCreateNestedManyWithoutProductVariantInput
+  images?: Prisma.FileCreateNestedManyWithoutProductVariantInput
   product: Prisma.ProductCreateNestedOneWithoutVariantsInput
 }
 
@@ -514,7 +514,7 @@ export type ProductVariantUncheckedCreateWithoutFilamentInput = {
   productId: number
   price?: number
   stock?: number
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutProductVariantInput
+  images?: Prisma.FileUncheckedCreateNestedManyWithoutProductVariantInput
 }
 
 export type ProductVariantCreateOrConnectWithoutFilamentInput = {
@@ -554,14 +554,14 @@ export type ProductVariantScalarWhereInput = {
   stock?: Prisma.IntFilter<"ProductVariant"> | number
 }
 
-export type ProductVariantCreateWithoutFilesInput = {
+export type ProductVariantCreateWithoutImagesInput = {
   price?: number
   stock?: number
   product: Prisma.ProductCreateNestedOneWithoutVariantsInput
   filament: Prisma.FilamentCreateNestedOneWithoutProductVariantsInput
 }
 
-export type ProductVariantUncheckedCreateWithoutFilesInput = {
+export type ProductVariantUncheckedCreateWithoutImagesInput = {
   id?: number
   productId: number
   filamentId: number
@@ -569,30 +569,30 @@ export type ProductVariantUncheckedCreateWithoutFilesInput = {
   stock?: number
 }
 
-export type ProductVariantCreateOrConnectWithoutFilesInput = {
+export type ProductVariantCreateOrConnectWithoutImagesInput = {
   where: Prisma.ProductVariantWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutFilesInput, Prisma.ProductVariantUncheckedCreateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutImagesInput, Prisma.ProductVariantUncheckedCreateWithoutImagesInput>
 }
 
-export type ProductVariantUpsertWithoutFilesInput = {
-  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutFilesInput, Prisma.ProductVariantUncheckedUpdateWithoutFilesInput>
-  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutFilesInput, Prisma.ProductVariantUncheckedCreateWithoutFilesInput>
+export type ProductVariantUpsertWithoutImagesInput = {
+  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutImagesInput, Prisma.ProductVariantUncheckedUpdateWithoutImagesInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutImagesInput, Prisma.ProductVariantUncheckedCreateWithoutImagesInput>
   where?: Prisma.ProductVariantWhereInput
 }
 
-export type ProductVariantUpdateToOneWithWhereWithoutFilesInput = {
+export type ProductVariantUpdateToOneWithWhereWithoutImagesInput = {
   where?: Prisma.ProductVariantWhereInput
-  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutFilesInput, Prisma.ProductVariantUncheckedUpdateWithoutFilesInput>
+  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutImagesInput, Prisma.ProductVariantUncheckedUpdateWithoutImagesInput>
 }
 
-export type ProductVariantUpdateWithoutFilesInput = {
+export type ProductVariantUpdateWithoutImagesInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
   filament?: Prisma.FilamentUpdateOneRequiredWithoutProductVariantsNestedInput
 }
 
-export type ProductVariantUncheckedUpdateWithoutFilesInput = {
+export type ProductVariantUncheckedUpdateWithoutImagesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
   filamentId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -603,7 +603,7 @@ export type ProductVariantUncheckedUpdateWithoutFilesInput = {
 export type ProductVariantCreateWithoutProductInput = {
   price?: number
   stock?: number
-  files?: Prisma.FileCreateNestedManyWithoutProductVariantInput
+  images?: Prisma.FileCreateNestedManyWithoutProductVariantInput
   filament: Prisma.FilamentCreateNestedOneWithoutProductVariantsInput
 }
 
@@ -612,7 +612,7 @@ export type ProductVariantUncheckedCreateWithoutProductInput = {
   filamentId: number
   price?: number
   stock?: number
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutProductVariantInput
+  images?: Prisma.FileUncheckedCreateNestedManyWithoutProductVariantInput
 }
 
 export type ProductVariantCreateOrConnectWithoutProductInput = {
@@ -651,7 +651,7 @@ export type ProductVariantCreateManyFilamentInput = {
 export type ProductVariantUpdateWithoutFilamentInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
-  files?: Prisma.FileUpdateManyWithoutProductVariantNestedInput
+  images?: Prisma.FileUpdateManyWithoutProductVariantNestedInput
   product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
 }
 
@@ -660,7 +660,7 @@ export type ProductVariantUncheckedUpdateWithoutFilamentInput = {
   productId?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
-  files?: Prisma.FileUncheckedUpdateManyWithoutProductVariantNestedInput
+  images?: Prisma.FileUncheckedUpdateManyWithoutProductVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateManyWithoutFilamentInput = {
@@ -680,7 +680,7 @@ export type ProductVariantCreateManyProductInput = {
 export type ProductVariantUpdateWithoutProductInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
-  files?: Prisma.FileUpdateManyWithoutProductVariantNestedInput
+  images?: Prisma.FileUpdateManyWithoutProductVariantNestedInput
   filament?: Prisma.FilamentUpdateOneRequiredWithoutProductVariantsNestedInput
 }
 
@@ -689,7 +689,7 @@ export type ProductVariantUncheckedUpdateWithoutProductInput = {
   filamentId?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
-  files?: Prisma.FileUncheckedUpdateManyWithoutProductVariantNestedInput
+  images?: Prisma.FileUncheckedUpdateManyWithoutProductVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateManyWithoutProductInput = {
@@ -705,11 +705,11 @@ export type ProductVariantUncheckedUpdateManyWithoutProductInput = {
  */
 
 export type ProductVariantCountOutputType = {
-  files: number
+  images: number
 }
 
 export type ProductVariantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  files?: boolean | ProductVariantCountOutputTypeCountFilesArgs
+  images?: boolean | ProductVariantCountOutputTypeCountImagesArgs
 }
 
 /**
@@ -725,7 +725,7 @@ export type ProductVariantCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
 /**
  * ProductVariantCountOutputType without action
  */
-export type ProductVariantCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ProductVariantCountOutputTypeCountImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FileWhereInput
 }
 
@@ -736,7 +736,7 @@ export type ProductVariantSelect<ExtArgs extends runtime.Types.Extensions.Intern
   filamentId?: boolean
   price?: boolean
   stock?: boolean
-  files?: boolean | Prisma.ProductVariant$filesArgs<ExtArgs>
+  images?: boolean | Prisma.ProductVariant$imagesArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   filament?: boolean | Prisma.FilamentDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProductVariantCountOutputTypeDefaultArgs<ExtArgs>
@@ -772,7 +772,7 @@ export type ProductVariantSelectScalar = {
 
 export type ProductVariantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "filamentId" | "price" | "stock", ExtArgs["result"]["productVariant"]>
 export type ProductVariantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  files?: boolean | Prisma.ProductVariant$filesArgs<ExtArgs>
+  images?: boolean | Prisma.ProductVariant$imagesArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   filament?: boolean | Prisma.FilamentDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProductVariantCountOutputTypeDefaultArgs<ExtArgs>
@@ -789,7 +789,7 @@ export type ProductVariantIncludeUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type $ProductVariantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductVariant"
   objects: {
-    files: Prisma.$FilePayload<ExtArgs>[]
+    images: Prisma.$FilePayload<ExtArgs>[]
     product: Prisma.$ProductPayload<ExtArgs>
     filament: Prisma.$FilamentPayload<ExtArgs>
   }
@@ -1193,7 +1193,7 @@ readonly fields: ProductVariantFieldRefs;
  */
 export interface Prisma__ProductVariantClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  files<T extends Prisma.ProductVariant$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  images<T extends Prisma.ProductVariant$imagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   filament<T extends Prisma.FilamentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FilamentDefaultArgs<ExtArgs>>): Prisma.Prisma__FilamentClient<runtime.Types.Result.GetResult<Prisma.$FilamentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1631,9 +1631,9 @@ export type ProductVariantDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * ProductVariant.files
+ * ProductVariant.images
  */
-export type ProductVariant$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ProductVariant$imagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the File
    */

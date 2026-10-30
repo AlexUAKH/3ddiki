@@ -59,12 +59,13 @@ watchEffect(() => {
         slider-transition-duration="900"
         slider-color="#f78166"
       >
-        <v-tab :value="1" class="text-title-large">General</v-tab>
+        <v-tab :value="1" class="text-title-large">{{
+          t("products.general")
+        }}</v-tab>
         <v-tab :value="2" class="text-title-large" :disabled="!productId">
-          Variants
+          {{ t("products.variant", 2) }}
         </v-tab>
       </v-tabs>
-      <div class="">product id: {{ productId }}</div>
       <!-- crossfade -->
       <v-tabs-window v-model="tab">
         <v-tabs-window-item :value="1">

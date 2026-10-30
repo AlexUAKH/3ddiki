@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { FilamentModule } from './modules/filament/filament.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { ProductsModule } from './modules/products/products.module';
+import { StorageModule } from './modules/storage/storage.module';
 import { UserModule } from './modules/users/users.module';
 
 @Module({
@@ -29,8 +30,8 @@ import { UserModule } from './modules/users/users.module';
         module: AdminModule,
       },
     ]),
+    StorageModule,
 
-    // MailerModule.forRoot({
     //   transport: {
     //     host: process.env.MAIL_HOST, // e.g., smtp.gmail.com
     //     port: Number(process.env.MAIL_PORT || 465),

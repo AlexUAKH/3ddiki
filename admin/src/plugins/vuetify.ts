@@ -72,6 +72,10 @@ export default createVuetify({
       variant: "outlined",
       density: "compact",
     },
+    VFileUpload: {
+      variant: "outlined",
+      density: "compact",
+    },
     VDialog: {
       scrim: true,
       opacity: 0.7,

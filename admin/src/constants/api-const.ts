@@ -17,7 +17,11 @@ export const FILAMENT_API_FOR_SELECT = "/filament/for-select";
 export const PRODUCT_CATEGORY_API = "admin/product-category";
 export const PRODUCT_CATEGORY_API_FOR_SELECT = "/product-category/for-select";
 export const PRODUCT_API = "admin/products";
-export const PRODUCT_VARIANT_API = "admin/products/variant";
+export const PRODUCT_VARIANT_API = (productId: number) =>
+  `admin/products/${productId}/variants`;
+export const PRODUCT_VARIANT_EDIT_API = "admin/variants";
+export const PRODUCT_VARIANT_IMAGE_API = (variantId: number) =>
+  `admin/variants/${variantId}/image`;
 
 //auth
 export const AUTH_LOGIN = "/auth/login";

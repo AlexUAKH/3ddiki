@@ -1,4 +1,8 @@
-import { PRODUCT_API, PRODUCT_VARIANT_API } from "@/constants/api-const";
+import {
+  PRODUCT_API,
+  PRODUCT_VARIANT_API,
+  PRODUCT_VARIANT_EDIT_API,
+} from "@/constants/api-const";
 import $http from "@/plugins/axios";
 import { ref } from "vue";
 import { toast } from "vue3-toastify";
@@ -9,6 +13,11 @@ export type MediaFile = {
   url: string;
   type: MediaType;
 };
+export type ImageType = {
+  id: 6;
+  path: string;
+  type: MediaType;
+};
 export type ProductVariant = {
   id: number;
   productId: number;
@@ -16,6 +25,8 @@ export type ProductVariant = {
   price: number;
   stock: number;
   files: MediaFile[];
+  filament: string;
+  images: ImageType[];
 };
 export type Review = {
   id: number;
@@ -46,7 +57,7 @@ export type ProductListItem = Omit<
 > & {
   category: { id: number; title: string };
 };
-export type CreateProductVariant = Omit<ProductVariant, "id">;
+export type CreateProductVariant = Omit<ProductVariant, "id" | "filament">;
 export type CreateProduct = {
   name: string;
   categoryId: number;
@@ -94,20 +105,24 @@ export const useProducts = () => {
     return $http.patch(`${PRODUCT_API}/${id}/change-discount`, data);
   };
 
-  const getProductVariants = () => {
-    return $http.get(PRODUCT_VARIANT_API);
+  const getProductVariants = (productId: number) => {
+    return $http.get(PRODUCT_VARIANT_API(productId));
   };
 
   const getProductVariant = (id: number) => {
-    return $http.get(PRODUCT_VARIANT_API + "/" + id);
+    return $http.get(PRODUCT_VARIANT_EDIT_API + "/" + id);
   };
 
-  const createProductVariant = (data: CreateProductVariant) => {
-    return $http.patch(PRODUCT_VARIANT_API, data);
+  const createProductVariant = (productId: number, data: FormData) => {
+    return $http.post(PRODUCT_VARIANT_API(productId), data, {
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
+    });
   };
 
-  const updateProductVariant = (id: number, data: CreateProductVariant) => {
-    return $http.patch(`${PRODUCT_VARIANT_API}/${id}`, data);
+  const updateProductVariant = (id: number, data: FormData) => {
+    return $http.patch(`${PRODUCT_VARIANT_EDIT_API}/${id}`, data);
   };
 
   return {
