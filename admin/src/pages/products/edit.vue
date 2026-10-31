@@ -13,7 +13,7 @@ interface EditProps {}
 
 defineProps<EditProps>();
 
-const tab = ref(2);
+const tab = ref(1);
 const productId = ref<number | null>(null);
 const product = ref<ProductType | null>(null);
 
@@ -25,6 +25,8 @@ const isEdit = computed(() => route.name === ERouteNames.productsEdit);
 // const isEdit = computed(() => String(route.params.id || "") || null);
 
 const generalInfoCreatedHandler = (id: number) => {
+  console.log("generalInfoCreatedHandler: ", id);
+
   productId.value = id;
   tab.value++;
 };

@@ -29,6 +29,7 @@ export default {
     filament: "Філамент",
     chooseFile: "Обрати файл(и)",
     dragAndDropFilesHere: "Перетягніть файл(и) сюди",
+    image: "Зображення",
   },
   sideBar: {
     dashboard: "Статистіка",

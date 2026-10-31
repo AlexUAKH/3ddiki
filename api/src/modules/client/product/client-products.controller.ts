@@ -1,12 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ProductsService } from './products.service';
+import { Controller, Get, Logger, Param } from '@nestjs/common';
+import { ProductsService } from 'src/modules/products/products.service';
 
 @Controller('products')
-export class ProductsController {
+export class ClientProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
   findAll() {
+    Logger.debug('in client controller');
     return this.productsService.findAll();
   }
 

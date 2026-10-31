@@ -5,6 +5,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ClientModule } from './modules/client/client.module';
 import { FilamentModule } from './modules/filament/filament.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { ProductsModule } from './modules/products/products.module';
@@ -24,6 +25,7 @@ import { UserModule } from './modules/users/users.module';
     FilamentModule,
     ProductsModule,
     AdminModule,
+    ClientModule,
     RouterModule.register([
       {
         path: 'admin',

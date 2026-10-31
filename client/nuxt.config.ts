@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/i18n",
     "vue3-carousel-nuxt",
+    "@nuxt/image",
   ],
   app: {
     head: {
@@ -25,13 +26,18 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devServer: {
     port: 3001,
+    cors: [
+      "https://threeddiki-api.onrender.com",
+      "https://threeddiki-13hm.onrender.com",
+      "http://localhost:8001/api",
+    ],
   },
   runtimeConfig: {
     // The private keys which are only available server-side
     apiSecret: "123",
     // Keys within public are also exposed client-side
     public: {
-      apiBase: "/api",
+      apiBase: import.meta.env.NUXT_API_BASE_URL || "",
     },
   },
   $production: {

@@ -1,9 +1,39 @@
 <script setup lang="ts">
-interface RateProps {}
+import vue3starRatings from "vue3-star-ratings";
 
-defineProps<RateProps>();
+interface RateProps {
+  rate: number;
+  rateCount?: number;
+  starSize?: number;
+  starColor?: string;
+  inactiveColor?: string;
+}
+
+const props = defineProps<RateProps>();
+const emits = defineEmits(["change"]);
+
+const rating = computed({
+  get() {
+    return 3.5; //props.rate;
+  },
+  set(val) {
+    emits("change", val);
+  },
+});
 </script>
 
 <template>
-  <h3>4.8 Rated 4.75 out of 5 based on 4customer ratings (4 Rating)</h3>
+  <!-- <client-only> -->
+  <div class="flex gap-2 items-center">
+    <vue3starRatings
+      v-model="rating"
+      :starSize="starSize"
+      :starColor="starColor"
+      :inactiveColor="inactiveColor"
+    />
+    <div class="" :style="{ fontSize: (starSize || 16) + 'px' }">
+      {{ rate }}
+    </div>
+  </div>
+  <!-- </client-only> -->
 </template>

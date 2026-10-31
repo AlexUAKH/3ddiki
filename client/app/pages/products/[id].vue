@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { PRODUCTS_PAGE } from "~/constants/routeNames";
 import type { MediaFile, Product } from "~/types";
 
 // interface ProductProps {}
@@ -39,7 +40,7 @@ const carouselConfig = {
 
 const previewCarouselConfig = {
   itemsToShow: 4,
-  snapAlign: "center-even",
+  snapAlign: "center-even" as any,
   gap: 10,
   transition: 300,
   wrapAround: false,
@@ -62,14 +63,14 @@ const product: Product = {
       price: 22,
       filament: { id: 1, type: "TPU", color: "red" },
       images: [
-        { url: "/img/petg-koyote.webp", type: "IMAGE" },
-        { url: "/img/petg-koyote.webp", type: "IMAGE" },
+        { path: "/img/petg-koyote.webp", type: "IMAGE" },
+        { path: "/img/petg-koyote.webp", type: "IMAGE" },
         {
-          url: "https://cdn.britannica.com/34/235834-050-C5843610/two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg",
+          path: "https://cdn.britannica.com/34/235834-050-C5843610/two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg",
           type: "IMAGE",
         },
         {
-          url: "https://m.media-amazon.com/images/I/41QZSg8drOL.jpg",
+          path: "https://m.media-amazon.com/images/I/41QZSg8drOL.jpg",
           type: "IMAGE",
         },
       ],
@@ -80,15 +81,15 @@ const product: Product = {
       filament: { id: 1, type: "PETg", color: "green" },
       images: [
         {
-          url: "https://as2.ftcdn.net/v2/jpg/00/66/23/39/1000_F_66233948_PZNkyexlCBb80NFf4UpS4RH7ScGC2LuI.jpg",
+          path: "https://as2.ftcdn.net/v2/jpg/00/66/23/39/1000_F_66233948_PZNkyexlCBb80NFf4UpS4RH7ScGC2LuI.jpg",
           type: "IMAGE",
         },
         {
-          url: "https://as1.ftcdn.net/v2/jpg/05/36/96/68/1000_F_536966859_zDktu2e3QDJwactmDwYHTCVyuqJLbFZQ.webp",
+          path: "https://as1.ftcdn.net/v2/jpg/05/36/96/68/1000_F_536966859_zDktu2e3QDJwactmDwYHTCVyuqJLbFZQ.webp",
           type: "IMAGE",
         },
         {
-          url: "https://as2.ftcdn.net/v2/jpg/02/11/25/91/1000_F_211259199_n0LBMIpx3FGIsKjqQHt7g8u3pjH2i9OL.jpg",
+          path: "https://as2.ftcdn.net/v2/jpg/02/11/25/91/1000_F_211259199_n0LBMIpx3FGIsKjqQHt7g8u3pjH2i9OL.jpg",
           type: "IMAGE",
         },
       ],
@@ -103,6 +104,7 @@ const product: Product = {
       rate: 4.2,
       date: "2023-08-15",
       text: "Great product! Highly recommend.",
+      product: "",
     },
     {
       id: 2,
@@ -110,6 +112,7 @@ const product: Product = {
       rate: 3,
       date: "2023-08-20",
       text: "Not what I expected, but still good.",
+      product: "",
     },
   ],
   discount: 10,
@@ -155,11 +158,15 @@ const setSelectedVariantId = (id: number) => {
 const setFavorite = (id: number) => {
   console.log("setFavorite to: ", id);
 };
+
+const goToProducts = () => {
+  router.push({ name: PRODUCTS_PAGE });
+};
 </script>
 
 <template>
   <AppContainer>
-    <AppBack @click="router.go(-1)" />
+    <AppBack @click="goToProducts" />
 
     <div class="mt-8">
       <div class="grid grid-cols-1 md:grid-cols-[450px_1fr] gap-6 md:gap-10">
@@ -180,7 +187,7 @@ const setFavorite = (id: number) => {
                 @click="previewImage = img"
               >
                 <img
-                  :src="img.url"
+                  :src="img.path"
                   alt=""
                   class="h-full max-h-80 md:max-h-112.5 max-w-full object-contain cursor-pointer"
                 />
@@ -204,7 +211,7 @@ const setFavorite = (id: number) => {
               >
                 <!-- @click="setCurrentSlide(ind)" -->
                 <img
-                  :src="img.url"
+                  :src="img.path"
                   alt=""
                   class="max-w-full aspect-square object-contain cursor-pointer rounded-md overflow-hidden"
                   :class="{
@@ -222,7 +229,7 @@ const setFavorite = (id: number) => {
             {{ product.name }}
           </div>
 
-          <ProductsRateWidget />
+          <ProductsRateWidget :rate="4" />
 
           <div class=""></div>
 

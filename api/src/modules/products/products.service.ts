@@ -78,7 +78,39 @@ export class ProductsService {
   // ===========================
   // client part
   async findAll() {
-    return this.prisma.product.findMany();
+    const res = await this.prisma.product.findMany({
+      select: {
+        id: true,
+        name: true,
+        category: true,
+        discount: true,
+        rate: true,
+        variants: {
+          include: {
+            images: {
+              select: {
+                path: true,
+                type: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    // price
+    // images: MediaFile[],
+    // return res;
+
+    return res.map((product) => ({
+      id: product.id,
+      name: product.name,
+      category: product.category.title || '',
+      discount: product.discount || 0,
+      rate: product.rate || 0,
+      price: Math.min(...product.variants.map((variant) => variant.price)),
+      images: product.variants.map((variant) => variant.images).flat(),
+    }));
   }
 
   async findOne(id: number) {

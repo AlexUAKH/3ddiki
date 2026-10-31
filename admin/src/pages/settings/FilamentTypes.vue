@@ -119,7 +119,6 @@ onMounted(async () => {
           :headers="headers"
           :items="types"
           :loading="loading"
-          hide-default-footer
           :no-data-text="t('common.noData')"
         >
           <template #item.actions="{ item }">

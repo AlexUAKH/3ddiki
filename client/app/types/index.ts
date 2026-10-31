@@ -6,7 +6,7 @@ export type MainMenu = {
 export type MediaType = "IMAGE" | "VIDEO" | "DOCUMENT";
 
 export type MediaFile = {
-  url: string;
+  path: string;
   type: MediaType;
 };
 

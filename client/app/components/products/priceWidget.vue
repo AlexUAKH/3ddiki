@@ -10,7 +10,7 @@ interface PriceWidgetProps {
 const props = defineProps<PriceWidgetProps>();
 
 const getPriceWithDiscount = (price: number, discount: number = 0) =>
-  price * (1 - discount / 100);
+  (price * (1 - discount / 100)).toFixed(2);
 </script>
 
 <template>

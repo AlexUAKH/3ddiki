@@ -130,25 +130,9 @@ onMounted(async () => {
       :icon="FILAMENT_COLORS_ICON"
     >
       <template #actions>
-        <!-- <div
-          class="d-flex flex-column flex-md-row ga-4 align-md-center align-end"
-        > -->
-        <!-- <v-text-field
-            v-model="search"
-            append-inner-icon="mdi-magnify"
-            placeholder="Search"
-            hide-details
-            dense
-            outlined
-            clearable
-            clear-icon="mdi-close-circle"
-            class="w-100"
-            @click:clear="search = ''"
-          /> -->
         <v-btn color="info" @click="createHandler">
           {{ t("common.create") }}
         </v-btn>
-        <!-- </div> -->
       </template>
       <v-text-field
         v-model="search"

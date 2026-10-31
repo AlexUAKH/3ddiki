@@ -25,6 +25,9 @@ export default {
     category: "Category | Categories",
     description: "Description",
     filament: "Filament",
+    chooseFile: "Choose file(s)",
+    dragAndDropFilesHere: "Drag and drop file(s) here",
+    image: "Image | Images",
   },
   sideBar: {
     dashboard: "Dashboard",

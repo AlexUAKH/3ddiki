@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { useHelpers } from "@/composables/helpers";
-import {
-  useProducts,
-  type CreateProduct
-} from "@/composables/products";
+import { useProducts, type CreateProduct } from "@/composables/products";
 import { PRODUCT_CATEGORY_API_FOR_SELECT } from "@/constants/api-const.ts";
 import $http from "@/plugins/axios.ts";
 import { useField, useForm } from "vee-validate";
@@ -25,7 +22,7 @@ interface GeneralTabProps {
 }
 
 const props = defineProps<GeneralTabProps>();
-const emits = defineEmits(["success"]);
+const emits = defineEmits(["created"]);
 
 const minLength = 3;
 const maxLength = 254;
@@ -42,7 +39,10 @@ const { t } = useI18n();
 
 const name = useField<string>("name", { required: true, min: minLength });
 const categoryId = useField<any>("categoryId", { required: true });
-const description = useField<string>("description", { max: maxLength });
+const description = useField<string>("description", {
+  required: true,
+  max: maxLength,
+});
 const weight = useField<number>("weight", {
   number: true,
   not_zero: true,
@@ -76,16 +76,21 @@ const submit = handleSubmit(async (event) => {
   };
 
   try {
-    props.productId
-      ? await updateProduct(props.productId, data)
-      : await createProduct(data);
+    if (props.productId) {
+      await updateProduct(props.productId, data);
+      emits("created");
+    } else {
+      const res = await createProduct(data);
+      console.log("create product res: ", res.data);
+
+      emits("created", res.data.id);
+    }
 
     toast.success(
       props.productId
         ? t("product.productWasUpdatedSuccessfully")
         : t("product.newProductCreated"),
     );
-    emits("success");
   } catch (error: any) {
     toast.error(errorMessage(error));
   } finally {

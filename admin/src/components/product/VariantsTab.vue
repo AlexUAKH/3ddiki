@@ -29,6 +29,7 @@ const props = defineProps<VariantsTabProps>();
 const loading = ref(false);
 const variants = ref<ProductVariant[]>([]);
 const imagesToPreview = ref<ImageType[]>([]);
+const previewImageInd = ref(0);
 const deletingVariant = ref<DeleteItem | null>(null);
 const editingId = ref<number | null>(null);
 const showManageModal = ref(false);
@@ -53,7 +54,7 @@ const headers = computed<Header[]>(() => [
     sortable: false,
   },
   {
-    title: t("common.image"),
+    title: t("common.image", 2),
     key: "images",
     align: "center",
     sortable: false,
@@ -134,11 +135,13 @@ const getVariants = async () => {
   }
 };
 
-const preview = (images: ImageType[]) => {
+const preview = (images: ImageType[], ind: number) => {
   imagesToPreview.value = images;
+  previewImageInd.value = ind;
 };
 const closePreview = () => {
   imagesToPreview.value = [];
+  previewImageInd.value = 0;
 };
 
 onMounted(async () => {
@@ -169,10 +172,14 @@ onMounted(async () => {
             :items="item.images"
             :item-props="(item) => ({ image: item.path })"
             :limit="3"
-            @click.stop="preview(item.images || [])"
+            hoverable
           >
-            <template v-slot:item="{ props }">
-              <v-avatar v-bind="props" rounded="lg"></v-avatar>
+            <template v-slot:item="{ props, index }">
+              <v-avatar
+                v-bind="props"
+                rounded="lg"
+                @click.stop="preview(item.images || [], index)"
+              ></v-avatar>
             </template>
           </VAvatarGroup>
         </template>
@@ -189,6 +196,7 @@ onMounted(async () => {
     <ImagePreview
       v-if="imagesToPreview?.length"
       :images="imagesToPreview"
+      :previewImageInd="previewImageInd"
       @close="closePreview"
     />
 
