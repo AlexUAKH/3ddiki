@@ -77,12 +77,12 @@ const menuItems = computed<MenuItem[]>(() => [
     route: "products",
     pageName: ERouteNames.products,
   },
-  // {
-  //   title: "Radobot",
-  //   route: "radobot",
-  //   icon: "mdi-robot-angry-outline",
-  //   pageName: ERouteNames.radobot,
-  // },
+  {
+    title: "Radobot",
+    route: "radobot",
+    icon: "mdi-robot-angry-outline",
+    pageName: ERouteNames.radobot,
+  },
 ]);
 
 const settings = [
