@@ -13,6 +13,8 @@ import {
   watchEffect,
 } from "vue";
 import { useI18n } from "vue-i18n";
+import { VMarkdownEditor } from "vue3-markdown";
+import "vue3-markdown/dist/vue3-markdown.css";
 import { toast } from "vue3-toastify";
 import FormActions from "../common/FormActions.vue";
 import MarkdownInstruction from "../common/markdownInstruction.vue";
@@ -76,15 +78,12 @@ const submit = handleSubmit(async (event) => {
   };
 
   try {
-    if (props.productId) {
-      await updateProduct(props.productId, data);
-      emits("created");
-    } else {
-      const res = await createProduct(data);
-      console.log("create product res: ", res.data);
+    const res = props.productId
+      ? await updateProduct(props.productId, data)
+      : await createProduct(data);
+    console.log("create product res: ", res.data);
 
-      emits("created", res.data.id);
-    }
+    emits("created", res.data.id);
 
     toast.success(
       props.productId
@@ -208,7 +207,7 @@ onMounted(async () => {
             :label="`${t('common.discount')}, %`"
           />
 
-          <v-textarea
+          <!-- <v-textarea
             class="mt-2"
             v-model="description.value.value"
             hide-details="auto"
@@ -217,7 +216,10 @@ onMounted(async () => {
             "
             :label="t('common.description') + ' Markdown'"
           >
-          </v-textarea>
+          </v-textarea> -->
+          <VMarkdownEditor v-model="description.value.value" />
+          <!-- locale="en" -->
+          <!-- :upload-action="handleUpload" -->
           <MarkdownInstruction />
         </v-form>
 
@@ -229,5 +231,35 @@ onMounted(async () => {
         />
       </v-card-text>
     </v-card>
+    <!-- 
+    # Опис товару
+**жирний текст**
+
+
+> цитата
+
+
+1. нумерований список
+
+
+
+- список з дефісами
+
+
+
+---
+
+
+
+
+- [x] список задач
+
+
+```
+class Cat () {
+  private Meaw() {}
+}
+```
+     -->
   </div>
 </template>

@@ -4,27 +4,37 @@ import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
-  const port = process.env.PORT ?? '3006';
+  const port = process.env.PORT ?? 8001;
   const app = await NestFactory.create(AppModule, { rawBody: true });
 
   // app.use(cookieParser());
-  const allowedOrigins = [
-    process.env.ADMIN_URL || 'http://localhost:3000', // admin
-    process.env.CLIENT_URL || 'http://localhost:3001', // client,
-  ];
+  const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || [];
 
   app.enableCors({
     origin: (origin, callback) => {
       // Разрешаем запросы без origin (например, Postman или мобильные приложения)
       // или если origin находится в нашем списке разрешенных
-      if (!origin || allowedOrigins.includes(origin)) {
+      Logger.debug(
+        `Request origin: ${origin}, Allowed origins: ${allowedOrigins.join(', ')}`,
+      );
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error('Blocked by CORS'));
       }
     },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    // credentials: true, // Нужно, если фронтенды отправляют куки или сессии
+
+    // 👇 Разрешаем отправку заголовков (критично для LocalStorage / Bearer Token)
+    allowedHeaders: 'Content-Type,Accept,Authorization,X-Requested-With',
+
+    // 👇 Разрешаем чтение заголовков (если фронтенду нужно прочитать кастомный токен из ответа)
+    exposedHeaders: 'Authorization',
+    credentials: true, // Нужно, если фронтенды отправляют куки или сессии
   });
 
   app.useGlobalFilters(new AllExceptionsFilter());
@@ -39,7 +49,9 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   Logger.log(`Listening on http://localhost:${port}`);
+
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

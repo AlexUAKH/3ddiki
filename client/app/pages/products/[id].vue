@@ -27,6 +27,7 @@ const currentInfoTab = ref(DELIVERY_TAB.value);
 
 const router = useRouter();
 const route = useRoute();
+const colorMode = useColorMode();
 
 const { t } = useI18n();
 
@@ -192,7 +193,16 @@ watch(
           <div class="space-y-4 mt-6">
             <div v-if="product.description" class="">
               <h4 class="text-lg">Description:</h4>
-              <div class="">{{ product.description }}</div>
+              <!-- <div class="">{{ product.description }}</div> -->
+              <ClientOnly>
+                <MarkdownView
+                  :mode="colorMode.value"
+                  :content="product.description"
+                />
+                <template #fallback>
+                  <p>{{ product.description }}</p>
+                </template>
+              </ClientOnly>
             </div>
 
             <div class="">
@@ -282,13 +292,13 @@ watch(
             </AppTabs>
           </div>
 
-          <div class="">currentVariant: {{ currentVariant }}</div>
-          <div class="">
+          <!-- <div class="">currentVariant: {{ currentVariant }}</div> -->
+          <!-- <div class="">
             <pre>
           product: {{ product }}
           </pre
             >
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

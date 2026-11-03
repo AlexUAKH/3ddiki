@@ -7,7 +7,7 @@ interface ImagePreviewProps {
 }
 
 const props = defineProps<ImagePreviewProps>();
-defineEmits(["close"]);
+const emits = defineEmits(["close"]);
 
 const currentSlide = ref(0);
 
@@ -19,6 +19,20 @@ const carouselConfig = {
 watchEffect(() => {
   if (props.previewImageInd !== undefined)
     currentSlide.value = props.previewImageInd;
+});
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    emits("close");
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeyDown);
+});
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeyDown);
 });
 </script>
 

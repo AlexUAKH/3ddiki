@@ -26,7 +26,7 @@ const setPreviewConfig = (images: MediaFile[], ind: number) => {
 <template>
   <AppCard
     hiddenCloseBtn
-    class="pl-0 pr-0 pb-0 cursor-pointer flex flex-col overflow-hidden"
+    class="pl-0 pr-0 pb-0 pt-0 cursor-pointer flex flex-col overflow-hidden"
   >
     <div
       v-if="product.discount"

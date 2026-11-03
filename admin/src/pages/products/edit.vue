@@ -51,7 +51,7 @@ watchEffect(() => {
       @back="back"
     >
     </PageHeader>
-
+    <div class="">productId: {{ productId }}</div>
     <div class="mt-4">
       <!-- grow -->
       <v-tabs

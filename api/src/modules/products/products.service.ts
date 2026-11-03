@@ -18,16 +18,7 @@ export class ProductsService {
     }
 
     const product = await this.prisma.product.create({
-      data: {
-        name: dto.name,
-        categoryId: dto.categoryId,
-        description: dto.description,
-        weight: dto.weight,
-        sizeX: dto.sizeX,
-        sizeY: dto.sizeY,
-        sizeZ: dto.sizeZ,
-        discount: dto.discount,
-      },
+      data: dto,
     });
 
     return { id: product.id };
@@ -60,8 +51,13 @@ export class ProductsService {
     });
   }
 
-  update(id: number, dto: UpdateProductDto) {
-    return `This action updates a #${id} product: ${dto.name}`;
+  async update(id: number, dto: UpdateProductDto) {
+    const product = await this.prisma.product.update({
+      where: { id },
+      data: dto,
+    });
+
+    return { id: product.id };
   }
 
   async updateProductDiscount(id: number, discount: number) {

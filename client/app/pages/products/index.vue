@@ -148,7 +148,7 @@ const {
 
 <template>
   <AppContainer class="pt-4">
-    <ProductsFilters />
+    <!-- <ProductsFilters /> -->
     <ProductsList :products="products" :pending="pending" />
   </AppContainer>
 </template>

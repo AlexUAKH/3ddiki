@@ -181,6 +181,10 @@ onMounted(() => {
             :label="t('common.filament')"
             name="filamentId"
           />
+          <div class="text-warning">
+            Якщо залишити ціну пустою або поставити 0, то вона буде розрахована
+            автоматично з урахуванням собівартості філамента та націнки"
+          </div>
           <v-number-input
             class="mt-2"
             v-model="price.value.value"
@@ -190,7 +194,6 @@ onMounted(() => {
             :error-messages="t(price.errorMessage.value || '')"
             :label="`${t('common.price')}, ${t('common.uah')}`"
             name="price"
-            hint="Якщо залишити пустим, то ціна буде розрахована автоматично з урахуванням собівартості філамента та націнки"
           />
           <v-number-input
             class="mt-2"

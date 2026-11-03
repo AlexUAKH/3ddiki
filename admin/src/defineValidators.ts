@@ -95,12 +95,12 @@ defineRule("number", (value: string | number) => {
 });
 defineRule("float", (value: string | number) => {
   // Field is 0, should pass
-  if (value == 0) {
+  if (value == 0 || !value || !value.toString().length) {
     return true;
   }
-  if (!value || !value.toString().length) {
-    return "validation.required";
-  }
+  // if (!value || !value.toString().length) {
+  //   return "validation.required";
+  // }
   // Check if is number
   if (!/[+-]?([0-9]*[.])?[0-9]+/g.test(value.toString())) {
     return "validation.float";
