@@ -5,14 +5,7 @@ import { FILAMENT_API_FOR_SELECT } from "@/constants/api-const";
 import $http from "@/plugins/axios.ts";
 import type { SelectList } from "@/types";
 import { useField, useForm } from "vee-validate";
-import {
-  defineEmits,
-  defineProps,
-  onMounted,
-  ref,
-  shallowRef,
-  watchEffect,
-} from "vue";
+import { onMounted, ref, shallowRef, watchEffect } from "vue";
 import { useI18n } from "vue-i18n";
 import { toast } from "vue3-toastify";
 import FormActions from "../common/FormActions.vue";

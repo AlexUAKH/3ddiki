@@ -12,7 +12,7 @@ import {
 import { PRODUCT_VARIANT_EDIT_API } from "@/constants/api-const.ts";
 import { DELETE_ICON, EDIT_ICON } from "@/constants/iconsMap.ts";
 import type { DeleteItem } from "@/types/index.ts";
-import { computed, defineProps, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { VAvatarGroup } from "vuetify/labs/VAvatarGroup";
 import DeleteItemModal from "../DeleteItemModal.vue";

@@ -5,7 +5,7 @@ import VariantsTab from "@/components/product/VariantsTab.vue";
 import { type ProductType } from "@/composables/products";
 import { EDIT_ICON } from "@/constants/iconsMap";
 import { ERouteNames } from "@/router/router.types";
-import { computed, defineProps, ref, watchEffect } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 

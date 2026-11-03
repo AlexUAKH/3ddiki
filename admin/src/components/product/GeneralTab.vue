@@ -4,14 +4,7 @@ import { useProducts, type CreateProduct } from "@/composables/products";
 import { PRODUCT_CATEGORY_API_FOR_SELECT } from "@/constants/api-const.ts";
 import $http from "@/plugins/axios.ts";
 import { useField, useForm } from "vee-validate";
-import {
-  defineEmits,
-  defineProps,
-  onMounted,
-  ref,
-  shallowRef,
-  watchEffect,
-} from "vue";
+import { onMounted, ref, shallowRef, watchEffect } from "vue";
 import { useI18n } from "vue-i18n";
 import { VMarkdownEditor } from "vue3-markdown";
 import "vue3-markdown/dist/vue3-markdown.css";

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { TableAction } from "@/composables/table";
-import { defineProps, withDefaults } from "vue";
 import { useDisplay } from "vuetify";
 
 interface Props {
