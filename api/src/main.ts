@@ -52,6 +52,6 @@ async function bootstrap() {
   await app.listen(port, '0.0.0.0');
   Logger.log(`Listening on http://localhost:${port}`);
 
-  console.log(`Application is running on: ${await app.getUrl()}`);
+  // console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
