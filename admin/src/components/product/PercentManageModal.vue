@@ -2,7 +2,7 @@
 import { useHelpers } from "@/composables/helpers.ts";
 import { useProducts } from "@/composables/products.ts";
 import { useField, useForm } from "vee-validate";
-import { defineEmits, defineProps, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { toast } from "vue3-toastify";
 import FormActions from "../common/FormActions.vue";

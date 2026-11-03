@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { BACK_ICON } from "@/constants/iconsMap";
-import { defineEmits, defineProps, withDefaults } from "vue";
 import { useI18n } from "vue-i18n";
 
 interface Props {
@@ -32,7 +31,7 @@ const { t } = useI18n();
       {{ header }}
     </div>
 
-    <div class="d-flex align-center flex-grow-1">
+    <div class="d-flex align-center grow">
       <slot v-if="$slots.default" />
     </div>
     <div class="actions">
