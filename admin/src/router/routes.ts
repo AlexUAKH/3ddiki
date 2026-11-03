@@ -42,7 +42,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: "Radobot image extractor",
       layout: EAppLayouts.default,
-      middleware: [guest],
+      middleware: [auth],
     },
   },
   {
