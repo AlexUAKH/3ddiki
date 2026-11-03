@@ -20,7 +20,7 @@ watchEffect(() => {
 
 <template>
   <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-    <SkeletonProduct v-if="pending" v-for="i in 3" />
+    <SkeletonProductListCard v-if="pending" v-for="i in 3" />
 
     <div v-else-if="!products?.length" class="">Ще немає продуктів</div>
     <ProductsCard

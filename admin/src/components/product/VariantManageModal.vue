@@ -44,7 +44,7 @@ const { getProductVariant, createProductVariant, updateProductVariant } =
   useProducts();
 
 const filamentId = useField<any>("filamentId", { required: true });
-const price = useField<number>("price", { float: true, not_zero: true });
+const price = useField<number>("price", { float: true });
 const stock = useField<number>("stock", { number: true });
 
 const submit = handleSubmit(async (event) => {
@@ -66,8 +66,12 @@ const submit = handleSubmit(async (event) => {
   const formData = new FormData();
 
   formData.append("filamentId", event.filamentId);
-  formData.append("price", event.price);
-  formData.append("productId", "" + props.productId);
+  if (event.price && event.price > 0) {
+    formData.append("price", event.price.toString());
+  } else {
+    formData.append("price", "");
+  }
+  formData.append("productId", props.productId.toString());
   formData.append("stock", event.stock);
   if (images.value.length) {
     images.value.forEach((image) => {
@@ -186,6 +190,7 @@ onMounted(() => {
             :error-messages="t(price.errorMessage.value || '')"
             :label="`${t('common.price')}, ${t('common.uah')}`"
             name="price"
+            hint="Якщо залишити пустим, то ціна буде розрахована автоматично з урахуванням собівартості філамента та націнки"
           />
           <v-number-input
             class="mt-2"

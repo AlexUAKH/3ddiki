@@ -22,7 +22,7 @@ export type ProductListItem = {
 
 export type Filament = {
   id: number;
-  color: string;
+  colors: string;
   type: string;
 };
 
@@ -31,12 +31,6 @@ export type ProductVariant = {
   filament: Filament;
   images: MediaFile[];
   price: number;
-};
-
-export type Size = {
-  x: number;
-  y: number;
-  z: number;
 };
 
 export type Review = {
@@ -53,11 +47,13 @@ export type Product = {
   name: string;
   category: string;
   description: string;
-  weight: number;
-  size: Size;
   variants: ProductVariant[];
   rate: number;
   favorite: boolean;
   reviews: Review[];
   discount: number;
+  sizeX: number;
+  sizeY: number;
+  sizeZ: number;
+  weight: number;
 };

@@ -7,11 +7,11 @@ defineProps<ProductProps>();
 <template>
   <div
     role="status"
-    class="border border-default rounded-base shadow-xs animate-pulse"
+    class="animate-puls w-full flex flex-col md:flex-row gap-4 md:gap-6"
   >
     <div
       role="status"
-      class="flex items-center justify-center h-70 bg-gray-500/25 rounded-base animate-pulse mb-4 sm:mb-6"
+      class="flex items-center justify-center h-110 w-full max-w-96 bg-gray-500/25 rounded-base animate-pulse mb-4 sm:mb-6"
     >
       <svg
         class="w-11 h-11 text-fg-disabled"
@@ -31,8 +31,13 @@ defineProps<ProductProps>();
       </svg>
       <span class="sr-only">Loading...</span>
     </div>
-    <div class="p-4 md:p-6">
-      <div class="h-4 bg-gray-500/25 rounded-full w-1/2 mb-4"></div>
+    <div class="w-full">
+      <div class="h-6 bg-gray-500/25 rounded-full w-1/2 mb-4"></div>
+      <div class="h-4 bg-gray-500/25 rounded-full mb-4"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
       <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
       <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
       <div class="h-2 bg-gray-500/25 rounded-full"></div>

@@ -14,7 +14,7 @@ const emits = defineEmits(["change"]);
 
 const rating = computed({
   get() {
-    return 3.5; //props.rate;
+    return props.rate;
   },
   set(val) {
     emits("change", val);

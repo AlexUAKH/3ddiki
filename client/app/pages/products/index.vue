@@ -143,9 +143,6 @@ const {
   key: "products",
   method: "GET",
   default: () => [],
-  onResponse(res) {
-    console.log("onResponse: ", JSON.stringify(res.response));
-  },
 });
 </script>
 

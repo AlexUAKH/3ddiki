@@ -102,20 +102,73 @@ export class ProductsService {
     // images: MediaFile[],
     // return res;
 
-    return res.map((product) => ({
-      id: product.id,
-      name: product.name,
-      category: product.category.title || '',
-      discount: product.discount || 0,
-      rate: product.rate || 0,
-      price: Math.min(...product.variants.map((variant) => variant.price)),
-      images: product.variants.map((variant) => variant.images).flat(),
-    }));
+    return res
+      .filter((product) => product.variants.length)
+      .map((product) => ({
+        id: product.id,
+        name: product.name,
+        category: product.category.title || '',
+        discount: product.discount || 0,
+        rate: product.rate || 0,
+        price: Math.min(...product.variants.map((variant) => variant.price)),
+        images: product.variants.map((variant) => variant.images).flat(),
+      }));
   }
 
   async findOne(id: number) {
-    return this.prisma.product.findUnique({
+    const res = await this.prisma.product.findUnique({
       where: { id },
+      omit: {
+        categoryId: true,
+      },
+      include: {
+        category: true,
+        variants: {
+          include: {
+            filament: {
+              include: {
+                colors: true,
+                type: true,
+              },
+            },
+            images: {
+              select: {
+                path: true,
+                type: true,
+              },
+            },
+            // price: true,
+          },
+        },
+      },
     });
+
+    if (!res) {
+      throw new BadRequestException('Product not found');
+    }
+
+    return {
+      id: res.id,
+      name: res.name,
+      description: res.description,
+
+      weight: res.weight,
+      sizeX: res.sizeX,
+      sizeY: res.sizeY,
+      sizeZ: res.sizeZ,
+      rate: res.rate || 0,
+      discount: res.discount || 0,
+      category: res.category.title || '',
+      variants: res.variants.map((variant) => ({
+        id: variant.id,
+        price: variant.price,
+        stock: variant.stock,
+        filament: {
+          colors: variant.filament.colors.map((c) => c.color),
+          type: variant.filament.type.name,
+        },
+        images: variant.images,
+      })),
+    };
   }
 }

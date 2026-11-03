@@ -163,7 +163,7 @@ model ProductVariant {
   id         Int @id @default(autoincrement())
   productId  Int @map("product_id")
   filamentId Int @map("filament_id")
-  price      Int @default(0) @map("price") // in cents
+  price      Int @default(0) @map("price")
   stock      Int @default(0) @map("stock") // in grams
 
   images   File[] // @relation("ProductVariantFiles", fields: [id], references: [ownerId])

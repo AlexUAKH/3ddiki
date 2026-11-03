@@ -16,7 +16,7 @@ const getRefreshTokenExpireIn = () =>
 const headers = {
   // "Content-Type": "application/json",
   // "X-Requested-With": "XMLHttpRequest",
-  // "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Origin": "*",
 };
 
 const $http = axios.create({

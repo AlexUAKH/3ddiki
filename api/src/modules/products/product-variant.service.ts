@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { MediaOwnerType, MediaType } from 'generated/prisma/enums';
+import { MARGIN } from 'src/constants';
 import { CreateVariantDto } from '../admin/product/dto/create-product-variant.dto';
 import { UpdateVariantDto } from '../admin/product/dto/update-product-variant.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -66,11 +67,15 @@ export class ProductVariantsService {
       images.map((file) => this.storageService.uploadImage(file, 'variants')),
     );
 
+    const price = dto.price
+      ? dto.price
+      : await this.calculateVariantPrice(productId, dto.filamentId);
+
     try {
       return this.prisma.productVariant.create({
         data: {
           filamentId: dto.filamentId,
-          price: dto.price,
+          price,
           stock: dto.stock,
           productId,
           images: {
@@ -84,12 +89,6 @@ export class ProductVariantsService {
               type: MediaType.IMAGE,
             })),
           },
-          // include: {
-          //   images: true,
-          // },
-          //   : {
-          //   connect: { id: productId },
-          // },
         },
       });
     } catch (error) {
@@ -269,4 +268,26 @@ export class ProductVariantsService {
 
   // ===========================
   // client part
+
+  private async calculateVariantPrice(
+    productId: number,
+    filamentId: number,
+  ): Promise<number> {
+    const product = await this.prisma.product.findUnique({
+      where: { id: productId },
+    });
+    const filament = await this.prisma.filament.findUnique({
+      where: { id: filamentId },
+    });
+
+    if (!filament) {
+      throw new NotFoundException('Filament not found');
+    }
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    const filamentPrice = filament.price / 1000; // filament.price is in uah per kg
+    return product.weight * filamentPrice * (1 + MARGIN / 100); // MARGIN % markup
+  }
 }

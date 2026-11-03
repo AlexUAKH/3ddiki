@@ -1,28 +1,29 @@
 <script setup lang="ts">
+import { PRODUCTS_API } from "~/constants/api";
 import { PRODUCTS_PAGE } from "~/constants/routeNames";
-import type { MediaFile, Product } from "~/types";
+import type { Product } from "~/types";
 
 // interface ProductProps {}
 
 // defineProps<ProductProps>();
-const SPECIFICATION_TAB = "Характеристики";
-const REVIEWS_TAB = "Reviews";
+const SPECIFICATION_TAB = shallowRef("Характеристики");
+const REVIEWS_TAB = shallowRef("Reviews");
 
-const DELIVERY_TAB = "delivery";
-const PAYMENT_TAB = "payment";
-const QUESTION_TAB = "question";
+const DELIVERY_TAB = shallowRef("delivery");
+const PAYMENT_TAB = shallowRef("payment");
+const QUESTION_TAB = shallowRef("question");
 
-const mainTabs = [SPECIFICATION_TAB, REVIEWS_TAB];
-const infoTabs = [DELIVERY_TAB, PAYMENT_TAB, QUESTION_TAB];
+const mainTabs = [SPECIFICATION_TAB.value, REVIEWS_TAB.value];
+const infoTabs = [DELIVERY_TAB.value, PAYMENT_TAB.value, QUESTION_TAB.value];
 
-const previewImage = shallowRef<MediaFile | null>(null);
+const previewImageInd = ref<number | null>(null);
 const currentSlide = ref(0);
-const selectedVariantId = ref<number | null>(2);
+const selectedVariantId = ref<number | null>(null);
 const mainCarousel = ref<any>(null);
 const previewCarousel = ref<any>(null);
 
-const currentMainTab = ref(SPECIFICATION_TAB);
-const currentInfoTab = ref(DELIVERY_TAB);
+const currentMainTab = ref(SPECIFICATION_TAB.value);
+const currentInfoTab = ref(DELIVERY_TAB.value);
 
 const router = useRouter();
 const route = useRoute();
@@ -46,84 +47,32 @@ const previewCarouselConfig = {
   wrapAround: false,
 };
 
-const product: Product = {
-  id: 544,
-  name: "Fat cat clicker",
-  category: "toys",
-  description: "description",
-  size: {
-    x: 5,
-    y: 5,
-    z: 12,
-  },
-  weight: 43,
-  variants: [
-    {
-      id: 2,
-      price: 22,
-      filament: { id: 1, type: "TPU", color: "red" },
-      images: [
-        { path: "/img/petg-koyote.webp", type: "IMAGE" },
-        { path: "/img/petg-koyote.webp", type: "IMAGE" },
-        {
-          path: "https://cdn.britannica.com/34/235834-050-C5843610/two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg",
-          type: "IMAGE",
-        },
-        {
-          path: "https://m.media-amazon.com/images/I/41QZSg8drOL.jpg",
-          type: "IMAGE",
-        },
-      ],
-    },
-    {
-      id: 3,
-      price: 45,
-      filament: { id: 1, type: "PETg", color: "green" },
-      images: [
-        {
-          path: "https://as2.ftcdn.net/v2/jpg/00/66/23/39/1000_F_66233948_PZNkyexlCBb80NFf4UpS4RH7ScGC2LuI.jpg",
-          type: "IMAGE",
-        },
-        {
-          path: "https://as1.ftcdn.net/v2/jpg/05/36/96/68/1000_F_536966859_zDktu2e3QDJwactmDwYHTCVyuqJLbFZQ.webp",
-          type: "IMAGE",
-        },
-        {
-          path: "https://as2.ftcdn.net/v2/jpg/02/11/25/91/1000_F_211259199_n0LBMIpx3FGIsKjqQHt7g8u3pjH2i9OL.jpg",
-          type: "IMAGE",
-        },
-      ],
-    },
-  ],
-  rate: 4,
-  favorite: false,
-  reviews: [
-    {
-      id: 1,
-      user: "John Doe",
-      rate: 4.2,
-      date: "2023-08-15",
-      text: "Great product! Highly recommend.",
-      product: "",
-    },
-    {
-      id: 2,
-      user: "Jane Smith",
-      rate: 3,
-      date: "2023-08-20",
-      text: "Not what I expected, but still good.",
-      product: "",
-    },
-  ],
-  discount: 10,
-};
+const productId = computed(() => route.params.id || null);
 
-const productImages = computed(() =>
-  product.variants.map((variant) => variant.images).flat(),
-);
+const {
+  data: product,
+  pending,
+  refresh,
+} = await useAsyncApi<Product>(PRODUCTS_API + "/" + productId.value, {
+  key: "product",
+  method: "GET",
+  default: () => ({}) as Product,
+});
+
+const productImages = computed(() => {
+  if (product.value?.variants && product.value.variants.length === 0) {
+    console.log([]);
+    return [];
+  }
+  const images =
+    product.value.variants.map((variant) => variant.images || []).flat() || [];
+  return images;
+});
 
 const currentVariant = computed(() =>
-  product.variants.find((el) => el.id === selectedVariantId.value),
+  (product.value?.variants || []).find(
+    (el) => el.id === selectedVariantId.value,
+  ),
 );
 
 const onMainSlide = ({ currentSlideIndex: index }: any) => {
@@ -162,19 +111,28 @@ const setFavorite = (id: number) => {
 const goToProducts = () => {
   router.push({ name: PRODUCTS_PAGE });
 };
+
+watch(
+  () => product.value?.variants,
+  (newVariants) => {
+    if (newVariants && newVariants.length > 0) {
+      selectedVariantId.value = newVariants[0]?.id || null;
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <AppContainer>
     <AppBack @click="goToProducts" />
 
-    <div class="mt-8">
+    <SkeletonProduct v-if="pending" />
+
+    <div v-else-if="product && Object.keys(product)?.length" class="mt-8">
       <div class="grid grid-cols-1 md:grid-cols-[450px_1fr] gap-6 md:gap-10">
         <div class="">
           <div class="w-full mx-auto product-carousel">
-            <!-- 
-            v-model="currentSlide"
-              -->
             <AppCarousel
               class="bg-gray-300 dark:bg-gray-900"
               ref="mainCarousel"
@@ -184,7 +142,7 @@ const goToProducts = () => {
               <AppSlide
                 v-for="(img, ind) in productImages"
                 :key="ind"
-                @click="previewImage = img"
+                @click="previewImageInd = ind"
               >
                 <img
                   :src="img.path"
@@ -194,7 +152,6 @@ const goToProducts = () => {
               </AppSlide>
 
               <template #addons>
-                <!-- <AppNavigation /> -->
                 <AppPagination />
               </template>
             </AppCarousel>
@@ -209,7 +166,6 @@ const goToProducts = () => {
                 :key="ind"
                 @click="onPreviewClick(ind)"
               >
-                <!-- @click="setCurrentSlide(ind)" -->
                 <img
                   :src="img.path"
                   alt=""
@@ -229,7 +185,7 @@ const goToProducts = () => {
             {{ product.name }}
           </div>
 
-          <ProductsRateWidget :rate="4" />
+          <ProductsRateWidget class="mt-4" :rate="product.rate" />
 
           <div class=""></div>
 
@@ -252,8 +208,13 @@ const goToProducts = () => {
                   ]"
                   @click="setSelectedVariantId(variant.id)"
                 >
-                  <div class="" :style="{ color: variant.filament.color }">
-                    {{ variant.filament.color }}
+                  <div class="flex gap-2 items-center">
+                    <div
+                      class="rounded-full w-6 h-6 border border-gray-600 dark:border-gray-400"
+                      :style="{ background: variant.filament.colors[0] }"
+                    >
+                      <!-- {{ variant.filament.colors[0] }} -->
+                    </div>
                   </div>
                   <div class="">{{ variant.filament.type }}</div>
                 </li>
@@ -291,15 +252,15 @@ const goToProducts = () => {
             <AppTabs
               :tabs="mainTabs"
               :active-tab="currentMainTab"
-              :badge="{ [REVIEWS_TAB]: product.reviews.length }"
+              :badge="{ [REVIEWS_TAB]: product.reviews?.length || 0 }"
               @select="currentMainTab = $event"
             >
               <div v-if="currentMainTab === SPECIFICATION_TAB" class="">
                 <ol>
                   <li>Матеріал PETG</li>
-                  <li>length: {{ product.size.x }}</li>
-                  <li>width: {{ product.size.y }}</li>
-                  <li>height: {{ product.size.z }}</li>
+                  <li>length: {{ product.sizeX }}</li>
+                  <li>width: {{ product.sizeY }}</li>
+                  <li>height: {{ product.sizeZ }}</li>
                   <li>Weight: {{ product.weight }}</li>
                 </ol>
               </div>
@@ -320,15 +281,26 @@ const goToProducts = () => {
               <ProductsQuestionsTab v-if="currentInfoTab === QUESTION_TAB" />
             </AppTabs>
           </div>
+
+          <div class="">currentVariant: {{ currentVariant }}</div>
+          <div class="">
+            <pre>
+          product: {{ product }}
+          </pre
+            >
+          </div>
         </div>
       </div>
     </div>
 
+    <div v-else class="">Продукт не знайдений</div>
+
     <Teleport to="#teleports">
       <AppImagePreview
-        v-if="previewImage"
-        :image="previewImage"
-        @close="previewImage = null"
+        v-if="previewImageInd"
+        :images="productImages"
+        :preview-image-ind="previewImageInd"
+        @close="previewImageInd = null"
       />
     </Teleport>
   </AppContainer>
