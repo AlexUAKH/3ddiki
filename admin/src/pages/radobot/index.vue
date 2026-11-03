@@ -2,7 +2,7 @@
 import PageHeader from "@/components/common/PageHeader.vue";
 import { ref } from "vue";
 
-const imagesUrl = ref("");
+const imagesUrl = ref("https://lms.radooga.net/content/pz-");
 const imageCount = ref(0);
 const slidesNumber = ref(0);
 const lessonNumber = ref(0);
@@ -35,12 +35,14 @@ const downloadWebP = async () => {
   console.log(
     imageCount.value,
     " url: ",
-    `${imagesUrl.value}/${formatImageName()}`,
+    `${imagesUrl.value}${lessonNumber.value}/${formatImageName()}`,
   );
 
   try {
     // 1. Получаем данные по ссылке
-    const response = await fetch(`${imagesUrl.value}/${formatImageName()}`);
+    const response = await fetch(
+      `${imagesUrl.value}${lessonNumber.value}/${formatImageName()}`,
+    );
     if (!response.ok) {
       throw new Error(`Ошибка сети: ${response.status}`);
     }
@@ -92,6 +94,7 @@ const extractImages = async () => {
         dense
         class="mb-2"
       />
+      <div>Lesson number</div>
       <v-text-field
         v-model="lessonNumber"
         outlined
@@ -100,6 +103,7 @@ const extractImages = async () => {
         type="number"
         class="mb-4"
       />
+      <div class="">Slides count</div>
       <v-text-field
         v-model="slidesNumber"
         outlined
