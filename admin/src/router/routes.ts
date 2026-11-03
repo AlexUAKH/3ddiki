@@ -35,16 +35,16 @@ export const routes: RouteRecordRaw[] = [
       middleware: [guest],
     },
   },
-  // {
-  //   path: "/radobot",
-  //   name: ERouteNames.radobot,
-  //   component: () => import("@/pages/radobot/index.vue"),
-  //   meta: {
-  //     title: "Radobot image extractor",
-  //     layout: EAppLayouts.default,
-  //     middleware: [guest],
-  //   },
-  // },
+  {
+    path: "/radobot",
+    name: ERouteNames.radobot,
+    component: () => import("@/pages/radobot/index.vue"),
+    meta: {
+      title: "Radobot image extractor",
+      layout: EAppLayouts.default,
+      middleware: [guest],
+    },
+  },
   {
     path: "/user-profile",
     name: ERouteNames.userProfile,
