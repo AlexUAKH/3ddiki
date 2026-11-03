@@ -241,6 +241,7 @@ export type FilamentWhereInput = {
   price?: Prisma.IntFilter<"Filament"> | number
   stock?: Prisma.IntFilter<"Filament"> | number
   colors?: Prisma.FilamentColorListRelationFilter
+  productVariants?: Prisma.ProductVariantListRelationFilter
   type?: Prisma.XOR<Prisma.FilamentTypeScalarRelationFilter, Prisma.FilamentTypeWhereInput>
   brand?: Prisma.XOR<Prisma.FilamentBrandScalarRelationFilter, Prisma.FilamentBrandWhereInput>
 }
@@ -253,6 +254,7 @@ export type FilamentOrderByWithRelationInput = {
   price?: Prisma.SortOrder
   stock?: Prisma.SortOrder
   colors?: Prisma.FilamentColorOrderByRelationAggregateInput
+  productVariants?: Prisma.ProductVariantOrderByRelationAggregateInput
   type?: Prisma.FilamentTypeOrderByWithRelationInput
   brand?: Prisma.FilamentBrandOrderByWithRelationInput
 }
@@ -268,6 +270,7 @@ export type FilamentWhereUniqueInput = Prisma.AtLeast<{
   price?: Prisma.IntFilter<"Filament"> | number
   stock?: Prisma.IntFilter<"Filament"> | number
   colors?: Prisma.FilamentColorListRelationFilter
+  productVariants?: Prisma.ProductVariantListRelationFilter
   type?: Prisma.XOR<Prisma.FilamentTypeScalarRelationFilter, Prisma.FilamentTypeWhereInput>
   brand?: Prisma.XOR<Prisma.FilamentBrandScalarRelationFilter, Prisma.FilamentBrandWhereInput>
 }, "id" | "name">
@@ -303,6 +306,7 @@ export type FilamentCreateInput = {
   price?: number
   stock?: number
   colors?: Prisma.FilamentColorCreateNestedManyWithoutFilamentInput
+  productVariants?: Prisma.ProductVariantCreateNestedManyWithoutFilamentInput
   type: Prisma.FilamentTypeCreateNestedOneWithoutFilamentsInput
   brand: Prisma.FilamentBrandCreateNestedOneWithoutFilamentsInput
 }
@@ -315,6 +319,7 @@ export type FilamentUncheckedCreateInput = {
   price?: number
   stock?: number
   colors?: Prisma.FilamentColorUncheckedCreateNestedManyWithoutFilamentInput
+  productVariants?: Prisma.ProductVariantUncheckedCreateNestedManyWithoutFilamentInput
 }
 
 export type FilamentUpdateInput = {
@@ -322,6 +327,7 @@ export type FilamentUpdateInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   colors?: Prisma.FilamentColorUpdateManyWithoutFilamentNestedInput
+  productVariants?: Prisma.ProductVariantUpdateManyWithoutFilamentNestedInput
   type?: Prisma.FilamentTypeUpdateOneRequiredWithoutFilamentsNestedInput
   brand?: Prisma.FilamentBrandUpdateOneRequiredWithoutFilamentsNestedInput
 }
@@ -334,6 +340,7 @@ export type FilamentUncheckedUpdateInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   colors?: Prisma.FilamentColorUncheckedUpdateManyWithoutFilamentNestedInput
+  productVariants?: Prisma.ProductVariantUncheckedUpdateManyWithoutFilamentNestedInput
 }
 
 export type FilamentCreateManyInput = {
@@ -411,6 +418,11 @@ export type FilamentListRelationFilter = {
 
 export type FilamentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type FilamentScalarRelationFilter = {
+  is?: Prisma.FilamentWhereInput
+  isNot?: Prisma.FilamentWhereInput
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -543,11 +555,26 @@ export type FilamentUncheckedUpdateManyWithoutColorsNestedInput = {
   deleteMany?: Prisma.FilamentScalarWhereInput | Prisma.FilamentScalarWhereInput[]
 }
 
+export type FilamentCreateNestedOneWithoutProductVariantsInput = {
+  create?: Prisma.XOR<Prisma.FilamentCreateWithoutProductVariantsInput, Prisma.FilamentUncheckedCreateWithoutProductVariantsInput>
+  connectOrCreate?: Prisma.FilamentCreateOrConnectWithoutProductVariantsInput
+  connect?: Prisma.FilamentWhereUniqueInput
+}
+
+export type FilamentUpdateOneRequiredWithoutProductVariantsNestedInput = {
+  create?: Prisma.XOR<Prisma.FilamentCreateWithoutProductVariantsInput, Prisma.FilamentUncheckedCreateWithoutProductVariantsInput>
+  connectOrCreate?: Prisma.FilamentCreateOrConnectWithoutProductVariantsInput
+  upsert?: Prisma.FilamentUpsertWithoutProductVariantsInput
+  connect?: Prisma.FilamentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FilamentUpdateToOneWithWhereWithoutProductVariantsInput, Prisma.FilamentUpdateWithoutProductVariantsInput>, Prisma.FilamentUncheckedUpdateWithoutProductVariantsInput>
+}
+
 export type FilamentCreateWithoutTypeInput = {
   name: string
   price?: number
   stock?: number
   colors?: Prisma.FilamentColorCreateNestedManyWithoutFilamentInput
+  productVariants?: Prisma.ProductVariantCreateNestedManyWithoutFilamentInput
   brand: Prisma.FilamentBrandCreateNestedOneWithoutFilamentsInput
 }
 
@@ -558,6 +585,7 @@ export type FilamentUncheckedCreateWithoutTypeInput = {
   price?: number
   stock?: number
   colors?: Prisma.FilamentColorUncheckedCreateNestedManyWithoutFilamentInput
+  productVariants?: Prisma.ProductVariantUncheckedCreateNestedManyWithoutFilamentInput
 }
 
 export type FilamentCreateOrConnectWithoutTypeInput = {
@@ -603,6 +631,7 @@ export type FilamentCreateWithoutBrandInput = {
   price?: number
   stock?: number
   colors?: Prisma.FilamentColorCreateNestedManyWithoutFilamentInput
+  productVariants?: Prisma.ProductVariantCreateNestedManyWithoutFilamentInput
   type: Prisma.FilamentTypeCreateNestedOneWithoutFilamentsInput
 }
 
@@ -613,6 +642,7 @@ export type FilamentUncheckedCreateWithoutBrandInput = {
   price?: number
   stock?: number
   colors?: Prisma.FilamentColorUncheckedCreateNestedManyWithoutFilamentInput
+  productVariants?: Prisma.ProductVariantUncheckedCreateNestedManyWithoutFilamentInput
 }
 
 export type FilamentCreateOrConnectWithoutBrandInput = {
@@ -645,6 +675,7 @@ export type FilamentCreateWithoutColorsInput = {
   name: string
   price?: number
   stock?: number
+  productVariants?: Prisma.ProductVariantCreateNestedManyWithoutFilamentInput
   type: Prisma.FilamentTypeCreateNestedOneWithoutFilamentsInput
   brand: Prisma.FilamentBrandCreateNestedOneWithoutFilamentsInput
 }
@@ -656,6 +687,7 @@ export type FilamentUncheckedCreateWithoutColorsInput = {
   brandId: number
   price?: number
   stock?: number
+  productVariants?: Prisma.ProductVariantUncheckedCreateNestedManyWithoutFilamentInput
 }
 
 export type FilamentCreateOrConnectWithoutColorsInput = {
@@ -679,6 +711,60 @@ export type FilamentUpdateManyWithWhereWithoutColorsInput = {
   data: Prisma.XOR<Prisma.FilamentUpdateManyMutationInput, Prisma.FilamentUncheckedUpdateManyWithoutColorsInput>
 }
 
+export type FilamentCreateWithoutProductVariantsInput = {
+  name: string
+  price?: number
+  stock?: number
+  colors?: Prisma.FilamentColorCreateNestedManyWithoutFilamentInput
+  type: Prisma.FilamentTypeCreateNestedOneWithoutFilamentsInput
+  brand: Prisma.FilamentBrandCreateNestedOneWithoutFilamentsInput
+}
+
+export type FilamentUncheckedCreateWithoutProductVariantsInput = {
+  id?: number
+  name: string
+  typeId: number
+  brandId: number
+  price?: number
+  stock?: number
+  colors?: Prisma.FilamentColorUncheckedCreateNestedManyWithoutFilamentInput
+}
+
+export type FilamentCreateOrConnectWithoutProductVariantsInput = {
+  where: Prisma.FilamentWhereUniqueInput
+  create: Prisma.XOR<Prisma.FilamentCreateWithoutProductVariantsInput, Prisma.FilamentUncheckedCreateWithoutProductVariantsInput>
+}
+
+export type FilamentUpsertWithoutProductVariantsInput = {
+  update: Prisma.XOR<Prisma.FilamentUpdateWithoutProductVariantsInput, Prisma.FilamentUncheckedUpdateWithoutProductVariantsInput>
+  create: Prisma.XOR<Prisma.FilamentCreateWithoutProductVariantsInput, Prisma.FilamentUncheckedCreateWithoutProductVariantsInput>
+  where?: Prisma.FilamentWhereInput
+}
+
+export type FilamentUpdateToOneWithWhereWithoutProductVariantsInput = {
+  where?: Prisma.FilamentWhereInput
+  data: Prisma.XOR<Prisma.FilamentUpdateWithoutProductVariantsInput, Prisma.FilamentUncheckedUpdateWithoutProductVariantsInput>
+}
+
+export type FilamentUpdateWithoutProductVariantsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  colors?: Prisma.FilamentColorUpdateManyWithoutFilamentNestedInput
+  type?: Prisma.FilamentTypeUpdateOneRequiredWithoutFilamentsNestedInput
+  brand?: Prisma.FilamentBrandUpdateOneRequiredWithoutFilamentsNestedInput
+}
+
+export type FilamentUncheckedUpdateWithoutProductVariantsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  typeId?: Prisma.IntFieldUpdateOperationsInput | number
+  brandId?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  colors?: Prisma.FilamentColorUncheckedUpdateManyWithoutFilamentNestedInput
+}
+
 export type FilamentCreateManyTypeInput = {
   id?: number
   name: string
@@ -692,6 +778,7 @@ export type FilamentUpdateWithoutTypeInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   colors?: Prisma.FilamentColorUpdateManyWithoutFilamentNestedInput
+  productVariants?: Prisma.ProductVariantUpdateManyWithoutFilamentNestedInput
   brand?: Prisma.FilamentBrandUpdateOneRequiredWithoutFilamentsNestedInput
 }
 
@@ -702,6 +789,7 @@ export type FilamentUncheckedUpdateWithoutTypeInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   colors?: Prisma.FilamentColorUncheckedUpdateManyWithoutFilamentNestedInput
+  productVariants?: Prisma.ProductVariantUncheckedUpdateManyWithoutFilamentNestedInput
 }
 
 export type FilamentUncheckedUpdateManyWithoutTypeInput = {
@@ -725,6 +813,7 @@ export type FilamentUpdateWithoutBrandInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   colors?: Prisma.FilamentColorUpdateManyWithoutFilamentNestedInput
+  productVariants?: Prisma.ProductVariantUpdateManyWithoutFilamentNestedInput
   type?: Prisma.FilamentTypeUpdateOneRequiredWithoutFilamentsNestedInput
 }
 
@@ -735,6 +824,7 @@ export type FilamentUncheckedUpdateWithoutBrandInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
   colors?: Prisma.FilamentColorUncheckedUpdateManyWithoutFilamentNestedInput
+  productVariants?: Prisma.ProductVariantUncheckedUpdateManyWithoutFilamentNestedInput
 }
 
 export type FilamentUncheckedUpdateManyWithoutBrandInput = {
@@ -749,6 +839,7 @@ export type FilamentUpdateWithoutColorsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
+  productVariants?: Prisma.ProductVariantUpdateManyWithoutFilamentNestedInput
   type?: Prisma.FilamentTypeUpdateOneRequiredWithoutFilamentsNestedInput
   brand?: Prisma.FilamentBrandUpdateOneRequiredWithoutFilamentsNestedInput
 }
@@ -760,6 +851,7 @@ export type FilamentUncheckedUpdateWithoutColorsInput = {
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.IntFieldUpdateOperationsInput | number
   stock?: Prisma.IntFieldUpdateOperationsInput | number
+  productVariants?: Prisma.ProductVariantUncheckedUpdateManyWithoutFilamentNestedInput
 }
 
 export type FilamentUncheckedUpdateManyWithoutColorsInput = {
@@ -778,10 +870,12 @@ export type FilamentUncheckedUpdateManyWithoutColorsInput = {
 
 export type FilamentCountOutputType = {
   colors: number
+  productVariants: number
 }
 
 export type FilamentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   colors?: boolean | FilamentCountOutputTypeCountColorsArgs
+  productVariants?: boolean | FilamentCountOutputTypeCountProductVariantsArgs
 }
 
 /**
@@ -801,6 +895,13 @@ export type FilamentCountOutputTypeCountColorsArgs<ExtArgs extends runtime.Types
   where?: Prisma.FilamentColorWhereInput
 }
 
+/**
+ * FilamentCountOutputType without action
+ */
+export type FilamentCountOutputTypeCountProductVariantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductVariantWhereInput
+}
+
 
 export type FilamentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -810,6 +911,7 @@ export type FilamentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   price?: boolean
   stock?: boolean
   colors?: boolean | Prisma.Filament$colorsArgs<ExtArgs>
+  productVariants?: boolean | Prisma.Filament$productVariantsArgs<ExtArgs>
   type?: boolean | Prisma.FilamentTypeDefaultArgs<ExtArgs>
   brand?: boolean | Prisma.FilamentBrandDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.FilamentCountOutputTypeDefaultArgs<ExtArgs>
@@ -849,6 +951,7 @@ export type FilamentSelectScalar = {
 export type FilamentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "typeId" | "brandId" | "price" | "stock", ExtArgs["result"]["filament"]>
 export type FilamentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   colors?: boolean | Prisma.Filament$colorsArgs<ExtArgs>
+  productVariants?: boolean | Prisma.Filament$productVariantsArgs<ExtArgs>
   type?: boolean | Prisma.FilamentTypeDefaultArgs<ExtArgs>
   brand?: boolean | Prisma.FilamentBrandDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.FilamentCountOutputTypeDefaultArgs<ExtArgs>
@@ -866,6 +969,7 @@ export type $FilamentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Filament"
   objects: {
     colors: Prisma.$FilamentColorPayload<ExtArgs>[]
+    productVariants: Prisma.$ProductVariantPayload<ExtArgs>[]
     type: Prisma.$FilamentTypePayload<ExtArgs>
     brand: Prisma.$FilamentBrandPayload<ExtArgs>
   }
@@ -1271,6 +1375,7 @@ readonly fields: FilamentFieldRefs;
 export interface Prisma__FilamentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   colors<T extends Prisma.Filament$colorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Filament$colorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilamentColorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productVariants<T extends Prisma.Filament$productVariantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Filament$productVariantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   type<T extends Prisma.FilamentTypeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FilamentTypeDefaultArgs<ExtArgs>>): Prisma.Prisma__FilamentTypeClient<runtime.Types.Result.GetResult<Prisma.$FilamentTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   brand<T extends Prisma.FilamentBrandDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FilamentBrandDefaultArgs<ExtArgs>>): Prisma.Prisma__FilamentBrandClient<runtime.Types.Result.GetResult<Prisma.$FilamentBrandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1730,6 +1835,30 @@ export type Filament$colorsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.FilamentColorScalarFieldEnum | Prisma.FilamentColorScalarFieldEnum[]
+}
+
+/**
+ * Filament.productVariants
+ */
+export type Filament$productVariantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductVariant
+   */
+  select?: Prisma.ProductVariantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductVariant
+   */
+  omit?: Prisma.ProductVariantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductVariantInclude<ExtArgs> | null
+  where?: Prisma.ProductVariantWhereInput
+  orderBy?: Prisma.ProductVariantOrderByWithRelationInput | Prisma.ProductVariantOrderByWithRelationInput[]
+  cursor?: Prisma.ProductVariantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductVariantScalarFieldEnum | Prisma.ProductVariantScalarFieldEnum[]
 }
 
 /**

@@ -17,7 +17,7 @@ const isOpen = ref(false);
       <TheSideBar :isOpen="isOpen" @toggle="isOpen = $event" />
 
       <v-main style="min-height: 300px" app>
-        <div class="p-4">
+        <div class="pa-4">
           <slot />
         </div>
         <!-- <ScrollToTopBtn /> -->

@@ -3,21 +3,22 @@ interface Props {
   okBtnLabel?: string;
   cancelBtnLabel?: string;
   processing?: boolean;
+  hideCancelBtn?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   okBtnLabel: "Ok",
   cancelBtnLabel: "Cancel",
   processing: false,
+  hideCancelBtn: false,
 });
 
 defineEmits(["confirm", "reject"]);
 </script>
 
 <template>
-  <div class="flex justify-end items-center gap-4 capitalize">
+  <div class="d-flex justify-end align-center ga-4 capitalize">
     <v-btn
-      variant="outlined"
       density="compact"
       color="success"
       :disabled="processing"
@@ -28,7 +29,7 @@ defineEmits(["confirm", "reject"]);
     </v-btn>
 
     <v-btn
-      variant="outlined"
+      v-if="!hideCancelBtn"
       density="compact"
       color="error"
       :disabled="processing"

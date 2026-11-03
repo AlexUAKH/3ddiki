@@ -3,7 +3,7 @@ import { useHelpers } from "@/composables/helpers.ts";
 import { FILAMENT_TYPES_API } from "@/constants/api-const.ts";
 import $http from "@/plugins/axios.ts";
 import { useField, useForm } from "vee-validate";
-import { ref, watchEffect } from "vue";
+import { defineEmits, defineProps, ref, watchEffect } from "vue";
 import { useI18n } from "vue-i18n";
 import { toast } from "vue3-toastify";
 import FormActions from "../common/FormActions.vue";
@@ -47,7 +47,7 @@ const submit = handleSubmit(async (event) => {
     console.log("onRequestError: ", errorMessage(error));
     toast.error(errorMessage(error));
   } finally {
-    // processing.value = false;
+    processing.value = false;
   }
 });
 
@@ -69,7 +69,7 @@ watchEffect(async () => {
 
 <template>
   <v-dialog :model-value="open" max-width="400" persistent transition="scale">
-    <v-card>
+    <v-card :loading="loading">
       <v-card-title class="text-center">
         {{
           `${id ? t("common.edit") : t("common.create")} ${t("filamentTypes.filamentType", 2)}`
@@ -79,7 +79,7 @@ watchEffect(async () => {
       <v-card-text>
         <v-form>
           <v-text-field
-            v-model="name.value.value"
+            v-model.trim="name.value.value"
             :error-messages="
               t(name.errorMessage.value || '', { limit: minNameLength })
             "

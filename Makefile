@@ -2,6 +2,10 @@
 admin.dev:
 	cd admin; make dev;
 
+# client
+client.dev:
+	cd client; make dev;
+
 # api
 api.dev:
 	cd api; make dev;

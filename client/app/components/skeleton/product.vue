@@ -1,0 +1,49 @@
+<script setup lang="ts">
+interface ProductProps {}
+
+defineProps<ProductProps>();
+</script>
+
+<template>
+  <div
+    role="status"
+    class="animate-puls w-full flex flex-col md:flex-row gap-4 md:gap-6"
+  >
+    <div
+      role="status"
+      class="flex items-center justify-center h-110 w-full max-w-96 bg-gray-500/25 rounded-base animate-pulse mb-4 sm:mb-6"
+    >
+      <svg
+        class="w-11 h-11 text-fg-disabled"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM9 12h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Zm5.697 2.395v-.733l1.269-1.219v2.984l-1.268-1.032Z"
+        />
+      </svg>
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="w-full">
+      <div class="h-6 bg-gray-500/25 rounded-full w-1/2 mb-4"></div>
+      <div class="h-4 bg-gray-500/25 rounded-full mb-4"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full mb-2.5"></div>
+      <div class="h-2 bg-gray-500/25 rounded-full"></div>
+      <div class="flex items-center mt-4">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+</template>

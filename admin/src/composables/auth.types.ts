@@ -12,6 +12,7 @@ export type User = {
   email: string;
   role: EUserRoles;
   isEmailVerified: boolean;
+  permissions?: any[];
 };
 
 export type UserInfo = User & {

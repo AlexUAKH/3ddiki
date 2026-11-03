@@ -4,25 +4,31 @@
  * Configures SASS variables and Vuetify overwrites
  */
 
-@use 'vuetify/settings' with (
+// https://vuetifyjs.com/features/sass-variables/`
+// @use 'vuetify/settings' with (
+//   $color-pack: false
+// );
+
+@use "sass:string";
+@use "vuetify/settings" with (
   $color-pack: false,
-  $utilities: false,
-
-  $heading-font-family: var(--font-heading),
-  $body-font-family: var(--font-body),
-
-  $grid-breakpoints: (
-    'xs': 0,
-    'sm': 600px,
-    'md': 840px,
-    'lg': 1145px,
-    'xl': 1545px,
-    'xxl': 2138px,
-  ),
-  $container-max-widths: (
-    'md': 700px,
-    'lg': 1000px,
-    'xl': 1400px,
-    'xxl': 2000px,
-  ),
+  //   $utilities: false,
+  //   $heading-font-family: "Inter",
+  // $body-font-family: "Roboto",
+  $body-font-family: string.unquote('"Roboto", sans-serif'),
+  $heading-font-family: string.unquote('"Montserrat", sans-serif')
+    //   $grid-breakpoints: (
+  //     "xs": 0,
+  //     "sm": 600px,
+  //     "md": 840px,
+  //     "lg": 1145px,
+  //     "xl": 1545px,
+  //     "xxl": 2138px,
+  //   ),
+  //   $container-max-widths: (
+  //     "md": 700px,
+  //     "lg": 1000px,
+  //     "xl": 1400px,
+  //     "xxl": 2000px,
+   //   )
 );

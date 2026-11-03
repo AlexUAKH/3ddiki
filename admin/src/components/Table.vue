@@ -65,20 +65,25 @@ const typedSlots = computed(() => {
           </v-list>
         </v-menu>
 
-        <v-row no-gutters v-else>
-          <v-col
+        <!-- <v-row no-gutters v-else> -->
+        <!-- <v-col -->
+        <div class="d-flex items-center ga-2">
+          <div
             v-for="(button, idx) in actions"
             class="pa-1"
             :key="button.label + idx"
           >
+            <!-- > -->eeee
             <v-btn
               :prepend-icon="button.icon"
               :text="button.label"
               :color="button.color"
               @click="$emit(button.action)"
             />
-          </v-col>
-        </v-row>
+          </div>
+          <!-- </v-col> -->
+        </div>
+        <!-- </v-row> -->
       </template>
 
       <!-- Iterating over named scoped slots -->

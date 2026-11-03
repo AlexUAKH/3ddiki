@@ -13,3 +13,5 @@ export const FILAMENT_COLORS_ICON = "mdi-palette";
 export const USER_PROFILE_ICON = "mdi-account";
 export const DELETE_ICON = "mdi-trash-can-outline";
 export const EDIT_ICON = "mdi-pen";
+export const PERCENT_ICON = "mdi-percent-outline";
+export const BACK_ICON = "mdi-arrow-left-thin";

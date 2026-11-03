@@ -7,7 +7,9 @@ defineProps({
 <template>
   <v-overlay
     :model-value="show"
-    content-class="flex h-full w-full items-center justify-center"
+    scrim
+    :opacity="0.6"
+    content-class="d-flex h-screen w-100 align-center justify-center"
   >
     <v-progress-circular
       color="primary"

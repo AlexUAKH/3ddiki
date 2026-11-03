@@ -1,0 +1,127 @@
+;
+; Archive created at 2026-10-14 17:13:17 EEST
+;     dbname: postgres
+;     TOC Entries: 117
+;     Compression: gzip
+;     Dump Version: 1.16-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 17.2
+;     Dumped by pg_dump version: 17.9 (Homebrew)
+;
+;
+; Selected TOC Entries:
+;
+;2; 3079 16384 EXTENSION - prisma_postgres 
+;3084; 0 0 COMMENT - EXTENSION prisma_postgres 
+908; 1247 17004 TYPE public MediaOwnerType prisma_migration
+911; 1247 17012 TYPE public MediaType prisma_migration
+884; 1247 16414 TYPE public Role prisma_migration
+233; 1259 17020 TABLE public File prisma_migration
+232; 1259 17019 SEQUENCE public File_id_seq prisma_migration
+3085; 0 0 SEQUENCE OWNED BY public File_id_seq prisma_migration
+231; 1259 16565 TABLE public _FilamentToFilamentColor prisma_migration
+220; 1259 16404 TABLE public _prisma_migrations prisma_migration
+241; 1259 17320 TABLE public favorites prisma_migration
+240; 1259 17319 SEQUENCE public favorites_id_seq prisma_migration
+3086; 0 0 SEQUENCE OWNED BY public favorites_id_seq prisma_migration
+224; 1259 16527 TABLE public filament prisma_migration
+228; 1259 16547 TABLE public filamentBrands prisma_migration
+227; 1259 16546 SEQUENCE public filamentBrands_id_seq prisma_migration
+3087; 0 0 SEQUENCE OWNED BY public filamentBrands_id_seq prisma_migration
+230; 1259 16556 TABLE public filamentColors prisma_migration
+229; 1259 16555 SEQUENCE public filamentColors_id_seq prisma_migration
+3088; 0 0 SEQUENCE OWNED BY public filamentColors_id_seq prisma_migration
+226; 1259 16538 TABLE public filamentTypes prisma_migration
+225; 1259 16537 SEQUENCE public filamentTypes_id_seq prisma_migration
+3089; 0 0 SEQUENCE OWNED BY public filamentTypes_id_seq prisma_migration
+223; 1259 16526 SEQUENCE public filament_id_seq prisma_migration
+3090; 0 0 SEQUENCE OWNED BY public filament_id_seq prisma_migration
+235; 1259 17291 TABLE public productCategories prisma_migration
+234; 1259 17290 SEQUENCE public productCategories_id_seq prisma_migration
+3091; 0 0 SEQUENCE OWNED BY public productCategories_id_seq prisma_migration
+239; 1259 17311 TABLE public productVariants prisma_migration
+238; 1259 17310 SEQUENCE public productVariants_id_seq prisma_migration
+3092; 0 0 SEQUENCE OWNED BY public productVariants_id_seq prisma_migration
+243; 1259 17330 TABLE public products prisma_migration
+242; 1259 17329 SEQUENCE public products_id_seq prisma_migration
+3093; 0 0 SEQUENCE OWNED BY public products_id_seq prisma_migration
+237; 1259 17300 TABLE public reviews prisma_migration
+236; 1259 17299 SEQUENCE public reviews_id_seq prisma_migration
+3094; 0 0 SEQUENCE OWNED BY public reviews_id_seq prisma_migration
+222; 1259 16443 TABLE public sessions prisma_migration
+221; 1259 16431 TABLE public users prisma_migration
+2834; 2604 17023 DEFAULT public File id prisma_migration
+2843; 2604 17323 DEFAULT public favorites id prisma_migration
+2827; 2604 16530 DEFAULT public filament id prisma_migration
+2831; 2604 16550 DEFAULT public filamentBrands id prisma_migration
+2832; 2604 16559 DEFAULT public filamentColors id prisma_migration
+2830; 2604 16541 DEFAULT public filamentTypes id prisma_migration
+2836; 2604 17294 DEFAULT public productCategories id prisma_migration
+2840; 2604 17314 DEFAULT public productVariants id prisma_migration
+2845; 2604 17333 DEFAULT public products id prisma_migration
+2837; 2604 17303 DEFAULT public reviews id prisma_migration
+3066; 0 17020 TABLE DATA public File prisma_migration
+3064; 0 16565 TABLE DATA public _FilamentToFilamentColor prisma_migration
+3053; 0 16404 TABLE DATA public _prisma_migrations prisma_migration
+3074; 0 17320 TABLE DATA public favorites prisma_migration
+3057; 0 16527 TABLE DATA public filament prisma_migration
+3061; 0 16547 TABLE DATA public filamentBrands prisma_migration
+3063; 0 16556 TABLE DATA public filamentColors prisma_migration
+3059; 0 16538 TABLE DATA public filamentTypes prisma_migration
+3068; 0 17291 TABLE DATA public productCategories prisma_migration
+3072; 0 17311 TABLE DATA public productVariants prisma_migration
+3076; 0 17330 TABLE DATA public products prisma_migration
+3070; 0 17300 TABLE DATA public reviews prisma_migration
+3055; 0 16443 TABLE DATA public sessions prisma_migration
+3054; 0 16431 TABLE DATA public users prisma_migration
+3095; 0 0 SEQUENCE SET public File_id_seq prisma_migration
+3096; 0 0 SEQUENCE SET public favorites_id_seq prisma_migration
+3097; 0 0 SEQUENCE SET public filamentBrands_id_seq prisma_migration
+3098; 0 0 SEQUENCE SET public filamentColors_id_seq prisma_migration
+3099; 0 0 SEQUENCE SET public filamentTypes_id_seq prisma_migration
+3100; 0 0 SEQUENCE SET public filament_id_seq prisma_migration
+3101; 0 0 SEQUENCE SET public productCategories_id_seq prisma_migration
+3102; 0 0 SEQUENCE SET public productVariants_id_seq prisma_migration
+3103; 0 0 SEQUENCE SET public products_id_seq prisma_migration
+3104; 0 0 SEQUENCE SET public reviews_id_seq prisma_migration
+2879; 2606 17028 CONSTRAINT public File File_pkey prisma_migration
+2875; 2606 16569 CONSTRAINT public _FilamentToFilamentColor _FilamentToFilamentColor_AB_pkey prisma_migration
+2855; 2606 16412 CONSTRAINT public _prisma_migrations _prisma_migrations_pkey prisma_migration
+2890; 2606 17328 CONSTRAINT public favorites favorites_pkey prisma_migration
+2870; 2606 16554 CONSTRAINT public filamentBrands filamentBrands_pkey prisma_migration
+2873; 2606 16564 CONSTRAINT public filamentColors filamentColors_pkey prisma_migration
+2867; 2606 16545 CONSTRAINT public filamentTypes filamentTypes_pkey prisma_migration
+2864; 2606 16536 CONSTRAINT public filament filament_pkey prisma_migration
+2881; 2606 17298 CONSTRAINT public productCategories productCategories_pkey prisma_migration
+2887; 2606 17318 CONSTRAINT public productVariants productVariants_pkey prisma_migration
+2893; 2606 17345 CONSTRAINT public products products_pkey prisma_migration
+2884; 2606 17309 CONSTRAINT public reviews reviews_pkey prisma_migration
+2860; 2606 16450 CONSTRAINT public sessions sessions_pkey prisma_migration
+2858; 2606 16442 CONSTRAINT public users users_pkey prisma_migration
+2877; 1259 17029 INDEX public File_ownerType_ownerId_idx prisma_migration
+2876; 1259 16574 INDEX public _FilamentToFilamentColor_B_index prisma_migration
+2891; 1259 17349 INDEX public favorites_user_id_product_id_key prisma_migration
+2868; 1259 16572 INDEX public filamentBrands_name_key prisma_migration
+2871; 1259 16573 INDEX public filamentColors_color_key prisma_migration
+2865; 1259 16571 INDEX public filamentTypes_name_key prisma_migration
+2862; 1259 16570 INDEX public filament_name_key prisma_migration
+2882; 1259 17346 INDEX public productCategories_title_key prisma_migration
+2888; 1259 17348 INDEX public productVariants_product_id_filament_id_key prisma_migration
+2885; 1259 17347 INDEX public reviews_user_id_product_id_key prisma_migration
+2861; 1259 16452 INDEX public sessions_refresh_token_key prisma_migration
+2856; 1259 16451 INDEX public users_email_key prisma_migration
+2899; 2606 17350 FK CONSTRAINT public File File_ownerId_fkey prisma_migration
+2897; 2606 16585 FK CONSTRAINT public _FilamentToFilamentColor _FilamentToFilamentColor_A_fkey prisma_migration
+2898; 2606 16590 FK CONSTRAINT public _FilamentToFilamentColor _FilamentToFilamentColor_B_fkey prisma_migration
+2904; 2606 17380 FK CONSTRAINT public favorites favorites_product_id_fkey prisma_migration
+2905; 2606 17375 FK CONSTRAINT public favorites favorites_user_id_fkey prisma_migration
+2895; 2606 16580 FK CONSTRAINT public filament filament_brandId_fkey prisma_migration
+2896; 2606 16575 FK CONSTRAINT public filament filament_typeId_fkey prisma_migration
+2902; 2606 17370 FK CONSTRAINT public productVariants productVariants_filament_id_fkey prisma_migration
+2903; 2606 17365 FK CONSTRAINT public productVariants productVariants_product_id_fkey prisma_migration
+2906; 2606 17385 FK CONSTRAINT public products products_category_id_fkey prisma_migration
+2900; 2606 17360 FK CONSTRAINT public reviews reviews_product_id_fkey prisma_migration
+2901; 2606 17355 FK CONSTRAINT public reviews reviews_user_id_fkey prisma_migration
+2894; 2606 16453 FK CONSTRAINT public sessions sessions_user_id_fkey prisma_migration

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { CreateFilamentBrandDto } from '../dto/create-filament-brand.dto';
-import { UpdateFilamentBrandDto } from '../dto/update-filament-brand.dto';
+import { CreateFilamentBrandDto } from '../../admin/filament/dto/create-filament-brand.dto';
+import { UpdateFilamentBrandDto } from '../../admin/filament/dto/update-filament-brand.dto';
 
 @Injectable()
 export class FilamentBrandService {
@@ -16,8 +16,8 @@ export class FilamentBrandService {
   }
 
   async findAllForSelect() {
-    const brands = await this.prisma.filamentBrand.findMany();
-    return brands.map((brand) => ({ label: brand.name, value: brand.id }));
+    return await this.prisma.filamentBrand.findMany();
+    // return brands.map((brand) => ({ name: brand.name, id: brand.id }));
   }
 
   async findOne(id: number) {

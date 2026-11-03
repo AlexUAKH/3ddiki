@@ -1,7 +1,7 @@
 import { IsString, MinLength } from 'class-validator';
 
-export class CreateFilamentTypeDto {
+export class CreateProductCategoryDto {
   @IsString()
   @MinLength(3)
-  name: string;
+  title!: string;
 }

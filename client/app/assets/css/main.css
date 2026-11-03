@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #fc7400;
+  --color-secondary: #6ee189;
+  --color-success: #07bc0c;
+  --color-warning: #f1c40f;
+  --color-error: #78dcca;
+  --color-info: #3498db;
+
+  /* primary: "#121063",
+      secondary: "#3ab7bf",
+      success: "#78dcca,
+      warning: "#78dcca",
+      error: "#ff0000",
+      info: "#78dcca;" */
+  /* rgb(51, 193, 96); green for primary*/
+
+  --font-sans:
+    -apple-system, Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body,
+#_nuxt {
+  @apply min-h-screen bg-gray-200 text-black dark:bg-gray-950 dark:text-white;
+}
+
+:root {
+  user-select: none;
+  -webkit-user-select: none;
+  --vc-pgn-background-color: rgba(255, 255, 255, 0.7);
+  --vc-pgn-active-color: rgba(255, 255, 255, 1);
+  --vc-nav-background: rgba(255, 255, 255, 0.7);
+  --vc-nav-border-radius: 100%;
+
+  scroll-behavior: smooth;
+}
+
+.bg-app {
+  @apply bg-white text-black dark:bg-gray-950 dark:text-white;
+}
+
+/* Override Carousel styles in your CSS or SCSS files */
+.carousel__slide {
+  /* Your custom styles here */
+}
+
+@media screen and (max-width: 768px) {
+  .carousel__next,
+  .carousel__prev {
+    display: none !important;
+    background: red;
+  }
+}
+
+.product-carousel .carousel__next {
+  right: -38px;
+}
+.product-carousel .carousel__prev {
+  left: -38px;
+}
+/* background: rgba(0, 0, 0, 0.3); */
+/* border-radius: 50%; */
+/* width: 40px; */
+/* height: 40px; */
+/* color: white; */
+
+/* } */
+
+/* .carousel__next:hover,
+.carousel__prev:hover {
+  color: #e5e5e5;
+} */
+
+/* .carousel__next--disabled,
+.carousel__prev--disabled {
+  opacity: 0.3;
+} */

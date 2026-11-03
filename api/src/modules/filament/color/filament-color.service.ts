@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { CreateFilamentColorDto } from '../dto/create-filament-color.dto';
-import { UpdateFilamentColorDto } from '../dto/update-filament-color.dto';
+import { CreateFilamentColorDto } from '../../admin/filament/dto/create-filament-color.dto';
+import { UpdateFilamentColorDto } from '../../admin/filament/dto/update-filament-color.dto';
 
 @Injectable()
 export class FilamentColorService {
@@ -18,12 +18,7 @@ export class FilamentColorService {
   }
 
   async findAllForSelect() {
-    const colors = await this.prisma.filamentColor.findMany();
-    return colors.map((color) => ({
-      label: color.color,
-      value: color.id,
-      name: color.name,
-    }));
+    return await this.prisma.filamentColor.findMany();
   }
 
   async findOne(id: number) {

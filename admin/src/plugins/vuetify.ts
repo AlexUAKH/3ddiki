@@ -8,26 +8,27 @@ import "@mdi/font/css/materialdesignicons.css";
 import { createVuetify } from "vuetify";
 import "vuetify/styles";
 
+const colors = {
+  primary: "#fc7400",
+  secondary: "#6ee189",
+  success: "#07bc0c",
+  warning: "#f1c40f",
+  error: "#ff0000",
+  info: "#3498db;",
+};
+
 export default createVuetify({
   theme: {
     defaultTheme: "system", //'system',
-    utilities: false,
+    utilities: true,
     transition: true, // default origin: top center
     // or provide options:
     themes: {
       dark: {
-        colors: {
-          primary: "#fc7400",
-          secondary: "#6ee189",
-          error: "#ff0000",
-        },
+        colors,
       },
       light: {
-        colors: {
-          primary: "#fc7400",
-          secondary: "#6ee189",
-          error: "#ff0000",
-        },
+        colors,
       },
     },
   },
@@ -44,11 +45,40 @@ export default createVuetify({
   },
   defaults: {
     VBtn: {
-      variant: "outlined",
+      // variant: "outlined",
+      variant: "flat",
     },
     VTextField: {
       variant: "outlined",
       density: "compact",
+    },
+    VNumberInput: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VTextarea: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VSelect: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VAutocomplete: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VColorInput: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VFileUpload: {
+      variant: "outlined",
+      density: "compact",
+    },
+    VDialog: {
+      scrim: true,
+      opacity: 0.7,
     },
   },
 });
