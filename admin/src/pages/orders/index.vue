@@ -5,14 +5,9 @@ import ManageModal from "@/components/order/ManageModal.vue";
 import TableActions from "@/components/TableActions.vue";
 import { useEditModal } from "@/composables/editModal";
 import { useOrders, type OrderListItem } from "@/composables/orders";
-import { type ProductListItem } from "@/composables/products";
 import { EActions, type Header, type TableAction } from "@/composables/table";
 import { ORDER_API } from "@/constants/api-const";
-import {
-  DELETE_ICON,
-  EDIT_ICON,
-  ORDERS_ICON
-} from "@/constants/iconsMap";
+import { DELETE_ICON, EDIT_ICON, ORDERS_ICON } from "@/constants/iconsMap";
 import { ERouteNames } from "@/router/router.types";
 import type { DeleteItem } from "@/types";
 import { computed, onMounted, ref } from "vue";
@@ -20,7 +15,6 @@ import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
 const deletingOrder = ref<DeleteItem | null>(null);
-const changeDiscountProduct = ref<ProductListItem | null>(null);
 
 const { t } = useI18n();
 const { orders, loading, getOrders } = useOrders();

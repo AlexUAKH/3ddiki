@@ -11,6 +11,7 @@ datasource db {
 enum Role {
   USER
   ADMIN
+  MANAGER
 }
 
 // npx prisma migrate dev --name add_model_name to apply changes and create migration

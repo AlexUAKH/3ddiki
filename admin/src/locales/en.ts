@@ -53,6 +53,15 @@ export default {
   },
   customers: {
     header: "Customers",
+    customer: "Customer | Customers",
+    name: "Name",
+    lastName: "Last Name",
+    email: "Email",
+    role: "Role",
+    isEmailVerified: "Email Verified",
+    setAsEmailVerified: "Set Email as Verified",
+    newCustomerCreated: "New customer created successfully",
+    customerWasUpdatedSuccessfully: "Customer was updated successfully",
   },
   filaments: {
     header: "Filaments",

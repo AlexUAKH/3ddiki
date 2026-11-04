@@ -55,6 +55,15 @@ export default {
   },
   customers: {
     header: "Клієнти",
+    customer: "Клієнт | Клієнти | Клієнта",
+    name: "Ім'я",
+    lastName: "Прізвище",
+    email: "Електронна пошта",
+    role: "Роль",
+    isEmailVerified: "Підтверджено електронну пошту",
+    setAsEmailVerified: "Встановити електронну пошту як підтверджену",
+    newCustomerCreated: "Новий клієнт створений успішно",
+    customerWasUpdatedSuccessfully: "Клієнт оновлений успішно",
   },
   filaments: {
     header: "Філаменти",

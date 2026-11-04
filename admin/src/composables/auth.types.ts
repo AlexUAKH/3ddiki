@@ -4,10 +4,10 @@ export interface LoginResponse {
   email: string;
   expire_at: number;
   id: string;
-  user: User;
+  user: AuthUser;
 }
 
-export type User = {
+export type AuthUser = {
   id: string;
   email: string;
   role: EUserRoles;
@@ -15,7 +15,7 @@ export type User = {
   permissions?: any[];
 };
 
-export type UserInfo = User & {
+export type UserInfo = AuthUser & {
   name: string;
   lastName: string;
   stripeCustomerId?: string | null;
@@ -26,4 +26,5 @@ export type UserInfo = User & {
 export enum EUserRoles {
   ADMIN = "admin",
   USER = "user",
+  MANAGER = "manager",
 }
