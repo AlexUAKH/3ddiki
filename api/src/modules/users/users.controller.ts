@@ -1,4 +1,12 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 
@@ -10,5 +18,17 @@ export class UsersController {
   @Get('info')
   async getUserInfoByEmail(@Req() req) {
     return this.userService.getUserInfoByEmail(req.user.email);
+  }
+
+  @Get('roles-for-select')
+  async getRolesForSelect() {
+    return this.userService.getRolesForSelect();
+  }
+
+  @Post('send-verification-email')
+  async sendVerificationEmail(@Req() req, @Body() email: string) {
+    Logger.debug(`sendVerificationEmail user: ${JSON.stringify(req.user)}`);
+    return this.userService.sendVerificationEmail(email);
+    // return this.userService.sendVerificationEmail(req.user.email);
   }
 }

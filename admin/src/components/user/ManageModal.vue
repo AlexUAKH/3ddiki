@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useHelpers } from "@/composables/helpers.ts";
 import { useUsers, type CreateUser, type Role } from "@/composables/users.ts";
-import {
-  FILAMENT_API
-} from "@/constants/api-const.ts";
+import { FILAMENT_API } from "@/constants/api-const.ts";
 import $http from "@/plugins/axios.ts";
 import { useField, useForm } from "vee-validate";
 import { ref, watchEffect } from "vue";

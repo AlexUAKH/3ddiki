@@ -16,7 +16,7 @@ import { useRouter } from "vue-router";
 
 const deletingUser = ref<DeleteItem | null>(null);
 const searchByEmail = ref<string>("");
-const searchByRole = ref<Role>();
+const searchByRole = ref<Role>("ALL");
 const roles = ref<Role[]>([]);
 
 const { t } = useI18n();
@@ -25,32 +25,32 @@ const router = useRouter();
 const { editingId, showManageModal } = useEditModal();
 
 const headers = computed<Header[]>(() => [
+  // {
+  //   title: "ID",
+  //   key: "id",
+  //   align: "center",
+  //   sortable: false,
+  // },
   {
-    title: "ID",
-    key: "id",
-    align: "center",
-    sortable: false,
-  },
-  {
-    title: t("common.name"),
+    title: t("customers.name"),
     key: "name",
     align: "center",
     sortable: false,
   },
   {
-    title: t("common.email"),
+    title: t("customers.email"),
     key: "email",
     align: "center",
     sortable: false,
   },
   {
-    title: t("common.role"),
+    title: t("customers.role"),
     key: "role",
     align: "center",
     sortable: false,
   },
   {
-    title: t("common.createdAt"),
+    title: t("customers.createdAt"),
     key: "createdAt",
     align: "center",
     sortable: false,
@@ -77,6 +77,20 @@ const actions = computed<TableAction[]>(() => [
     color: "error",
   },
 ]);
+
+const filteredUsers = computed(() =>
+  users.value.filter((user) => {
+    console.log("filteredUsers: ", user.role === searchByRole.value);
+    console.log("user.role: ", user.role);
+    console.log("searchByRole.value: ", searchByRole.value);
+    return (
+      (searchByRole.value && searchByRole.value !== "ALL"
+        ? user.role === searchByRole.value
+        : true) &&
+      (searchByEmail.value ? user.email === searchByEmail.value : true)
+    );
+  }),
+);
 
 const createHandler = () => {
   showManageModal.value = true;
@@ -119,7 +133,7 @@ onMounted(async () => {
     loading.value = false;
   });
 
-  roles.value = res[0].data || [];
+  roles.value = ["ALL", ...(res[0].data || [])];
 });
 </script>
 
@@ -145,7 +159,7 @@ onMounted(async () => {
           hide-details
           style="max-width: 200px"
           :placeholder="t('customers.role')"
-          @click:clear="searchByRole = undefined"
+          @click:clear="searchByRole = 'ALL'"
         />
       </div>
 
@@ -161,7 +175,7 @@ onMounted(async () => {
         <v-data-table
           striped="even"
           :headers="headers"
-          :items="users"
+          :items="filteredUsers"
           :loading="loading"
           :no-data-text="t('common.noData')"
         >

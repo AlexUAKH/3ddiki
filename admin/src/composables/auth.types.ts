@@ -24,6 +24,7 @@ export type UserInfo = AuthUser & {
 };
 
 export enum EUserRoles {
+  ALL = "all",
   ADMIN = "admin",
   USER = "user",
   MANAGER = "manager",

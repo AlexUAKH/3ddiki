@@ -1,3 +1,5 @@
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { RouterModule } from '@nestjs/core';
@@ -19,6 +21,27 @@ import { UserModule } from './modules/users/users.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.MAIL_HOST, // e.g., smtp.gmail.com
+        port: Number(process.env.MAIL_PORT || 465),
+        secure: true,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
+        },
+      },
+      defaults: {
+        from: process.env.MAIL_FROM,
+      },
+      template: {
+        dir: process.cwd() + '/templates/',
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
+        },
+      },
     }),
     AuthModule,
     PrismaModule,
@@ -57,6 +80,12 @@ import { UserModule } from './modules/users/users.module';
     // }),
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard,
+    // },
+    // { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AppModule {}

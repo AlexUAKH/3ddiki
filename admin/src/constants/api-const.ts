@@ -1,8 +1,7 @@
 //user
-export const USERS_API = "admin/users";
-export const CUSTOMERS_ROLES_API_FOR_SELECT = "admin/users/roles-for-select";
-export const SEND_VERIFICATION_EMAIL_API =
-  "admin/users/send-verification-email";
+export const USERS_API = "admin/user";
+export const CUSTOMERS_ROLES_API_FOR_SELECT = "user/roles-for-select";
+export const SEND_VERIFICATION_EMAIL_API = "user/send-verification-email";
 
 // filament
 export const FILAMENT_API = "admin/filament";
