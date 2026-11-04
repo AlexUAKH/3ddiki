@@ -1,79 +1,59 @@
 <script setup lang="ts">
-import PageHeader from "@/components/common/PageHeader.vue";
+import { useRadobot } from "@/composables/radobot";
 import { ref } from "vue";
 
-const imagesUrl = ref("https://lms.radooga.net/content/pz-");
-const imageCount = ref(0);
-const slidesNumber = ref(0);
-const lessonNumber = ref(0);
+const baseUrl = ref("https://lms.radooga.net/content/pz-");
+const lessonNumber = ref(1);
 
-async function downloadImage(url: string, filename = "image.jpg") {
+const loading = ref(false);
+const error = ref("");
+const success = ref("");
+
+const { extractImages } = useRadobot();
+
+const downloadImages = async () => {
+  loading.value = true;
+  error.value = "";
+  success.value = "";
+
+  const url = `${baseUrl.value}${lessonNumber.value}/`;
+
   try {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const blobUrl = window.URL.createObjectURL(blob);
+    const response = await extractImages(url);
+
+    const blob = new Blob([response.data], {
+      type: "application/zip",
+    });
+
+    const downloadUrl = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
-    link.href = blobUrl;
-    link.download = filename;
+    link.href = downloadUrl;
+    link.download = `lesson-${lessonNumber.value}.zip`;
+
     document.body.appendChild(link);
     link.click();
+    link.remove();
 
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(blobUrl);
-  } catch (error) {
-    console.error("Ошибка при скачивании картинки:", error);
-  }
-}
+    URL.revokeObjectURL(downloadUrl);
 
-const formatImageName = () => {
-  return String(imageCount.value).padStart(3, "0") + ".webp";
-};
+    success.value = "Archive downloaded successfully!";
+  } catch (e: any) {
+    // Axios may return an error response as a Blob
+    if (e.response?.data instanceof Blob) {
+      const text = await e.response.data.text();
 
-const downloadWebP = async () => {
-  imageCount.value++;
-  console.log(
-    imageCount.value,
-    " url: ",
-    `${imagesUrl.value}${lessonNumber.value}/${formatImageName()}`,
-  );
-
-  try {
-    // 1. Получаем данные по ссылке
-    const response = await fetch(
-      `${imagesUrl.value}${lessonNumber.value}/${formatImageName()}`,
-    );
-    if (!response.ok) {
-      throw new Error(`Ошибка сети: ${response.status}`);
+      try {
+        const data = JSON.parse(text);
+        error.value = data.message || "Download failed";
+      } catch {
+        error.value = "Download failed";
+      }
+    } else {
+      error.value = e.message || "Something went wrong";
     }
-    imageCount.value++;
-
-    // 2. Преобразуем в Blob (бинарные данные)
-    const blob = await response.blob();
-
-    // 3. Создаем временную URL-ссылку на этот Blob в памяти
-    const blobUrl = URL.createObjectURL(blob);
-
-    // 4. Создаем невидимый элемент ссылки <a>
-    const link = document.createElement("a");
-    link.href = blobUrl;
-    link.download = `lesson-${lessonNumber.value}-${imageCount.value}.webp`; // Имя файла при сохранении
-
-    // 5. Добавляем в документ, кликаем и удаляем
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // 6. Освобождаем память
-    URL.revokeObjectURL(blobUrl);
-  } catch (error) {
-    console.error("Не удалось скачать картинку:", error);
-  }
-};
-
-const extractImages = async () => {
-  for (let i = 0; i < slidesNumber.value; i++) {
-    await downloadWebP();
+  } finally {
+    loading.value = false;
   }
 };
 </script>
@@ -88,7 +68,7 @@ const extractImages = async () => {
     <v-form class="mt-4">
       <div class="">Enter URL</div>
       <v-text-field
-        v-model="imagesUrl"
+        v-model="baseUrl"
         autocomplete="img-url"
         outlined
         dense
@@ -103,18 +83,18 @@ const extractImages = async () => {
         type="number"
         class="mb-4"
       />
-      <div class="">Slides count</div>
-      <v-text-field
-        v-model="slidesNumber"
-        outlined
-        dense
-        :min="0"
-        type="number"
+      <v-btn
+        color="primary"
         class="mb-4"
-      />
-      <v-btn color="primary" class="mb-4" @click="extractImages">Extract</v-btn>
+        @click="downloadImages"
+        :loading="loading"
+        :disabled="loading"
+      >
+        Extract
+      </v-btn>
+
+      <v-alert v-if="success" :text="success" title="" type="success"></v-alert>
+      <v-alert v-if="error" :text="error" title="" type="error"></v-alert>
     </v-form>
   </v-container>
 </template>
-
-<style scoped></style>
