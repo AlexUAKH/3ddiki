@@ -34,6 +34,7 @@ export default {
     customers: "Customers",
     filaments: "Filaments",
     products: "Products",
+    orders: "Orders",
     settings: "Settings",
     productCategories: "Product categories",
     filamentTypes: "Filament types",
@@ -77,6 +78,11 @@ export default {
   },
   productCategories: {
     header: "Product categories",
+  },
+  orders: {
+    header: "Orders",
+    create: "Create order",
+    edit: "Edit order",
   },
   404: {
     goToHomePage: "Go to home page",

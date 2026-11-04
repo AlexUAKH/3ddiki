@@ -6,6 +6,7 @@ import {
   FILAMENT_COLORS_ICON,
   FILAMENT_TYPES_ICON,
   FILAMENTS_ICON,
+  ORDERS_ICON,
   PRODUCT_CATEGORIES_ICON,
   PRODUCTS_ICON,
 } from "@/constants/iconsMap";
@@ -76,6 +77,12 @@ const menuItems = computed<MenuItem[]>(() => [
     icon: PRODUCTS_ICON,
     route: "products",
     pageName: ERouteNames.products,
+  },
+  {
+    title: t("sideBar.orders"),
+    icon: ORDERS_ICON,
+    route: "orders",
+    pageName: ERouteNames.orders,
   },
   {
     title: "Radobot",

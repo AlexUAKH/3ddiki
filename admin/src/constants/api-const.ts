@@ -23,6 +23,9 @@ export const PRODUCT_VARIANT_EDIT_API = "admin/variants";
 export const PRODUCT_VARIANT_IMAGE_API = (variantId: number) =>
   `admin/variants/${variantId}/image`;
 
+// orders
+export const ORDER_API = "admin/orders";
+
 //auth
 export const AUTH_LOGIN = "/auth/login";
 export const AUTH_REFRESH = "/auth/refresh";

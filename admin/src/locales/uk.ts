@@ -36,6 +36,7 @@ export default {
     customers: "Клієнти",
     filaments: "Філаменти",
     products: "Продукти",
+    orders: "Замовлення",
     settings: "Налаштування",
     productCategories: "Категорії продуктів",
     filamentTypes: "Типи філаментів",
@@ -76,6 +77,11 @@ export default {
   },
   filamentColors: { header: "Кольори філаментів" },
   productCategories: { header: "Категорії продуктів" },
+  orders: {
+    header: "Замовлення",
+    create: "Створити замовлення",
+    edit: "Редагувати замовлення",
+  },
   404: {
     goToHomePage: "Перейти на головну сторінку",
     pageNotFound: "Сторінку не знайдено",

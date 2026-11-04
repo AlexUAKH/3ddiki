@@ -2,6 +2,7 @@ export const DASHBOARD_ICON = "mdi-chart-line";
 export const CUSTOMERS_ICON = "mdi-account-group";
 export const FILAMENTS_ICON = "mdi-movie-roll";
 export const PRODUCTS_ICON = "mdi-storefront";
+export const ORDERS_ICON = "mdi-cart-outline";
 
 // settings
 export const PRODUCT_CATEGORIES_ICON = "mdi-library-shelves";
