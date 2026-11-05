@@ -15,6 +15,16 @@ export const routes: RouteRecordRaw[] = [
       middleware: [guest],
     },
   },
+  {
+    path: "/verify-email",
+    name: ERouteNames.verifyEmail,
+    component: () => import("@/pages/auth/verifyEmail.vue"),
+    meta: {
+      title: "Verify email",
+      layout: EAppLayouts.auth,
+      middleware: [guest],
+    },
+  },
   // {
   //   path: "/email/verify/:success",
   //   name: ERouteNames.emailVerifySuccess,

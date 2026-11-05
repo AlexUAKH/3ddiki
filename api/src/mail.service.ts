@@ -14,11 +14,7 @@ export class MailService {
     });
   }
 
-  async sendConfirmationEmail(
-    email: string,
-    firstName: string,
-    lastName: string,
-  ) {
+  async sendConfirmationEmail(email: string, name: string, url: string) {
     Logger.debug(`sendConfirmationEmail to ${email}`);
     Logger.debug(
       `mailerService: ${Object.keys(this.mailerService.getTransporter()).join('; ')}`,
@@ -28,11 +24,12 @@ export class MailService {
     );
     await this.mailerService.sendMail({
       to: email,
-      subject: 'Confirm your email to get started on 3DDIKI',
+      subject:
+        'Підтвердьте свою електронну адресу для завершення реєстрації у 3DDIKI',
       template: './confirm-email', // Name of template file in /templates folder
       context: {
-        firstName: firstName,
-        lastName: lastName,
+        name,
+        url,
       }, // Data to pass to template
     });
   }

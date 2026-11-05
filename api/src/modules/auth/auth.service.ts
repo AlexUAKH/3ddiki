@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   Logger,
@@ -7,7 +8,9 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { createHash, randomBytes } from 'crypto';
 import { User } from 'generated/prisma/client';
+import { MailService } from 'src/mail.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -16,17 +19,21 @@ export class AuthService {
     // private usersService: UsersService,
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private mailer: MailService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user)
-      throw new UnprocessableEntityException({
-        message: `User ${email} doesn't exist`,
-        field: 'email',
-      });
+      throw new UnprocessableEntityException(
+        'Invalid credentials',
+        // {
+        // message: `User ${email} doesn't exist`,
+        // field: 'email',
+        // }
+      );
     const isMatch = await bcrypt.compare(pass, user.password);
-    if (!isMatch) throw new UnprocessableEntityException('Invalid password');
+    if (!isMatch) throw new UnprocessableEntityException('Invalid credentials');
 
     if (user && isMatch) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -190,5 +197,90 @@ export class AuthService {
     return {
       message: 'You have successfully logged out from all devices.',
     };
+  }
+
+  async verifyEmail(token: string) {
+    const tokenHash = createHash('sha256').update(token).digest('hex');
+
+    const verificationToken =
+      await this.prisma.emailVerificationToken.findUnique({
+        where: { tokenHash },
+      });
+
+    if (!verificationToken) {
+      throw new BadRequestException('Invalid or expired verification link');
+    }
+
+    if (verificationToken.expiresAt < new Date()) {
+      await this.prisma.emailVerificationToken.delete({
+        where: { id: verificationToken.id },
+      });
+
+      throw new BadRequestException('Verification link has expired');
+    }
+
+    await this.prisma.$transaction(async (tx) => {
+      // Delete the token so it cannot be reused.
+      const deleted = await tx.emailVerificationToken.deleteMany({
+        where: {
+          id: verificationToken.id,
+          tokenHash,
+          expiresAt: { gt: new Date() },
+        },
+      });
+
+      if (deleted.count !== 1) {
+        throw new BadRequestException('Invalid or expired verification link');
+      }
+
+      await tx.user.update({
+        where: { id: verificationToken.userId },
+        data: { isEmailVerified: true },
+      });
+    });
+
+    return { message: 'Email verified successfully' };
+  }
+
+  async resendVerificationEmail(email: string) {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+
+    if (!user) throw new BadRequestException(`Something went wrong`);
+
+    await this.mailer.sendConfirmationEmail(
+      user.email,
+      user.name,
+      user.lastName,
+    );
+
+    return { message: `Verification email sent to ${email}` };
+  }
+
+  async createEmailVerificationToken(
+    userId: string,
+    isClient: boolean = false,
+  ) {
+    const token = randomBytes(32).toString('hex');
+
+    const tokenHash = createHash('sha256').update(token).digest('hex');
+
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    // Remove previous verification tokens for this user.
+    await this.prisma.emailVerificationToken.deleteMany({
+      where: { userId },
+    });
+
+    await this.prisma.emailVerificationToken.create({
+      data: {
+        userId,
+        tokenHash,
+        expiresAt,
+      },
+    });
+
+    const verificationUrl = `${isClient ? process.env.CLIENT_URL : process.env.ADMIN_URL}/verify-email?token=${token}`;
+
+    return verificationUrl;
   }
 }

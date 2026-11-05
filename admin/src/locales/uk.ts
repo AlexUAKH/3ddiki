@@ -105,4 +105,13 @@ export default {
     float: "Має бути числом",
     notZero: "Має бути більше за 0",
   },
+  auth: {
+    verifyingYourEmail: "Підтвердження вашої електронної пошти...",
+    invalidVerificationLink: "Недійсне посилання підтвердження",
+    yourEmailVerifiedSuccessfully:
+      "Вашу електронну адресу успішно підтверджено!",
+    verificationLinkInvalid:
+      "Посилання для підтвердження недійсне або термін його дії минув",
+    goToLogin: "Перейти до сайту",
+  },
 } as MessageSchema;

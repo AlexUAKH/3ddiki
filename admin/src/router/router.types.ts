@@ -19,6 +19,7 @@ export enum ERouteNames {
   forgotPassword = "forgotPassword",
   resetPassword = "resetPassword",
   userProfile = "userProfile",
+  verifyEmail = "verifyEmail",
   //
   homePage = "homePage",
   customers = "customers",

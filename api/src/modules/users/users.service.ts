@@ -9,6 +9,7 @@ import { Role } from 'generated/prisma/enums';
 import { MailService } from 'src/mail.service';
 import { CreateUserDto } from '../admin/customer/dto/create-user.dto';
 import { UpdateUserDto } from '../admin/customer/dto/update-user.dto';
+import { AuthService } from '../auth/auth.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class UsersService {
   constructor(
     private prisma: PrismaService,
     private mailer: MailService,
+    private auth: AuthService,
     // private config: ConfigService,
   ) {}
 
@@ -39,11 +41,13 @@ export class UsersService {
         },
       });
 
+      const url = await this.auth.createEmailVerificationToken(newUser.id);
+
       if (!dto.isEmailVerified) {
         await this.mailer.sendConfirmationEmail(
           newUser.email,
           newUser.name,
-          newUser.lastName,
+          url,
         );
       }
 
@@ -88,19 +92,6 @@ export class UsersService {
   //  client
   getRolesForSelect() {
     return Object.values(Role);
-  }
-
-  async sendVerificationEmail(email: string) {
-    const user = await this.prisma.user.findUnique({ where: { email } });
-
-    if (!user) throw new NotFoundException(`User ${email} was not found`);
-    await this.mailer.sendConfirmationEmail(
-      user.email,
-      user.name,
-      user.lastName,
-    );
-
-    return { message: `Verification email sent to ${email}` };
   }
 
   async getUserInfoByEmail(email: string) {

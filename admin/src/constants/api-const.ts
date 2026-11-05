@@ -32,3 +32,5 @@ export const AUTH_REFRESH = "/auth/refresh";
 export const AUTH_REGISTER = "/auth/register";
 export const AUTH_LOGOUT = "/auth/logout";
 export const AUTH_PROFILE = "/auth/me";
+export const AUTH_SEND_VERIFICATION_LINK = "/auth/send-verification-email";
+export const AUTH_VERIFY_EMAIL = "/auth/verify-email";

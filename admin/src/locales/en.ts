@@ -107,4 +107,11 @@ export default {
     float: "Must be a number",
     notZero: "Must be greater than 0",
   },
+  auth: {
+    verifyingYourEmail: "Verifying your email...",
+    invalidVerificationLink: "Invalid verification link",
+    yourEmailVerifiedSuccessfully: "Your email has been verified successfully!",
+    verificationLinkInvalid: "Verification link is invalid or expired",
+    goToLogin: "Go to login",
+  },
 };

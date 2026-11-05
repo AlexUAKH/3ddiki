@@ -1,5 +1,5 @@
 import { useAuth } from "@/composables/auth";
-import { EUserRoles, type User } from "@/composables/auth.types";
+import { EUserRoles, type AuthUser } from "@/composables/auth.types";
 import { useHelpers } from "@/composables/helpers";
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants/cookies";
 import Cookies from "js-cookie";
@@ -13,7 +13,7 @@ export const useAuthStore = defineStore(
     const { errorMessage } = useHelpers();
 
     const accessToken = ref<string>(Cookies.get(ACCESS_TOKEN_COOKIE) || "");
-    const user = ref<User>({} as User);
+    const user = ref<AuthUser>({} as AuthUser);
 
     const loggedIn = computed(() => {
       return !!accessToken.value;
@@ -22,6 +22,8 @@ export const useAuthStore = defineStore(
     const isAdmin = computed(() => {
       return user.value?.role === EUserRoles.ADMIN; // remoove !
     });
+
+    const isEmailVerified = computed(() => user.value.isEmailVerified);
 
     const login = async (loginData: { email: string; password: string }) => {
       try {
@@ -65,7 +67,7 @@ export const useAuthStore = defineStore(
       Cookies.remove(ACCESS_TOKEN_COOKIE);
       Cookies.remove(REFRESH_TOKEN_COOKIE);
       accessToken.value = "";
-      user.value = {} as User;
+      user.value = {} as AuthUser;
     };
 
     // const canDo = (action: string): boolean => {
@@ -77,6 +79,7 @@ export const useAuthStore = defineStore(
       user,
       loggedIn,
       isAdmin,
+      isEmailVerified,
       login,
       logout,
       // canDo,

@@ -1,5 +1,6 @@
 // auth.controller.ts
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -9,6 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Throttle } from '@nestjs/throttler';
 import { type Request } from 'express';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -56,6 +58,28 @@ export class AuthController {
   @Get('profile')
   getProfile(@Req() req) {
     return req.user; // Вернет данные из JwtStrategy.validate()
+  }
+
+  @Post('resend-verification-email')
+  @Throttle({
+    default: {
+      limit: 3,
+      ttl: 60 * 60 * 1000,
+    },
+  })
+  async resendVerificationEmail(@Req() req, @Body() email: string) {
+    Logger.debug(`sendVerificationEmail user: ${JSON.stringify(req.user)}`);
+    return this.authService.resendVerificationEmail(email);
+    // return this.authService.sendVerificationEmail(req.user.email);
+  }
+
+  @Post('verify-email')
+  verifyEmail(@Body('token') token: string) {
+    if (!token || typeof token !== 'string') {
+      throw new BadRequestException('Token is required');
+    }
+
+    return this.authService.verifyEmail(token);
   }
 }
 

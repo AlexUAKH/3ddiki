@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { RouterModule } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { join } from 'path';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -43,6 +44,13 @@ import { UserModule } from './modules/users/users.module';
         },
       },
     }),
+    ThrottlerModule.forRoot([
+      {
+        name: 'default',
+        ttl: 60_000, // 1 minute, in milliseconds
+        limit: 5,
+      },
+    ]),
     AuthModule,
     PrismaModule,
     UserModule,
