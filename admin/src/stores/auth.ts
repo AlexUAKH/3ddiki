@@ -20,7 +20,7 @@ export const useAuthStore = defineStore(
     });
 
     const isAdmin = computed(() => {
-      return user.value?.role === EUserRoles.ADMIN; // remoove !
+      return user.value?.role.toLowerCase() === EUserRoles.ADMIN.toLowerCase(); // remoove !
     });
 
     const isEmailVerified = computed(() => user.value.isEmailVerified);
