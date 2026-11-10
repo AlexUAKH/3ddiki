@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PageHeader from "@/components/common/PageHeader.vue";
 import { useRadobot } from "@/composables/radobot";
 import { ref } from "vue";
 
@@ -19,7 +20,7 @@ const downloadImages = async () => {
   const url = `${baseUrl.value}${lessonNumber.value}/`;
 
   try {
-    const response = await extractImages(url);
+    const response = await extractImages(url, lessonNumber.value);
 
     const blob = new Blob([response.data], {
       type: "application/zip",
@@ -61,7 +62,7 @@ const downloadImages = async () => {
 <template>
   <v-container fluid>
     <PageHeader
-      header="Radobot image extractor"
+      header="Radobot image extractor v2.0"
       icon="mdi-robot-angry-outline"
     />
 

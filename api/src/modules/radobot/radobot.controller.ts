@@ -7,8 +7,14 @@ export class RadobotController {
   constructor(private readonly radobotService: RadobotService) {}
 
   @Post()
-  async download(@Body() body: { baseUrl: string }, @Res() res: Response) {
-    const buffer = await this.radobotService.downloadImages(body.baseUrl);
+  async download(
+    @Body() body: { baseUrl: string; lessonNumber: number },
+    @Res() res: Response,
+  ) {
+    const buffer = await this.radobotService.downloadImages(
+      body.baseUrl,
+      body.lessonNumber,
+    );
 
     res.set({
       'Content-Type': 'application/zip',

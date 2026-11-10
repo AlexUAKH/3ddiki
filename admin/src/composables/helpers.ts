@@ -35,7 +35,7 @@ export const useHelpers = () => {
     e.response.data?.result?.message ||
     e.response.data?.message ||
     fallBackMessage ||
-    "Check your login and password";
+    "Something went wrong";
 
   return {
     formateDate,

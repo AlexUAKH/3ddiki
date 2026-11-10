@@ -43,10 +43,16 @@ onMounted(async () => {
     class="d-flex align-center justify-center pa-4"
     style="min-height: 100vh"
   >
-    <v-card rounded="lg" class="pa-4 w-100" max-width="500" title="Вітаю">
+    <v-card
+      rounded="lg"
+      class="pa-4 w-100"
+      max-width="500"
+      :title="error ? 'Упс' : 'Вітаю'"
+    >
       <h3>{{ status }}</h3>
       <div class="text-end">
         <v-btn
+          v-if="!error"
           density="compact"
           variant="text"
           color="success"

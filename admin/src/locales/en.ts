@@ -28,6 +28,8 @@ export default {
     chooseFile: "Choose file(s)",
     dragAndDropFilesHere: "Drag and drop file(s) here",
     image: "Image | Images",
+    yes: "Yes",
+    no: "No",
   },
   sideBar: {
     dashboard: "Dashboard",
@@ -113,5 +115,14 @@ export default {
     yourEmailVerifiedSuccessfully: "Your email has been verified successfully!",
     verificationLinkInvalid: "Verification link is invalid or expired",
     goToLogin: "Go to login",
+    loginToYourAccount: "Login to your account",
+    email: "Email",
+    password: "Password",
+    forgotPassword: "Forgot password",
+    login: " Log In",
+    notVerifiedEmail: "Your email has not been verified!",
+    resendVerificationEmail: "Resend Email",
+    verificationEmail:
+      "Email with verification link has been sended successfully!",
   },
 };

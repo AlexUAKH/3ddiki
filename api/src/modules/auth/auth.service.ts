@@ -1,8 +1,10 @@
 import {
   BadRequestException,
   ForbiddenException,
+  HttpException,
   Injectable,
   Logger,
+  NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
@@ -73,6 +75,10 @@ export class AuthService {
     user: User,
     { userAgent, ip }: { userAgent?: string; ip?: string },
   ) {
+    if (!user.isEmailVerified) {
+      throw new HttpException('Будьласка, підтвердіть свій email', 429);
+    }
+
     const tokens = await this.generateTokens(user.id, user.email, user.role);
     await this.prisma.session.create({
       data: {
@@ -243,17 +249,23 @@ export class AuthService {
   }
 
   async resendVerificationEmail(email: string) {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+    try {
+      const user = await this.prisma.user.findUnique({ where: { email } });
 
-    if (!user) throw new BadRequestException(`Something went wrong`);
+      if (!user) throw new BadRequestException(`User doesn't exist`);
 
-    await this.mailer.sendConfirmationEmail(
-      user.email,
-      user.name,
-      user.lastName,
-    );
+      Logger.debug(`resend servise ${user.name}`);
+      const url = await this.createEmailVerificationToken(user.id);
+      Logger.debug(`resend url: ${url}`);
 
-    return { message: `Verification email sent to ${email}` };
+      await this.mailer.sendConfirmationEmail(user.email, user.name, url);
+      Logger.debug(`resend servise email sended`);
+
+      return { message: `Verification email sent to ${email}` };
+    } catch (e) {
+      Logger.debug(JSON.stringify(e));
+      throw new NotFoundException('Something went wrong');
+    }
   }
 
   async createEmailVerificationToken(

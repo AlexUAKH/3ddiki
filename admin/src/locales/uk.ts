@@ -30,6 +30,8 @@ export default {
     chooseFile: "Обрати файл(и)",
     dragAndDropFilesHere: "Перетягніть файл(и) сюди",
     image: "Зображення",
+    yes: "Так",
+    no: "Ні",
   },
   sideBar: {
     dashboard: "Статистіка",
@@ -113,5 +115,14 @@ export default {
     verificationLinkInvalid:
       "Посилання для підтвердження недійсне або термін його дії минув",
     goToLogin: "Перейти до сайту",
+    loginToYourAccount: "Увійдіть до свого облікового запису",
+    email: "Електронна пошта",
+    password: "Пароль",
+    forgotPassword: "Забули пароль",
+    login: "Увійти",
+    notVerifiedEmail: "Вашу електронну адресу не підтверджено!",
+    resendVerificationEmail: "Надіслати",
+    verificationEmail:
+      "Лист із посиланням для підтвердження успішно надіслано!",
   },
 } as MessageSchema;

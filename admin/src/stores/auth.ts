@@ -27,8 +27,11 @@ export const useAuthStore = defineStore(
 
     const login = async (loginData: { email: string; password: string }) => {
       try {
+        console.log("logining...");
         const res = (await loginApi(loginData)).data;
+        console.log("login ok: ", res);
 
+        if (!res.user.isEmailVerified) return false;
         accessToken.value = res.access_token;
 
         Cookies.set(ACCESS_TOKEN_COOKIE, res.access_token, {
@@ -44,9 +47,9 @@ export const useAuthStore = defineStore(
       } catch (e: any) {
         userReset();
         const message = errorMessage(e, "Check your login and password");
-        const field = e.response.data?.field || "";
+        // const field = e.response.data?.field || "";
 
-        throw { message, field };
+        throw { message, status: e.status };
       }
     };
 

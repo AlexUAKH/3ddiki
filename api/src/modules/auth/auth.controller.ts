@@ -10,7 +10,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Throttle } from '@nestjs/throttler';
 import { type Request } from 'express';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -61,14 +60,15 @@ export class AuthController {
   }
 
   @Post('resend-verification-email')
-  @Throttle({
-    default: {
-      limit: 3,
-      ttl: 60 * 60 * 1000,
-    },
-  })
-  async resendVerificationEmail(@Req() req, @Body() email: string) {
-    Logger.debug(`sendVerificationEmail user: ${JSON.stringify(req.user)}`);
+  // @Throttle({
+  //   default: {
+  //     limit: 1,
+  //     ttl: 60 * 60 * 1000,
+  //     // blockDuration: 30 * 60 * 1000,
+  //   },
+  // })
+  async resendVerificationEmail(@Body('email') email: string) {
+    Logger.debug(`sendVerificationEmail user: ${JSON.stringify(email)}`);
     return this.authService.resendVerificationEmail(email);
     // return this.authService.sendVerificationEmail(req.user.email);
   }

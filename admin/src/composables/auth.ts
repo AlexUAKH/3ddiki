@@ -19,6 +19,14 @@ export const useAuth = () => {
     return (await $http.get("/user/info")).data;
   };
 
+  const resendVerificationEmail = async (email: string) => {
+    return (
+      await $http.post(`${API}/resend-verification-email`, {
+        email,
+      })
+    ).data;
+  };
+
   const forgotPassword = async (data: {
     email?: string;
     passport?: string;
@@ -63,5 +71,6 @@ export const useAuth = () => {
     changePassword,
     getUserInfo,
     checkHasScope,
+    resendVerificationEmail,
   };
 };

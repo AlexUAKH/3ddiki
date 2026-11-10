@@ -3,16 +3,18 @@ export interface LoginResponse {
   refresh_token: string;
   email: string;
   expire_at: number;
-  id: string;
   user: AuthUser;
 }
 
 export type AuthUser = {
   id: string;
   email: string;
+  name: string;
+  lastName: string;
   role: EUserRoles;
   isEmailVerified: boolean;
-  permissions?: any[];
+  stripeCustomerId: boolean;
+  // permissions?: any[];
 };
 
 export type UserInfo = AuthUser & {

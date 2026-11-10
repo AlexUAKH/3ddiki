@@ -50,6 +50,12 @@ const headers = computed<Header[]>(() => [
     sortable: false,
   },
   {
+    title: t("customers.emailVerified"),
+    key: "isEmailVerified",
+    align: "center",
+    sortable: false,
+  },
+  {
     title: t("customers.createdAt"),
     key: "createdAt",
     align: "center",
@@ -179,6 +185,11 @@ onMounted(async () => {
           :loading="loading"
           :no-data-text="t('common.noData')"
         >
+          <template #item.isEmailVerified="{ item }">
+            <div class="">
+              {{ item.isEmailVerified ? t("common.yes") : t("common.no") }}
+            </div>
+          </template>
           <template #item.actions="{ item }">
             <TableActions
               :actions="actions"

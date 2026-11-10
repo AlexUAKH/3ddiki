@@ -48,7 +48,7 @@ import { UserModule } from './modules/users/users.module';
       {
         name: 'default',
         ttl: 60_000, // 1 minute, in milliseconds
-        limit: 5,
+        limit: 500, //5
       },
     ]),
     AuthModule,
