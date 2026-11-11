@@ -6,13 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-// import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { UsersService } from 'src/modules/users/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
+@UseGuards(JwtAuthGuard)
 export class AdminCustomersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -22,7 +24,6 @@ export class AdminCustomersController {
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
   async findAll() {
     return await this.usersService.findAll();
   }

@@ -83,7 +83,6 @@ onMounted(() => {
     <SpinnerFull :show="isSubmitting" />
 
     <v-card max-width="500" elevation="4" class="px-2 py-2 mx-auto">
-      <div class="">email: {{ values.email }}</div>
       <v-container v-if="showResendEmail">
         <div class="text-center text-title-medium">
           {{ t("auth.notVerifiedEmail") }}

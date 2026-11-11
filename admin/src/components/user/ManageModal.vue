@@ -92,7 +92,7 @@ watchEffect(async () => {
 
 <template>
   <v-dialog :model-value="open" max-width="500" persistent transition="scale">
-    <v-card :loading="loading">
+    <v-card :loading="loading" border>
       <v-card-title class="text-center">
         {{
           `${id ? t("common.edit") : t("common.create")} ${t("customers.customer", 2)}`

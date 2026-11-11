@@ -6,13 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-// import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { FilamentService } from 'src/modules/filament/filament.service';
 import { CreateFilamentDto } from './dto/create-filament.dto';
 import { UpdateFilamentDto } from './dto/update-filament.dto';
 
 @Controller('filament')
+@UseGuards(JwtAuthGuard)
 export class AdminFilamentController {
   constructor(private readonly filamentService: FilamentService) {}
 
@@ -22,7 +24,6 @@ export class AdminFilamentController {
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
   async findAll() {
     return await this.filamentService.findAll();
   }

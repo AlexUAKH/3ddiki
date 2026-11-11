@@ -1,11 +1,11 @@
 import type { AuthUser } from "@/composables/auth.types";
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants/cookies";
-import router from "@/router";
 import { ERouteNames } from "@/router/router.types";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import Cookies from "js-cookie";
+import { useRouter } from "vue-router";
 
 const getAccessTokenExpireIn = () =>
   Number(import.meta.env.VITE_JWT_EXPIRES_IN_MINUTES || 15) * 60;
@@ -65,9 +65,10 @@ function refreshAuthLogic(failedRequest: any): Promise<any> {
       refresh_token: Cookies.get(REFRESH_TOKEN_COOKIE) || "",
     })
     .then(async (tokenRefreshResponse: any) => {
+      console.log("refreshAuthLogic: ", tokenRefreshResponse);
       const auth = useAuthStore();
-      const accessToken = tokenRefreshResponse.data.data.access_token;
-      const refreshToken = tokenRefreshResponse.data.data.refresh_token;
+      const accessToken = tokenRefreshResponse.data.access_token;
+      const refreshToken = tokenRefreshResponse.data.refresh_token;
 
       auth.accessToken = accessToken;
       Cookies.set(ACCESS_TOKEN_COOKIE, accessToken, {
@@ -77,12 +78,14 @@ function refreshAuthLogic(failedRequest: any): Promise<any> {
         expires: getRefreshTokenExpireIn(),
       });
 
+      // config.headers.Authorization = `Bearer ${token}`;
       failedRequest.response.config.headers["Authorization"] =
-        "Bearer " + token;
+        `Bearer ${accessToken}`;
       return Promise.resolve();
     })
     .catch(() => {
       const auth = useAuthStore();
+      const router = useRouter();
 
       Cookies.remove(ACCESS_TOKEN_COOKIE);
       Cookies.remove(REFRESH_TOKEN_COOKIE);

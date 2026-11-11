@@ -18,9 +18,6 @@ export type AuthUser = {
 };
 
 export type UserInfo = AuthUser & {
-  name: string;
-  lastName: string;
-  stripeCustomerId?: string | null;
   createdAt: Date;
   updatedAt: Date;
 };

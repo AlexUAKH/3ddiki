@@ -6,12 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { ProductCategoryService } from '../../products/categories/product-category.service';
 import { CreateProductCategoryDto } from './dto/create-product-category.dto';
 import { UpdateProductCategoryDto } from './dto/update-product-category.dto';
 
 @Controller('product-category')
+@UseGuards(JwtAuthGuard)
 export class AdminProductCategoryController {
   constructor(
     private readonly productCategoryService: ProductCategoryService,

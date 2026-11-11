@@ -6,12 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { FilamentColorService } from 'src/modules/filament/color/filament-color.service';
 import { CreateFilamentColorDto } from './dto/create-filament-color.dto';
 import { UpdateFilamentColorDto } from './dto/update-filament-color.dto';
 
 @Controller('filament-colors')
+@UseGuards(JwtAuthGuard)
 export class AdminFilamentColorController {
   constructor(private readonly filamentColorService: FilamentColorService) {}
 
