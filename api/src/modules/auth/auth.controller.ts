@@ -8,12 +8,12 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { Throttle } from '@nestjs/throttler';
 import { type Request } from 'express';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { RefreshGuard } from './guards/refresh.auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -41,7 +41,7 @@ export class AuthController {
     return this.authService.logoutAll(req.user.userId);
   }
 
-  @UseGuards(AuthGuard('jwt-refresh')) // check refresh-token
+  @UseGuards(RefreshGuard) // check refresh-token
   @Post('refresh')
   async refresh(@Req() req: Request) {
     const user = req.user as any;
