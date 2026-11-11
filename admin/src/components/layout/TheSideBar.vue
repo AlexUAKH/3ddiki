@@ -64,12 +64,6 @@ const menuItems = computed<MenuItem[]>(() => {
       exact: true,
     },
     {
-      title: t("sideBar.customers"),
-      icon: CUSTOMERS_ICON,
-      route: "customers",
-      pageName: ERouteNames.customers,
-    },
-    {
       title: t("sideBar.filaments"),
       icon: FILAMENTS_ICON,
       route: "filaments",
@@ -90,12 +84,20 @@ const menuItems = computed<MenuItem[]>(() => {
   ];
 
   if (isAdmin.value) {
-    menus.push({
-      title: "Radobot",
-      route: "radobot",
-      icon: "mdi-robot-angry-outline",
-      pageName: ERouteNames.radobot,
-    });
+    menus.push(
+      {
+        title: t("sideBar.customers"),
+        icon: CUSTOMERS_ICON,
+        route: "customers",
+        pageName: ERouteNames.customers,
+      },
+      {
+        title: "Radobot",
+        route: "radobot",
+        icon: "mdi-robot-angry-outline",
+        pageName: ERouteNames.radobot,
+      },
+    );
   }
   return menus;
 });

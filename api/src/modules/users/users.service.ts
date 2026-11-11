@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import bcrypt from 'bcrypt';
@@ -100,15 +101,14 @@ export class UsersService {
   }
 
   async getUserInfoByEmail(email: string) {
+    Logger.debug(`getUserInfoByEmail ${email}`);
     const userObject = await this.prisma.user.findUnique({
       where: { email },
+      omit: { password: true },
     });
     if (!userObject) throw new NotFoundException(`User ${email} was not found`);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...user } = userObject;
-
-    return user;
+    return userObject;
   }
   // helpers
   private generateRandomPassword(length: number = 8): string {

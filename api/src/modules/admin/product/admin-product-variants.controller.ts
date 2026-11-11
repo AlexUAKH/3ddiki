@@ -10,15 +10,18 @@ import {
   Patch,
   Post,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { ProductVariantsService } from 'src/modules/products/product-variant.service';
 import { CreateVariantDto } from './dto/create-product-variant.dto';
 import { UpdateVariantDto } from './dto/update-product-variant.dto';
 
 @Controller('')
+@UseGuards(JwtAuthGuard)
 export class AdminProductVariantsController {
   constructor(
     private readonly productVariantsService: ProductVariantsService,

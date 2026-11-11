@@ -1,8 +1,8 @@
 // strategies/jwt-refresh.strategy.ts
-import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Strategy } from 'passport-jwt';
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(
@@ -11,18 +11,21 @@ export class JwtRefreshStrategy extends PassportStrategy(
 ) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: (req: Request) => {
+        const token = req?.body?.refresh_token;
+        return typeof token === 'string' && token.length > 0 ? token : null;
+      },
       secretOrKey: process.env.JWT_REFRESH_SECRET || 'REFRESH_SECRET',
       passReqToCallback: true,
     });
   }
 
   validate(req: Request, payload: any) {
-    const authHeader = req.get('Authorization');
-    Logger.debug(`JwtRefreshStrategy ${JSON.stringify(payload)}`);
-    Logger.debug(`JwtRefreshStrategy authHeader: ${authHeader}`);
-    if (!authHeader) throw new ForbiddenException('Токен не найден');
-    const refreshToken = authHeader.replace('Bearer', '').trim();
+    const refreshToken = req.body?.refresh_token;
+    if (typeof refreshToken !== 'string' || refreshToken.length === 0) {
+      throw new UnauthorizedException('Refresh token is required');
+    }
+
     return { ...payload, refreshToken };
   }
 }

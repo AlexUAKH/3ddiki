@@ -25,6 +25,7 @@ export class AdminFilamentTypeController {
     return this.filamentTypeService.findAll();
   }
 
+  @Get()
   findOne(@Param('id') id: string) {
     return this.filamentTypeService.findOne(+id);
   }
