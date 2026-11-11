@@ -2,9 +2,9 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  Logger,
   NotFoundException,
 } from '@nestjs/common';
+import bcrypt from 'bcrypt';
 import { Role } from 'generated/prisma/enums';
 import { MailService } from 'src/mail.service';
 import { CreateUserDto } from '../admin/customer/dto/create-user.dto';
@@ -29,34 +29,39 @@ export class UsersService {
     });
 
     if (user) throw new NotFoundException(`User ${dto.email} already exists`);
+    let newUser;
+
+    const password = this.generateRandomPassword();
+    const hasPassword = await bcrypt.hash(password, 10);
     try {
-      const newUser = await this.prisma.user.create({
+      newUser = await this.prisma.user.create({
         data: {
           name: dto.name,
           lastName: dto.lastName,
           email: dto.email,
           role: dto.role,
           isEmailVerified: dto.isEmailVerified,
-          password: this.generateRandomPassword(),
+          password: hasPassword,
         },
       });
-
-      const url = await this.auth.createEmailVerificationToken(newUser.id);
-
-      if (!dto.isEmailVerified) {
-        await this.mailer.sendConfirmationEmail(
-          newUser.email,
-          newUser.name,
-          url,
-        );
-      }
-
-      return newUser;
     } catch (error: any) {
       throw new InternalServerErrorException(
         `Failed to create user: ${error.message}`,
       );
     }
+
+    const url = await this.auth.createEmailVerificationToken(
+      newUser.id,
+      newUser.email,
+    );
+
+    if (!dto.isEmailVerified) {
+      this.mailer
+        .sendConfirmationEmail(newUser.email, newUser.name, url, password)
+        .catch(() => {});
+    }
+
+    return newUser;
   }
 
   async findAll() {
@@ -95,7 +100,6 @@ export class UsersService {
   }
 
   async getUserInfoByEmail(email: string) {
-    Logger.debug(`UsersService getUserInfoByEmail email: ${email}`);
     const userObject = await this.prisma.user.findUnique({
       where: { email },
     });

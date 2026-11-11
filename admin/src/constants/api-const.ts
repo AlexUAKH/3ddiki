@@ -29,8 +29,12 @@ export const ORDER_API = "admin/orders";
 //auth
 export const AUTH_LOGIN = "/auth/login";
 export const AUTH_REFRESH = "/auth/refresh";
+export const AUTH_CHANGE_PASSWORD = "/auth/change-password";
 export const AUTH_REGISTER = "/auth/register";
 export const AUTH_LOGOUT = "/auth/logout";
+export const AUTH_FORGOT = "/auth/forgot";
 export const AUTH_PROFILE = "/auth/me";
+export const AUTH_USER_INFO = "/user/info";
 export const AUTH_SEND_VERIFICATION_LINK = "/auth/send-verification-email";
 export const AUTH_VERIFY_EMAIL = "/auth/verify-email";
+export const AUTH_RESEND_EMAIL = "/auth/resend-verification-email";

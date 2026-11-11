@@ -42,7 +42,6 @@ useField("email", { email: true });
 useField("password", { required: true, min: [6] });
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log("handleSubmit values: ", values);
   try {
     await auth.login({
       email: values.email,
@@ -62,8 +61,7 @@ const resendEmail = async () => {
   sending.value = true;
   try {
     if (!values.email) return;
-    const res = await resendVerificationEmail(values.email);
-    console.log("resendEmail: ", res);
+    await resendVerificationEmail(values.email);
 
     toast.success(t("auth.verificationEmail"));
   } catch (error: any) {

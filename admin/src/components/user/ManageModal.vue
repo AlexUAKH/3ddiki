@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHelpers } from "@/composables/helpers.ts";
 import { useUsers, type CreateUser, type Role } from "@/composables/users.ts";
-import { FILAMENT_API } from "@/constants/api-const.ts";
+import { USERS_API } from "@/constants/api-const.ts";
 import $http from "@/plugins/axios.ts";
 import { useField, useForm } from "vee-validate";
 import { ref, watchEffect } from "vue";
@@ -64,7 +64,6 @@ const submit = handleSubmit(async (event) => {
     resetForm();
   } catch (error: any) {
     // if (error) {
-    console.log("onRequestError: ", errorMessage(error));
     toast.error(errorMessage(error));
   } finally {
     processing.value = false;
@@ -75,7 +74,7 @@ watchEffect(async () => {
   if (props.id) {
     loading.value = true;
     try {
-      const response = await $http.get(`${FILAMENT_API}/${props.id}`);
+      const response = await $http.get(`${USERS_API}/${props.id}`);
 
       name.value.value = response.data.name;
       lastName.value.value = response.data.lastName;

@@ -3,13 +3,12 @@ import {
   ForbiddenException,
   HttpException,
   Injectable,
-  Logger,
   NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { createHash, randomBytes } from 'crypto';
 import { User } from 'generated/prisma/client';
 import { MailService } from 'src/mail.service';
@@ -173,12 +172,9 @@ export class AuthService {
 
   async logout(userId: string, refreshToken: string) {
     // get all user's sessions
-    Logger.debug(`userId: ${userId}`);
-    Logger.debug(`refreshToken: ${refreshToken}`);
     const sessions = await this.prisma.session.findMany({
       where: { userId },
     });
-    Logger.debug(`session: ${sessions.length}`);
 
     for (const session of sessions) {
       const isMatch = await bcrypt.compare(refreshToken, session.refreshToken);
@@ -195,8 +191,6 @@ export class AuthService {
   }
 
   async logoutAll(userId: string) {
-    Logger.debug(`loggoutAll user: ${userId}`);
-
     await this.prisma.session.deleteMany({
       where: { userId },
     });
@@ -205,25 +199,56 @@ export class AuthService {
     };
   }
 
+  async forgotPassword(email: string) {
+    try {
+      const user = await this.prisma.user.findUnique({ where: { email } });
+
+      if (!user) throw new BadRequestException(`User doesn't exist`);
+
+      const url = await this.createEmailVerificationToken(
+        user.id,
+        user.email,
+        'reset-password',
+      );
+
+      await this.mailer.sendResetPasswordEmail(user.email, user.name, url);
+
+      return { message: `Verification email sent to ${email}` };
+    } catch (e) {
+      throw new NotFoundException(e);
+    }
+  }
+
+  async changePassword(token: string, email: string, password: string) {
+    const { tokenHash, verificationToken } = await this.checkToken(token);
+
+    await this.prisma.$transaction(async (tx) => {
+      // Delete the token so it cannot be reused.
+      const deleted = await tx.emailVerificationToken.deleteMany({
+        where: {
+          id: verificationToken.id,
+          tokenHash,
+          expiresAt: { gt: new Date() },
+        },
+      });
+
+      if (deleted.count !== 1) {
+        throw new BadRequestException('Invalid or expired verification link');
+      }
+
+      const passwordHash = await bcrypt.hash(password, 10);
+
+      await tx.user.update({
+        where: { id: verificationToken.userId },
+        data: { password: passwordHash },
+      });
+    });
+
+    return { message: 'Password has changed successfully' };
+  }
+
   async verifyEmail(token: string) {
-    const tokenHash = createHash('sha256').update(token).digest('hex');
-
-    const verificationToken =
-      await this.prisma.emailVerificationToken.findUnique({
-        where: { tokenHash },
-      });
-
-    if (!verificationToken) {
-      throw new BadRequestException('Invalid or expired verification link');
-    }
-
-    if (verificationToken.expiresAt < new Date()) {
-      await this.prisma.emailVerificationToken.delete({
-        where: { id: verificationToken.id },
-      });
-
-      throw new BadRequestException('Verification link has expired');
-    }
+    const { tokenHash, verificationToken } = await this.checkToken(token);
 
     await this.prisma.$transaction(async (tx) => {
       // Delete the token so it cannot be reused.
@@ -249,27 +274,30 @@ export class AuthService {
   }
 
   async resendVerificationEmail(email: string) {
+    let user;
     try {
-      const user = await this.prisma.user.findUnique({ where: { email } });
+      user = await this.prisma.user.findUnique({ where: { email } });
 
       if (!user) throw new BadRequestException(`User doesn't exist`);
-
-      Logger.debug(`resend servise ${user.name}`);
-      const url = await this.createEmailVerificationToken(user.id);
-      Logger.debug(`resend url: ${url}`);
-
-      await this.mailer.sendConfirmationEmail(user.email, user.name, url);
-      Logger.debug(`resend servise email sended`);
-
-      return { message: `Verification email sent to ${email}` };
-    } catch (e) {
-      Logger.debug(JSON.stringify(e));
+    } catch {
       throw new NotFoundException('Something went wrong');
     }
+
+    if (user.isEmailVerified) {
+      throw new HttpException('Ваша електронна пошта вже підтверджена', 444);
+    }
+
+    const url = await this.createEmailVerificationToken(user.id, user.email);
+
+    await this.mailer.sendConfirmationEmail(user.email, user.name, url);
+
+    return { message: `Verification email sent to ${email}` };
   }
 
   async createEmailVerificationToken(
     userId: string,
+    email: string,
+    route: string = 'verify-email',
     isClient: boolean = false,
   ) {
     const token = randomBytes(32).toString('hex');
@@ -278,21 +306,47 @@ export class AuthService {
 
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    // Remove previous verification tokens for this user.
-    await this.prisma.emailVerificationToken.deleteMany({
-      where: { userId },
+    await this.prisma.$transaction(async (tx) => {
+      // Remove previous verification tokens for this user.
+      await tx.emailVerificationToken.deleteMany({
+        where: { userId },
+      });
+
+      await this.prisma.emailVerificationToken.create({
+        data: {
+          userId,
+          tokenHash,
+          expiresAt,
+        },
+      });
     });
 
-    await this.prisma.emailVerificationToken.create({
-      data: {
-        userId,
-        tokenHash,
-        expiresAt,
-      },
-    });
+    return `${isClient ? process.env.CLIENT_URL : process.env.ADMIN_URL}/${route}?token=${token}&email=${email}`;
+  }
 
-    const verificationUrl = `${isClient ? process.env.CLIENT_URL : process.env.ADMIN_URL}/verify-email?token=${token}`;
+  private async checkToken(token: string) {
+    const tokenHash = createHash('sha256').update(token).digest('hex');
 
-    return verificationUrl;
+    const verificationToken =
+      await this.prisma.emailVerificationToken.findUnique({
+        where: { tokenHash },
+      });
+
+    if (!verificationToken) {
+      throw new BadRequestException('Invalid or expired verification link');
+    }
+
+    if (verificationToken.expiresAt < new Date()) {
+      await this.prisma.emailVerificationToken.delete({
+        where: { id: verificationToken.id },
+      });
+
+      throw new BadRequestException('Verification link has expired');
+    }
+
+    return {
+      tokenHash,
+      verificationToken,
+    };
   }
 }

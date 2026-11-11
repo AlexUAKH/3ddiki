@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import SimpleInput from "@/components/common/SimpleInput.vue";
-import SpinnerFull from "@/components/common/SpinnerFull.vue";
+import FormActions from "@/components/common/FormActions.vue";
 import { useAuth } from "@/composables/auth";
+import { useHelpers } from "@/composables/helpers";
 import { ERouteNames } from "@/router/router.types";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 
 interface resetForm {
@@ -14,62 +16,64 @@ const initialValues = {
   email: "",
 };
 
-const { handleSubmit, isSubmitting } = useForm<resetForm>({
+const { handleSubmit, isSubmitting, values, meta } = useForm<resetForm>({
   initialValues,
 });
 
-useField("email", { email: true });
+const email = useField("email", { required: true, email: true });
 
-const message = ref("");
-const error = ref("");
 const { forgotPassword } = useAuth();
+const { errorMessage } = useHelpers();
+const router = useRouter();
+const { t } = useI18n();
+const success = ref(false);
 
-const resetPassword = handleSubmit(async (values): Promise<void> => {
-  error.value = "";
+const submit = handleSubmit(async (values): Promise<void> => {
   try {
-    let data = {} as any;
+    await forgotPassword(values.email);
 
-    const response = await forgotPassword(data);
-    message.value = response.message;
     toast.success(`Success!! Link was sent successfully`);
+    success.value = true;
   } catch (err: any) {
-    error.value = err.message; //err.errors.email[0] || err.errors.passport[0];
+    toast.error(errorMessage(err));
+    // error.value = errorMessage(err); //err.errors.email[0] || err.errors.passport[0];
   }
 });
+
+const toLogin = () => {
+  router.push({ name: ERouteNames.login });
+};
 </script>
 
 <template>
-  <div class="self-center">
-    <SpinnerFull :show="isSubmitting" />
-
-    <v-card max-width="500" class="px-2 py-2 w-100 ma-4">
+  <div class="align-self-center w-100">
+    <v-card max-width="500" elevation="4" class="px-2 py-2 mx-auto">
+      <v-card-title class="text-center text-2xl"
+        >Відновлення паролю</v-card-title
+      >
       <v-container>
-        <div class="text-center text-2xl">Reset your password</div>
+        <v-form v-if="!success" @submit.prevent class="mt-4">
+          <v-text-field
+            v-model.trim="email.value.value"
+            name="forgot-email"
+            :error-messages="t(email.errorMessage.value || '')"
+            :label="t('auth.email')"
+          />
 
-        <v-form @submit.prevent="resetPassword" class="mt-4">
-          <v-alert type="error" class="mb-2" v-if="error">
-            {{ error }}
-          </v-alert>
-          <v-alert v-if="message" type="success">
-            {{ message }}
-          </v-alert>
-          <SimpleInput name="email" label="Email" class="mb-3" />
-
-          <div class="flex justify-between items-center">
-            <v-btn
-              type="submit"
-              form="reset-password-form"
-              @click="resetPassword"
-              :disabled="isSubmitting"
-              color="success"
-            >
-              Send reset link
-            </v-btn>
-            <v-btn :to="{ name: ERouteNames.login }" color="error">
-              Back to login
-            </v-btn>
-          </div>
+          <FormActions
+            :processing="isSubmitting"
+            ok-btn-label="Send reset link"
+            cancel-btn-label="Back to login"
+            :disabled="!meta.valid"
+            @confirm="submit"
+            @reject="toLogin"
+          />
         </v-form>
+
+        <div v-if="success" class="">
+          Посилання для відновлення паролю було надіслано на вашу електронну
+          пошту.
+        </div>
       </v-container>
     </v-card>
   </div>

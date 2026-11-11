@@ -63,6 +63,7 @@ export default {
     email: "Електронна пошта",
     role: "Роль",
     isEmailVerified: "Підтверджено електронну пошту",
+    createdAt: "Створено",
     setAsEmailVerified: "Встановити електронну пошту як підтверджену",
     newCustomerCreated: "Новий клієнт створений успішно",
     customerWasUpdatedSuccessfully: "Клієнт оновлений успішно",
@@ -106,6 +107,7 @@ export default {
     number: "Має бути цілим часлом",
     float: "Має бути числом",
     notZero: "Має бути більше за 0",
+    minPasswordLength: "Пароль має бути хочаб {limit} символів",
   },
   auth: {
     verifyingYourEmail: "Підтвердження вашої електронної пошти...",
@@ -118,10 +120,11 @@ export default {
     loginToYourAccount: "Увійдіть до свого облікового запису",
     email: "Електронна пошта",
     password: "Пароль",
+    confirmPassword: "Підтвердіть пароль",
     forgotPassword: "Забули пароль",
     login: "Увійти",
     notVerifiedEmail: "Вашу електронну адресу не підтверджено!",
-    resendVerificationEmail: "Надіслати",
+    resendVerificationEmail: "Надіслати ще",
     verificationEmail:
       "Лист із посиланням для підтвердження успішно надіслано!",
   },

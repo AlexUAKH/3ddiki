@@ -45,7 +45,6 @@ const submit = handleSubmit(async (event) => {
     resetForm();
   } catch (error: any) {
     // if (error) {
-    console.log("onRequestError: ", errorMessage(error));
     toast.error(errorMessage(error));
   } finally {
     processing.value = false;

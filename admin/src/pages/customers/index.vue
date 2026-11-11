@@ -3,26 +3,37 @@ import PageHeader from "@/components/common/PageHeader.vue";
 import DeleteItemModal from "@/components/DeleteItemModal.vue";
 import TableActions from "@/components/TableActions.vue";
 import ManageModal from "@/components/user/ManageModal.vue";
+import { useAuth } from "@/composables/auth";
 import { useEditModal } from "@/composables/editModal";
+import { useHelpers } from "@/composables/helpers";
 import { EActions, type Header, type TableAction } from "@/composables/table";
 import { useUsers, type Role, type User } from "@/composables/users";
 import { USERS_API } from "@/constants/api-const";
-import { CUSTOMERS_ICON, DELETE_ICON, EDIT_ICON } from "@/constants/iconsMap";
+import {
+  CUSTOMERS_ICON,
+  DELETE_ICON,
+  EDIT_ICON,
+  EMAIL_SYNC_ICON,
+} from "@/constants/iconsMap";
 import { ERouteNames } from "@/router/router.types";
 import type { DeleteItem } from "@/types";
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
 
 const deletingUser = ref<DeleteItem | null>(null);
 const searchByEmail = ref<string>("");
 const searchByRole = ref<Role>("ALL");
 const roles = ref<Role[]>([]);
+const sending = ref("");
 
 const { t } = useI18n();
 const { users, loading, getUsers, getUserRoles } = useUsers();
 const router = useRouter();
+const { formateDate, errorMessage } = useHelpers();
 const { editingId, showManageModal } = useEditModal();
+const { resendVerificationEmail: resendEmail } = useAuth();
 
 const headers = computed<Header[]>(() => [
   // {
@@ -50,7 +61,7 @@ const headers = computed<Header[]>(() => [
     sortable: false,
   },
   {
-    title: t("customers.emailVerified"),
+    title: t("customers.isEmailVerified"),
     key: "isEmailVerified",
     align: "center",
     sortable: false,
@@ -77,6 +88,12 @@ const actions = computed<TableAction[]>(() => [
     color: "warning",
   },
   {
+    action: EActions.sendVerificationEmail,
+    icon: EMAIL_SYNC_ICON,
+    label: t("auth.resendVerificationEmail"),
+    color: "info",
+  },
+  {
     action: EActions.delete,
     icon: DELETE_ICON,
     label: t("common.delete"),
@@ -86,9 +103,6 @@ const actions = computed<TableAction[]>(() => [
 
 const filteredUsers = computed(() =>
   users.value.filter((user) => {
-    console.log("filteredUsers: ", user.role === searchByRole.value);
-    console.log("user.role: ", user.role);
-    console.log("searchByRole.value: ", searchByRole.value);
     return (
       (searchByRole.value && searchByRole.value !== "ALL"
         ? user.role === searchByRole.value
@@ -97,6 +111,8 @@ const filteredUsers = computed(() =>
     );
   }),
 );
+
+const rolesForFilter = computed(() => ["ALL", ...roles.value]);
 
 const createHandler = () => {
   showManageModal.value = true;
@@ -132,6 +148,19 @@ const closeManageModal = () => {
   showManageModal.value = false;
 };
 
+const resendVerificationEmail = async (email: string) => {
+  sending.value = email;
+  try {
+    await resendEmail(email);
+
+    toast.success(t("auth.verificationEmail"));
+  } catch (error: any) {
+    toast.error(errorMessage(error));
+  } finally {
+    sending.value = "";
+  }
+};
+
 onMounted(async () => {
   loading.value = true;
 
@@ -139,7 +168,7 @@ onMounted(async () => {
     loading.value = false;
   });
 
-  roles.value = ["ALL", ...(res[0].data || [])];
+  roles.value = res[0].data || [];
 });
 </script>
 
@@ -160,7 +189,7 @@ onMounted(async () => {
         />
         <v-autocomplete
           v-model="searchByRole"
-          :items="roles"
+          :items="rolesForFilter"
           dense
           hide-details
           style="max-width: 200px"
@@ -190,11 +219,23 @@ onMounted(async () => {
               {{ item.isEmailVerified ? t("common.yes") : t("common.no") }}
             </div>
           </template>
+          <template #item.createdAt="{ item }">
+            <div class="">
+              {{ formateDate(item.createdAt, true) }}
+            </div>
+          </template>
           <template #item.actions="{ item }">
             <TableActions
               :actions="actions"
+              :loading="
+                sending === item.email ? EActions.sendVerificationEmail : ''
+              "
+              :disabled="{
+                [EActions.sendVerificationEmail]: item.isEmailVerified,
+              }"
               @delete="deleteUser(item)"
               @edit="editHandler(item.id)"
+              @sendVerificationEmail="resendVerificationEmail(item.email)"
             />
           </template>
         </v-data-table>

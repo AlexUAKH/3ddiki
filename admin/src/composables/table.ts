@@ -10,6 +10,7 @@ export enum EActions {
   edit = "edit",
   delete = "delete",
   changeDiscount = "changeDiscount",
+  sendVerificationEmail = "sendVerificationEmail",
 }
 
 export type Header = {

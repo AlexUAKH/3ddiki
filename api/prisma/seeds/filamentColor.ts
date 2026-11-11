@@ -22,8 +22,6 @@ const filamentColors = [
 ];
 
 export const FilamentColorSeeder = async (prisma: PrismaClientType) => {
-  console.log('Seeding filament colors');
-
   filamentColors
     .sort((a, b) => a.name.localeCompare(b.name))
     .forEach(async ({ color, name }) => {

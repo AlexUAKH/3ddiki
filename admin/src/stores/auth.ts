@@ -20,16 +20,14 @@ export const useAuthStore = defineStore(
     });
 
     const isAdmin = computed(() => {
-      return user.value?.role.toLowerCase() === EUserRoles.ADMIN.toLowerCase(); // remoove !
+      return user.value?.role?.toLowerCase() === EUserRoles.ADMIN.toLowerCase(); // remoove !
     });
 
     const isEmailVerified = computed(() => user.value.isEmailVerified);
 
     const login = async (loginData: { email: string; password: string }) => {
       try {
-        console.log("logining...");
         const res = (await loginApi(loginData)).data;
-        console.log("login ok: ", res);
 
         if (!res.user.isEmailVerified) return false;
         accessToken.value = res.access_token;
@@ -92,7 +90,7 @@ export const useAuthStore = defineStore(
     persist: {
       // afterRestore: (ctx) => {
       afterHydrate: (ctx) => {
-        console.log("Restored store: ", ctx.store);
+        // console.log("Restored store: ", ctx.store);
         if (ctx.store.accessToken)
           Cookies.set(ACCESS_TOKEN_COOKIE, ctx.store.accessToken, {
             expires: 365,

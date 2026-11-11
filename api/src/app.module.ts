@@ -2,9 +2,9 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { RouterModule } from '@nestjs/core';
+import { APP_GUARD, RouterModule } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { join } from 'path';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -89,6 +89,10 @@ import { UserModule } from './modules/users/users.module';
   ],
   controllers: [],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     // {
     //   provide: APP_GUARD,
     //   useClass: JwtAuthGuard,

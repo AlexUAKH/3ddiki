@@ -62,7 +62,6 @@ const submit = handleSubmit(async (event) => {
     resetForm();
   } catch (error: any) {
     // if (error) {
-    console.log("onRequestError: ", errorMessage(error));
     toast.error(errorMessage(error));
   } finally {
     processing.value = false;
@@ -96,7 +95,6 @@ onMounted(async () => {
       $http.get(FILAMENT_BRANDS_API_FOR_SELECT),
       $http.get(FILAMENT_COLORS_API_FOR_SELECT),
     ])) as any;
-    console.log("onMounted: ", res);
 
     typesList.value = res[0]["value"]?.data || [];
     brandsList.value = res[1]["value"]?.data || [];

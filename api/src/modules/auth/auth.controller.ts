@@ -4,12 +4,12 @@ import {
   Body,
   Controller,
   Get,
-  Logger,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Throttle } from '@nestjs/throttler';
 import { type Request } from 'express';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -45,7 +45,7 @@ export class AuthController {
   @Post('refresh')
   async refresh(@Req() req: Request) {
     const user = req.user as any;
-    Logger.debug(`refresh controller user: ${user.sub}`);
+
     return this.authService.refreshTokens(user.sub, user.refreshToken, {
       userAgent: req.headers['user-agent'],
       ip: req.ip,
@@ -60,15 +60,14 @@ export class AuthController {
   }
 
   @Post('resend-verification-email')
-  // @Throttle({
-  //   default: {
-  //     limit: 1,
-  //     ttl: 60 * 60 * 1000,
-  //     // blockDuration: 30 * 60 * 1000,
-  //   },
-  // })
+  @Throttle({
+    default: {
+      limit: 2,
+      ttl: 60 * 60 * 1000,
+      // blockDuration: 30 * 60 * 1000,
+    },
+  })
   async resendVerificationEmail(@Body('email') email: string) {
-    Logger.debug(`sendVerificationEmail user: ${JSON.stringify(email)}`);
     return this.authService.resendVerificationEmail(email);
     // return this.authService.sendVerificationEmail(req.user.email);
   }
@@ -80,6 +79,33 @@ export class AuthController {
     }
 
     return this.authService.verifyEmail(token);
+  }
+
+  @Post('forgot')
+  @Throttle({
+    default: {
+      limit: 2,
+      ttl: 30 * 60 * 1000,
+      // blockDuration: 30 * 60 * 1000,
+    },
+  })
+  forgotPassword(@Body('email') email: string) {
+    if (!email || typeof email !== 'string')
+      throw new BadRequestException('Email is required');
+    return this.authService.forgotPassword(email);
+  }
+
+  @Post('change-password')
+  changePassword(
+    @Body('token') token: string,
+    @Body('email') email: string,
+    @Body('password') password: string,
+  ) {
+    if (!token || typeof token !== 'string') {
+      throw new BadRequestException('Token is required');
+    }
+
+    return this.authService.changePassword(token, email, password);
   }
 }
 

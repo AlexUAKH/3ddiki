@@ -75,8 +75,6 @@ const submit = handleSubmit(async (event) => {
     formData.append("deleteImageIds", JSON.stringify(deleteImageIds.value));
   }
 
-  console.log("form data: ", [...formData.entries()]);
-
   try {
     props.variantId
       ? await updateProductVariant(+props.variantId, formData)
@@ -95,16 +93,12 @@ const submit = handleSubmit(async (event) => {
     errorMessage(error).includes("Unique constraint")
       ? toast.error("Варіант з такий філаментом вже існує ")
       : toast.error(errorMessage(error));
-
-    console.log("onRequestError: ", errorMessage(error));
   } finally {
     processing.value = false;
   }
 });
 
 const preview = (image: any) => {
-  console.log("preview: ", image);
-
   imageToPreview.value = image;
 };
 const closePreview = () => {

@@ -21,7 +21,6 @@ export const useFilamentColors = () => {
     try {
       const res = await $http.get(FILAMENT_COLORS_API);
       colors.value = res.data;
-      console.log("getColors: ", res);
     } catch (e) {
       toast.error(errorMessage(e));
     } finally {
