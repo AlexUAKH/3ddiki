@@ -4,8 +4,9 @@ import { useI18n } from "vue-i18n";
 export const useHelpers = () => {
   const { t } = useI18n();
 
-  const formateDate = (date: Date) => {
-    return date ? dayjs(date).format("DD-MM-YYYY") : "-";
+  const formateDate = (date: string, time: boolean = false) => {
+    const format = time ? "DD-MM-YYYY HH:mm:ss" : "DD-MM-YYYY";
+    return date ? dayjs(date).format(format) : "-";
   };
 
   const downloadFile = (file: Blob, fileName: string = "export.pdf") => {
@@ -35,7 +36,7 @@ export const useHelpers = () => {
     e.response.data?.result?.message ||
     e.response.data?.message ||
     fallBackMessage ||
-    "Check your login and password";
+    "Something went wrong";
 
   return {
     formateDate,

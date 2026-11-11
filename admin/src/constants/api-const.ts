@@ -1,7 +1,7 @@
 //user
-export const USERS_API = "admin/users";
-export const SEND_VERIFICATION_EMAIL_API =
-  "admin/users/send-verification-email";
+export const USERS_API = "admin/user";
+export const CUSTOMERS_ROLES_API_FOR_SELECT = "user/roles-for-select";
+export const SEND_VERIFICATION_EMAIL_API = "user/send-verification-email";
 
 // filament
 export const FILAMENT_API = "admin/filament";
@@ -23,9 +23,18 @@ export const PRODUCT_VARIANT_EDIT_API = "admin/variants";
 export const PRODUCT_VARIANT_IMAGE_API = (variantId: number) =>
   `admin/variants/${variantId}/image`;
 
+// orders
+export const ORDER_API = "admin/orders";
+
 //auth
 export const AUTH_LOGIN = "/auth/login";
 export const AUTH_REFRESH = "/auth/refresh";
+export const AUTH_CHANGE_PASSWORD = "/auth/change-password";
 export const AUTH_REGISTER = "/auth/register";
 export const AUTH_LOGOUT = "/auth/logout";
+export const AUTH_FORGOT = "/auth/forgot";
 export const AUTH_PROFILE = "/auth/me";
+export const AUTH_USER_INFO = "/user/info";
+export const AUTH_SEND_VERIFICATION_LINK = "/auth/send-verification-email";
+export const AUTH_VERIFY_EMAIL = "/auth/verify-email";
+export const AUTH_RESEND_EMAIL = "/auth/resend-verification-email";

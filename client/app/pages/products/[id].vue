@@ -62,7 +62,6 @@ const {
 
 const productImages = computed(() => {
   if (product.value?.variants && product.value.variants.length === 0) {
-    console.log([]);
     return [];
   }
   const images =
@@ -77,8 +76,6 @@ const currentVariant = computed(() =>
 );
 
 const onMainSlide = ({ currentSlideIndex: index }: any) => {
-  console.log("onMainSlide: ", index);
-
   currentSlide.value = index;
 
   previewCarousel.value?.slideTo(index);

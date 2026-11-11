@@ -10,8 +10,7 @@ const emits = defineEmits(["activator-click", "select", "updateModel-value"]);
 const showMenu = shallowRef(false);
 const menuRef = useTemplateRef("menuRef");
 
-onClickOutside(menuRef, (event) => {
-  console.log(event);
+onClickOutside(menuRef, () => {
   showMenu.value = false;
 });
 

@@ -1,5 +1,5 @@
 import { useAuth } from "@/composables/auth";
-import { EUserRoles, type User } from "@/composables/auth.types";
+import { EUserRoles, type AuthUser } from "@/composables/auth.types";
 import { useHelpers } from "@/composables/helpers";
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants/cookies";
 import Cookies from "js-cookie";
@@ -13,20 +13,23 @@ export const useAuthStore = defineStore(
     const { errorMessage } = useHelpers();
 
     const accessToken = ref<string>(Cookies.get(ACCESS_TOKEN_COOKIE) || "");
-    const user = ref<User>({} as User);
+    const user = ref<AuthUser>({} as AuthUser);
 
     const loggedIn = computed(() => {
       return !!accessToken.value;
     });
 
     const isAdmin = computed(() => {
-      return user.value?.role === EUserRoles.ADMIN; // remoove !
+      return user.value?.role?.toLowerCase() === EUserRoles.ADMIN.toLowerCase(); // remoove !
     });
+
+    const isEmailVerified = computed(() => user.value.isEmailVerified);
 
     const login = async (loginData: { email: string; password: string }) => {
       try {
         const res = (await loginApi(loginData)).data;
 
+        if (!res.user.isEmailVerified) return false;
         accessToken.value = res.access_token;
 
         Cookies.set(ACCESS_TOKEN_COOKIE, res.access_token, {
@@ -42,9 +45,9 @@ export const useAuthStore = defineStore(
       } catch (e: any) {
         userReset();
         const message = errorMessage(e, "Check your login and password");
-        const field = e.response.data?.field || "";
+        // const field = e.response.data?.field || "";
 
-        throw { message, field };
+        throw { message, status: e.status };
       }
     };
 
@@ -65,7 +68,7 @@ export const useAuthStore = defineStore(
       Cookies.remove(ACCESS_TOKEN_COOKIE);
       Cookies.remove(REFRESH_TOKEN_COOKIE);
       accessToken.value = "";
-      user.value = {} as User;
+      user.value = {} as AuthUser;
     };
 
     // const canDo = (action: string): boolean => {
@@ -77,6 +80,7 @@ export const useAuthStore = defineStore(
       user,
       loggedIn,
       isAdmin,
+      isEmailVerified,
       login,
       logout,
       // canDo,
@@ -86,7 +90,7 @@ export const useAuthStore = defineStore(
     persist: {
       // afterRestore: (ctx) => {
       afterHydrate: (ctx) => {
-        console.log("Restored store: ", ctx.store);
+        // console.log("Restored store: ", ctx.store);
         if (ctx.store.accessToken)
           Cookies.set(ACCESS_TOKEN_COOKIE, ctx.store.accessToken, {
             expires: 365,

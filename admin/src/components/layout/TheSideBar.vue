@@ -6,11 +6,13 @@ import {
   FILAMENT_COLORS_ICON,
   FILAMENT_TYPES_ICON,
   FILAMENTS_ICON,
+  ORDERS_ICON,
   PRODUCT_CATEGORIES_ICON,
   PRODUCTS_ICON,
 } from "@/constants/iconsMap";
 import { ERouteNames } from "@/router/router.types";
 import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
@@ -43,6 +45,7 @@ const drawer = computed({
 });
 const display = useDisplay();
 const authStore = useAuthStore();
+const { isAdmin } = storeToRefs(authStore);
 const { logout } = authStore;
 
 const route = useRoute();
@@ -51,39 +54,51 @@ const { t } = useI18n();
 const isMobile = computed(() => display.smAndDown.value);
 const isDesktop = computed(() => display.mdAndUp.value);
 
-const menuItems = computed<MenuItem[]>(() => [
-  {
-    title: t("sideBar.dashboard"),
-    icon: DASHBOARD_ICON,
-    route: "",
-    pageName: ERouteNames.homePage,
-    exact: true,
-  },
-  {
-    title: t("sideBar.customers"),
-    icon: CUSTOMERS_ICON,
-    route: "customers",
-    pageName: ERouteNames.customers,
-  },
-  {
-    title: t("sideBar.filaments"),
-    icon: FILAMENTS_ICON,
-    route: "filaments",
-    pageName: ERouteNames.filaments,
-  },
-  {
-    title: t("sideBar.products"),
-    icon: PRODUCTS_ICON,
-    route: "products",
-    pageName: ERouteNames.products,
-  },
-  {
-    title: "Radobot",
-    route: "radobot",
-    icon: "mdi-robot-angry-outline",
-    pageName: ERouteNames.radobot,
-  },
-]);
+const menuItems = computed<MenuItem[]>(() => {
+  const menus = [
+    {
+      title: t("sideBar.dashboard"),
+      icon: DASHBOARD_ICON,
+      route: "",
+      pageName: ERouteNames.homePage,
+      exact: true,
+    },
+    {
+      title: t("sideBar.customers"),
+      icon: CUSTOMERS_ICON,
+      route: "customers",
+      pageName: ERouteNames.customers,
+    },
+    {
+      title: t("sideBar.filaments"),
+      icon: FILAMENTS_ICON,
+      route: "filaments",
+      pageName: ERouteNames.filaments,
+    },
+    {
+      title: t("sideBar.products"),
+      icon: PRODUCTS_ICON,
+      route: "products",
+      pageName: ERouteNames.products,
+    },
+    {
+      title: t("sideBar.orders"),
+      icon: ORDERS_ICON,
+      route: "orders",
+      pageName: ERouteNames.orders,
+    },
+  ];
+
+  if (isAdmin.value) {
+    menus.push({
+      title: "Radobot",
+      route: "radobot",
+      icon: "mdi-robot-angry-outline",
+      pageName: ERouteNames.radobot,
+    });
+  }
+  return menus;
+});
 
 const settings = [
   [

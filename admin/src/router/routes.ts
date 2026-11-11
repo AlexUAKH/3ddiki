@@ -8,9 +8,19 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/login",
     name: ERouteNames.login,
-    component: () => import("@/pages/auth/Login.vue"),
+    component: () => import("@/pages/auth/login.vue"),
     meta: {
       title: "Login",
+      layout: EAppLayouts.auth,
+      middleware: [guest],
+    },
+  },
+  {
+    path: "/verify-email",
+    name: ERouteNames.verifyEmail,
+    component: () => import("@/pages/auth/verifyEmail.vue"),
+    meta: {
+      title: "Verify email",
       layout: EAppLayouts.auth,
       middleware: [guest],
     },
@@ -28,10 +38,20 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/forgot-password",
     name: ERouteNames.forgotPassword,
-    component: () => import("@/pages/auth/ForgotPassword.vue"),
+    component: () => import("@/pages/auth/forgotPassword.vue"),
     meta: {
       title: "Forgot password",
-      layout: EAppLayouts.default,
+      layout: EAppLayouts.auth,
+      middleware: [guest],
+    },
+  },
+  {
+    path: "/reset-password",
+    name: ERouteNames.resetPassword,
+    component: () => import("@/pages/auth/resetPassword.vue"),
+    meta: {
+      title: "Reset password",
+      layout: EAppLayouts.auth,
       middleware: [guest],
     },
   },
@@ -71,6 +91,16 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/filaments/index.vue"),
     meta: {
       title: "Filaments",
+      layout: EAppLayouts.default,
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/orders",
+    name: ERouteNames.orders,
+    component: () => import("@/pages/orders/index.vue"),
+    meta: {
+      title: "Orders",
       layout: EAppLayouts.default,
       middleware: [auth],
     },
@@ -172,6 +202,8 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/PageNotFound.vue"),
     meta: {
       title: "Page Not Found",
+      layout: EAppLayouts.auth,
+
       // middleware: [auth]
     },
   },

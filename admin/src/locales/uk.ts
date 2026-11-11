@@ -30,12 +30,15 @@ export default {
     chooseFile: "Обрати файл(и)",
     dragAndDropFilesHere: "Перетягніть файл(и) сюди",
     image: "Зображення",
+    yes: "Так",
+    no: "Ні",
   },
   sideBar: {
     dashboard: "Статистіка",
     customers: "Клієнти",
     filaments: "Філаменти",
     products: "Продукти",
+    orders: "Замовлення",
     settings: "Налаштування",
     productCategories: "Категорії продуктів",
     filamentTypes: "Типи філаментів",
@@ -54,6 +57,16 @@ export default {
   },
   customers: {
     header: "Клієнти",
+    customer: "Клієнт | Клієнти | Клієнта",
+    name: "Ім'я",
+    lastName: "Прізвище",
+    email: "Електронна пошта",
+    role: "Роль",
+    isEmailVerified: "Підтверджено електронну пошту",
+    createdAt: "Створено",
+    setAsEmailVerified: "Встановити електронну пошту як підтверджену",
+    newCustomerCreated: "Новий клієнт створений успішно",
+    customerWasUpdatedSuccessfully: "Клієнт оновлений успішно",
   },
   filaments: {
     header: "Філаменти",
@@ -76,6 +89,11 @@ export default {
   },
   filamentColors: { header: "Кольори філаментів" },
   productCategories: { header: "Категорії продуктів" },
+  orders: {
+    header: "Замовлення",
+    create: "Створити замовлення",
+    edit: "Редагувати замовлення",
+  },
   404: {
     goToHomePage: "Перейти на головну сторінку",
     pageNotFound: "Сторінку не знайдено",
@@ -89,5 +107,25 @@ export default {
     number: "Має бути цілим часлом",
     float: "Має бути числом",
     notZero: "Має бути більше за 0",
+    minPasswordLength: "Пароль має бути хочаб {limit} символів",
+  },
+  auth: {
+    verifyingYourEmail: "Підтвердження вашої електронної пошти...",
+    invalidVerificationLink: "Недійсне посилання підтвердження",
+    yourEmailVerifiedSuccessfully:
+      "Вашу електронну адресу успішно підтверджено!",
+    verificationLinkInvalid:
+      "Посилання для підтвердження недійсне або термін його дії минув",
+    goToLogin: "Перейти до сайту",
+    loginToYourAccount: "Увійдіть до свого облікового запису",
+    email: "Електронна пошта",
+    password: "Пароль",
+    confirmPassword: "Підтвердіть пароль",
+    forgotPassword: "Забули пароль",
+    login: "Увійти",
+    notVerifiedEmail: "Вашу електронну адресу не підтверджено!",
+    resendVerificationEmail: "Надіслати ще",
+    verificationEmail:
+      "Лист із посиланням для підтвердження успішно надіслано!",
   },
 } as MessageSchema;

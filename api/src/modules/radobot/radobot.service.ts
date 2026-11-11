@@ -8,7 +8,7 @@ import JSZip from 'jszip';
 
 @Injectable()
 export class RadobotService {
-  async downloadImages(baseUrl: string): Promise<Buffer> {
+  async downloadImages(baseUrl: string, lessonNumber: number): Promise<Buffer> {
     if (!baseUrl) {
       throw new BadRequestException('Invalid URL');
     }
@@ -33,7 +33,7 @@ export class RadobotService {
     let downloaded = 0;
 
     while (!allDownloaded) {
-      const filename = `${String(downloaded + 1).padStart(3, '0')}.webp`;
+      const filename = `robot-${lessonNumber}_${String(downloaded + 1).padStart(3, '0')}.webp`;
       const url = new URL(filename, normalizedBaseUrl);
 
       try {

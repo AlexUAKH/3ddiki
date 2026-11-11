@@ -11,4 +11,9 @@ export class UsersController {
   async getUserInfoByEmail(@Req() req) {
     return this.userService.getUserInfoByEmail(req.user.email);
   }
+
+  @Get('roles-for-select')
+  async getRolesForSelect() {
+    return this.userService.getRolesForSelect();
+  }
 }

@@ -7,6 +7,8 @@ import { ProductCategoryService } from '../products/categories/product-category.
 import { ProductVariantsService } from '../products/product-variant.service';
 import { ProductsService } from '../products/products.service';
 import { R2StorageService } from '../storage/r2-storage.service';
+import { UserModule } from '../users/users.module';
+import { AdminCustomersController } from './customer/admin-customer.controller';
 import { AdminFilamentBrandController } from './filament/admin-filament-brand.controller';
 import { AdminFilamentColorController } from './filament/admin-filament-color.controller';
 import { AdminFilamentTypeController } from './filament/admin-filament-type.controller';
@@ -16,6 +18,7 @@ import { AdminProductVariantsController } from './product/admin-product-variants
 import { AdminProductsController } from './product/admin-products.controller';
 
 @Module({
+  imports: [UserModule],
   controllers: [
     AdminProductsController,
     AdminProductVariantsController,
@@ -24,6 +27,7 @@ import { AdminProductsController } from './product/admin-products.controller';
     AdminFilamentBrandController,
     AdminFilamentColorController,
     AdminFilamentController,
+    AdminCustomersController,
   ],
   providers: [
     ProductsService,

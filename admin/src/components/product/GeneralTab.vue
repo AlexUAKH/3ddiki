@@ -74,7 +74,6 @@ const submit = handleSubmit(async (event) => {
     const res = props.productId
       ? await updateProduct(props.productId, data)
       : await createProduct(data);
-    console.log("create product res: ", res.data);
 
     emits("created", res.data.id);
 
@@ -116,8 +115,6 @@ onMounted(async () => {
   $http
     .get(PRODUCT_CATEGORY_API_FOR_SELECT)
     .then((res) => {
-      console.log("getCat: ", res);
-
       categories.value = res.data;
     })
     .catch(() => {})

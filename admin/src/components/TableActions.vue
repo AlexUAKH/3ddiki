@@ -4,6 +4,8 @@ import { useDisplay } from "vuetify";
 
 interface Props {
   actions: TableAction[];
+  loading?: string;
+  disabled?: { [K: string]: boolean };
 }
 
 withDefaults(defineProps<Props>(), {});
@@ -43,6 +45,11 @@ const { mobile, mdAndDown } = useDisplay();
         variant="flat"
         :text="button.label"
         :color="button.color"
+        :loading="button.action == loading"
+        :disabled="
+          button.action == loading ||
+          (disabled ? disabled[button.action] : false)
+        "
         @click="$emit(button.action)"
       />
     </div>

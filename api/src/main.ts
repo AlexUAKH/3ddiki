@@ -14,9 +14,6 @@ async function bootstrap() {
     origin: (origin, callback) => {
       // Разрешаем запросы без origin (например, Postman или мобильные приложения)
       // или если origin находится в нашем списке разрешенных
-      Logger.debug(
-        `Request origin: ${origin}, Allowed origins: ${allowedOrigins.join(', ')}`,
-      );
       if (!origin) {
         return callback(null, true);
       }

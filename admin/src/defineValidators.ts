@@ -118,3 +118,21 @@ defineRule("not_zero", (value: number) => {
   }
   return true;
 });
+
+defineRule("password", (value: string, [limit]: any) => {
+  // Field is empty, should pass
+  if (!value || !value.length) {
+    return true;
+  }
+  if (value.length < limit) {
+    return "validation.minPasswordLength";
+  }
+  if (value.search(/[a-z]/i) < 0) {
+    return "validation.atLeastOneLetter";
+  }
+  if (value.search(/[0-9]/) < 0) {
+    return "validation.atLeastOneDigit";
+  }
+
+  return true;
+});

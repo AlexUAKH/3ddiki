@@ -2,6 +2,7 @@ export const DASHBOARD_ICON = "mdi-chart-line";
 export const CUSTOMERS_ICON = "mdi-account-group";
 export const FILAMENTS_ICON = "mdi-movie-roll";
 export const PRODUCTS_ICON = "mdi-storefront";
+export const ORDERS_ICON = "mdi-cart-outline";
 
 // settings
 export const PRODUCT_CATEGORIES_ICON = "mdi-library-shelves";
@@ -15,3 +16,4 @@ export const DELETE_ICON = "mdi-trash-can-outline";
 export const EDIT_ICON = "mdi-pen";
 export const PERCENT_ICON = "mdi-percent-outline";
 export const BACK_ICON = "mdi-arrow-left-thin";
+export const EMAIL_SYNC_ICON = "mdi-email-sync-outline";

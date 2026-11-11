@@ -118,8 +118,6 @@ const deleteSuccessHandler = () => {
 };
 
 const changeVariantHandler = (closeModal: boolean = true) => {
-  console.log("closeModal: ", closeModal);
-
   if (closeModal) closeManageModal();
   getVariants();
 };

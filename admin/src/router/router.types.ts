@@ -19,6 +19,7 @@ export enum ERouteNames {
   forgotPassword = "forgotPassword",
   resetPassword = "resetPassword",
   userProfile = "userProfile",
+  verifyEmail = "verifyEmail",
   //
   homePage = "homePage",
   customers = "customers",
@@ -26,6 +27,9 @@ export enum ERouteNames {
   products = "products",
   productsCreate = "productsCreate",
   productsEdit = "productsEdit",
+  orders = "orders",
+  ordersCreate = "ordersCreate",
+  ordersEdit = "ordersEdit",
   // settings
   filamentBrands = "filamentBrands",
   filamentColors = "filamentColors",

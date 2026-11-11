@@ -26,8 +26,7 @@ const userMenus = computed(() => [
   },
 ]);
 
-onClickOutside(userMenuRef, (event) => {
-  console.log(event);
+onClickOutside(userMenuRef, () => {
   showUserMenu.value = false;
 });
 

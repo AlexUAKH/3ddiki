@@ -32,11 +32,6 @@ const formatImageName = () => {
 
 const downloadWebP = async () => {
   imageCount.value++;
-  console.log(
-    imageCount.value,
-    " url: ",
-    `${imagesUrl.value}${lessonNumber.value}/${formatImageName()}`,
-  );
 
   try {
     // 1. Получаем данные по ссылке

@@ -4,6 +4,7 @@ interface Props {
   cancelBtnLabel?: string;
   processing?: boolean;
   hideCancelBtn?: boolean;
+  disabled?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -11,6 +12,7 @@ withDefaults(defineProps<Props>(), {
   cancelBtnLabel: "Cancel",
   processing: false,
   hideCancelBtn: false,
+  disabled: false,
 });
 
 defineEmits(["confirm", "reject"]);
@@ -21,7 +23,7 @@ defineEmits(["confirm", "reject"]);
     <v-btn
       density="compact"
       color="success"
-      :disabled="processing"
+      :disabled="processing || disabled"
       :loading="processing"
       @click="$emit('confirm')"
     >

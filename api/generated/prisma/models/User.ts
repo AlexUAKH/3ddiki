@@ -225,6 +225,7 @@ export type UserWhereInput = {
   sessions?: Prisma.SessionListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  verificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -241,6 +242,7 @@ export type UserOrderByWithRelationInput = {
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   favorites?: Prisma.FavoriteOrderByRelationAggregateInput
+  verificationTokens?: Prisma.EmailVerificationTokenOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -260,6 +262,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sessions?: Prisma.SessionListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  verificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -308,6 +311,7 @@ export type UserCreateInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -324,6 +328,7 @@ export type UserUncheckedCreateInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -340,6 +345,7 @@ export type UserUpdateInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -356,6 +362,7 @@ export type UserUncheckedUpdateInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -461,6 +468,20 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutVerificationTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerificationTokensInput, Prisma.UserUncheckedCreateWithoutVerificationTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerificationTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutVerificationTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerificationTokensInput, Prisma.UserUncheckedCreateWithoutVerificationTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerificationTokensInput
+  upsert?: Prisma.UserUpsertWithoutVerificationTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVerificationTokensInput, Prisma.UserUpdateWithoutVerificationTokensInput>, Prisma.UserUncheckedUpdateWithoutVerificationTokensInput>
+}
+
 export type UserCreateNestedOneWithoutSessionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
@@ -503,6 +524,86 @@ export type UserUpdateOneRequiredWithoutFavoritesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFavoritesInput, Prisma.UserUpdateWithoutFavoritesInput>, Prisma.UserUncheckedUpdateWithoutFavoritesInput>
 }
 
+export type UserCreateWithoutVerificationTokensInput = {
+  id?: string
+  email: string
+  name?: string
+  lastName?: string
+  password: string
+  role?: $Enums.Role
+  isEmailVerified?: boolean
+  stripeCustomerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutVerificationTokensInput = {
+  id?: string
+  email: string
+  name?: string
+  lastName?: string
+  password: string
+  role?: $Enums.Role
+  isEmailVerified?: boolean
+  stripeCustomerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutVerificationTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerificationTokensInput, Prisma.UserUncheckedCreateWithoutVerificationTokensInput>
+}
+
+export type UserUpsertWithoutVerificationTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutVerificationTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerificationTokensInput, Prisma.UserUncheckedCreateWithoutVerificationTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVerificationTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutVerificationTokensInput>
+}
+
+export type UserUpdateWithoutVerificationTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVerificationTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   email: string
@@ -516,6 +617,7 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -531,6 +633,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -562,6 +665,7 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -577,6 +681,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -592,6 +697,7 @@ export type UserCreateWithoutReviewsInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -607,6 +713,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -638,6 +745,7 @@ export type UserUpdateWithoutReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -653,6 +761,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFavoritesInput = {
@@ -668,6 +777,7 @@ export type UserCreateWithoutFavoritesInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFavoritesInput = {
@@ -683,6 +793,7 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFavoritesInput = {
@@ -714,6 +825,7 @@ export type UserUpdateWithoutFavoritesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavoritesInput = {
@@ -729,6 +841,7 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  verificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -740,12 +853,14 @@ export type UserCountOutputType = {
   sessions: number
   reviews: number
   favorites: number
+  verificationTokens: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
   favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
+  verificationTokens?: boolean | UserCountOutputTypeCountVerificationTokensArgs
 }
 
 /**
@@ -779,6 +894,13 @@ export type UserCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Types.
   where?: Prisma.FavoriteWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountVerificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailVerificationTokenWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -794,6 +916,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   favorites?: boolean | Prisma.User$favoritesArgs<ExtArgs>
+  verificationTokens?: boolean | Prisma.User$verificationTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -841,6 +964,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   favorites?: boolean | Prisma.User$favoritesArgs<ExtArgs>
+  verificationTokens?: boolean | Prisma.User$verificationTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -852,6 +976,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     favorites: Prisma.$FavoritePayload<ExtArgs>[]
+    verificationTokens: Prisma.$EmailVerificationTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1261,6 +1386,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   favorites<T extends Prisma.User$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  verificationTokens<T extends Prisma.User$verificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$verificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1762,6 +1888,30 @@ export type User$favoritesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
+}
+
+/**
+ * User.verificationTokens
+ */
+export type User$verificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailVerificationToken
+   */
+  select?: Prisma.EmailVerificationTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailVerificationToken
+   */
+  omit?: Prisma.EmailVerificationTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailVerificationTokenInclude<ExtArgs> | null
+  where?: Prisma.EmailVerificationTokenWhereInput
+  orderBy?: Prisma.EmailVerificationTokenOrderByWithRelationInput | Prisma.EmailVerificationTokenOrderByWithRelationInput[]
+  cursor?: Prisma.EmailVerificationTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailVerificationTokenScalarFieldEnum | Prisma.EmailVerificationTokenScalarFieldEnum[]
 }
 
 /**

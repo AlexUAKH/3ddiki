@@ -1,4 +1,4 @@
-import type { User } from "@/composables/auth.types";
+import type { AuthUser } from "@/composables/auth.types";
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants/cookies";
 import router from "@/router";
 import { ERouteNames } from "@/router/router.types";
@@ -87,7 +87,7 @@ function refreshAuthLogic(failedRequest: any): Promise<any> {
       Cookies.remove(ACCESS_TOKEN_COOKIE);
       Cookies.remove(REFRESH_TOKEN_COOKIE);
       auth.accessToken = "";
-      auth.user = {} as User;
+      auth.user = {} as AuthUser;
       router.push({ name: ERouteNames.login });
     });
 }

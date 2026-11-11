@@ -25,8 +25,6 @@ const isEdit = computed(() => route.name === ERouteNames.productsEdit);
 // const isEdit = computed(() => String(route.params.id || "") || null);
 
 const generalInfoCreatedHandler = (id: number) => {
-  console.log("generalInfoCreatedHandler: ", id);
-
   productId.value = id;
   tab.value++;
 };

@@ -31,7 +31,7 @@ const { t } = useI18n();
       {{ header }}
     </div>
 
-    <div class="d-flex align-center grow">
+    <div class="d-flex align-center flex-grow-1">
       <slot v-if="$slots.default" />
     </div>
     <div class="actions">
@@ -56,7 +56,8 @@ const { t } = useI18n();
   border-radius: 0;
   & .actions {
     // flex-grow: 1;
-    margin-left: auto;
+    // margin-left: auto;
+    align-self: flex-end;
   }
   @media (min-width: 768px) {
     flex-direction: row;
