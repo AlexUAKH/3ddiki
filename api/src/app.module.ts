@@ -14,6 +14,7 @@ import { PrismaModule } from './modules/prisma/prisma.module';
 import { ProductsModule } from './modules/products/products.module';
 import { RadobotModule } from './modules/radobot/radobot.module';
 import { StorageModule } from './modules/storage/storage.module';
+import { TelegramModule } from './modules/telegram/telegram.module';
 import { UserModule } from './modules/users/users.module';
 
 @Module({
@@ -66,6 +67,7 @@ import { UserModule } from './modules/users/users.module';
     ]),
     StorageModule,
     RadobotModule,
+    TelegramModule,
     //   transport: {
     //     host: process.env.MAIL_HOST, // e.g., smtp.gmail.com
     //     port: Number(process.env.MAIL_PORT || 465),

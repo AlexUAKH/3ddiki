@@ -20,11 +20,14 @@ useHead({
       </abbr>
       <abbr class="flex items-center gap-2">
         <Icon name="mdi:instagram" />
-        <a
-          class="block"
-          href="https://www.instagram.com/3ddiki?igsh=MW53YTh6dXYxaHk5Mw%3D%3D&utm_source=qr"
-          target="_blank"
+        <a class="block" href="https://www.instagram.com/3ddiki" target="_blank"
           >3ddiki If</a
+        >
+      </abbr>
+      <abbr class="flex items-center gap-2">
+        <Icon name="mdi:telegram" />
+        <a class="block" href="https://t.me/three_ddiki_bot" target="_blank"
+          >3ddiki Bot</a
         >
       </abbr>
     </ol>

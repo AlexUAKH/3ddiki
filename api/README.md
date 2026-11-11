@@ -31,6 +31,10 @@
 $ npm install
 ```
 
+## Telegram bot
+
+Set `TELEGRAM_BOT_TOKEN` to the token created with BotFather to start the bot using long polling. Without this variable, the API starts with the Telegram bot disabled. Bot command handlers are registered in `src/modules/telegram/telegram.updates.ts`.
+
 ## Compile and run the project
 
 ```bash

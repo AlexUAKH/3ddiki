@@ -2,7 +2,6 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import bcrypt from 'bcrypt';
@@ -101,7 +100,6 @@ export class UsersService {
   }
 
   async getUserInfoByEmail(email: string) {
-    Logger.debug(`getUserInfoByEmail ${email}`);
     const userObject = await this.prisma.user.findUnique({
       where: { email },
       omit: { password: true },
