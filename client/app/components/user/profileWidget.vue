@@ -11,6 +11,7 @@ const { setShowAuth } = useAppStore();
 const { isLoggedIn } = storeToRefs(useUserStore());
 const router = useRouter();
 const { t } = useI18n();
+const userStore = useUserStore();
 
 const userMenus = computed(() => [
   { title: t("user.profile"), icon: "mdi:account-outline", to: PROFILE_PAGE },
@@ -46,15 +47,20 @@ const handleWidgetClick = () => {
   setShowAuth(true);
 };
 
-const logout = () => {
-  router.push("/");
+const logout = async () => {
+  await userStore.logout();
+  showUserMenu.value = false;
+  await router.push("/");
 };
 </script>
 
 <template>
   <div class="relative">
     <AppButton @click.stop="handleWidgetClick">
-      <Icon name="mdi:account-outline" class="size-6 md:size-8" />
+      <Icon
+        :name="isLoggedIn ? 'mdi:account-outline' : 'mdi:login'"
+        class="size-6 md:size-8"
+      />
     </AppButton>
 
     <div

@@ -18,6 +18,11 @@ useHead({
 });
 
 const { showAuth } = storeToRefs(useAppStore());
+const userStore = useUserStore();
+
+onMounted(async () => {
+  await userStore.loadSession();
+});
 </script>
 
 <template>

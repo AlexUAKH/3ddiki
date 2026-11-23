@@ -12,7 +12,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   constructor() {
     super({
       jwtFromRequest: (req: Request) => {
-        const token = req?.body?.refresh_token;
+        const token = req?.cookies?.refresh_token ?? req?.body?.refresh_token;
         return typeof token === 'string' && token.length > 0 ? token : null;
       },
       secretOrKey: process.env.JWT_REFRESH_SECRET || 'REFRESH_SECRET',
@@ -21,7 +21,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   }
 
   validate(req: Request, payload: any) {
-    const refreshToken = req.body?.refresh_token;
+    const refreshToken = req.cookies?.refresh_token ?? req.body?.refresh_token;
     if (typeof refreshToken !== 'string' || refreshToken.length === 0) {
       throw new UnauthorizedException('Refresh token is required');
     }

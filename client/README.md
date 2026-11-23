@@ -4,6 +4,8 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 
 ## Setup
 
+Set `NUXT_API_BASE_URL` to the Nest API base URL, including `/api` (for example, `http://localhost:8001/api`). Client API traffic uses the Nuxt same-origin `/api` proxy; authentication tokens are stored in HttpOnly cookies by the API and are not exposed to browser JavaScript.
+
 Make sure to install dependencies:
 
 ```bash

@@ -108,6 +108,25 @@ export class UsersService {
 
     return userObject;
   }
+
+  async getAdminUserProfile(id: string) {
+    const userObject = await this.prisma.user.findUnique({
+      where: { id },
+      omit: { password: true },
+    });
+
+    return userObject;
+  }
+
+  async getClientUserProfile(id: string) {
+    const userObject = await this.prisma.user.findUnique({
+      where: { id },
+      omit: { password: true },
+    });
+
+    return userObject;
+  }
+
   // helpers
   private generateRandomPassword(length: number = 8): string {
     const charset =

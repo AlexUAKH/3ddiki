@@ -1,5 +1,6 @@
 import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
@@ -7,7 +8,7 @@ async function bootstrap() {
   const port = process.env.PORT ?? 8001;
   const app = await NestFactory.create(AppModule, { rawBody: true });
 
-  // app.use(cookieParser());
+  app.use(cookieParser());
   const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || [];
 
   app.enableCors({

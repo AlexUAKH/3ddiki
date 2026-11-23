@@ -168,3 +168,44 @@ export class ProductsService {
     };
   }
 }
+
+// https://api-stage.novapost.com/v.1.0/shipments
+// POST /v.1.0/shipments HTTP/1.1
+// Host: api-stage.novapost.com/
+// Authorization: YOUR_API_KEY
+// Content-Type: application/json
+// Accept: */*
+// Content-Length: 510
+
+// {
+//   "number": "",
+//   "parcels": [
+//     {
+//       "cargoCategory": "parcel",
+//       "number": "",
+//       "parcelDescription": "Побутовий пил",
+//       "insuranceCost": 500,
+//       "rowNumber": 1,
+//       "width": 200,
+//       "length": 300,
+//       "height": 100,
+//       "actualWeight": 2000,
+//       "volumetricWeight": 1500
+//     }
+//   ],
+//   "payerType": "Recipient",  // Sender | Recipient | ThirdPerson
+//   "recipient": {
+//     "countryCode": "UA",
+//     "divisionId": "12011",
+//     "name": "Тестова Інна",
+//     "phone": "380001234567"
+//   },
+//   "sender": {
+//     "countryCode": "UA",
+//     "divisionId": "11759",
+//     "name": "Тестова Тетяна",
+//     "phone": "380007654321"
+//   },
+//   "services": [],
+//   "status": "ReadyToShip"
+// }

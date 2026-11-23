@@ -41,7 +41,7 @@ const { t } = useI18n();
     <AppButton
       v-if="!hideCancelBtn"
       class="text-red-600 border border-red-600 dark:text-red-200 dark:border-red-200 rounded-xl"
-      :disabled="disabled || processing"
+      :disabled="processing"
       @click="$emit('cancel')"
       >{{ t(cancelText) }}</AppButton
     >

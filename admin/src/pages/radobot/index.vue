@@ -30,7 +30,7 @@ const downloadImages = async () => {
 
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = `lesson-${lessonNumber.value}.zip`;
+    link.download = `robot-lesson-${lessonNumber.value}.zip`;
 
     document.body.appendChild(link);
     link.click();

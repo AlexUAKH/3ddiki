@@ -57,3 +57,11 @@ export type Product = {
   sizeZ: number;
   weight: number;
 };
+
+export type User = {
+  email: string;
+  name: string;
+  lastName: string;
+  phone: string;
+  city: string;
+};
