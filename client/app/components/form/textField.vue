@@ -4,6 +4,7 @@ interface TextFieldProps {
   modelValue: string;
   error?: string | string[];
   example?: string;
+  type?: string;
 }
 
 const { modelValue, error } = defineProps<TextFieldProps>();
@@ -28,7 +29,11 @@ const inputErrors = computed(() => {
       {{ label }}
       <div v-if="example" class="text-sm">( {{ example }} )</div>
     </div>
-    <input v-model="value" class="h-8 border rounded-md w-full" />
+    <input
+      v-model="value"
+      class="h-8 px-3 py-1 border rounded-md w-full"
+      :type="type || 'text'"
+    />
     <div v-if="inputErrors.length" class="space-y-0.5 mt-1">
       <div v-for="err in inputErrors" class="text-md text-red-500 leading-none">
         {{ err }}

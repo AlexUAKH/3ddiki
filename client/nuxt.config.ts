@@ -35,17 +35,19 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // The private keys which are only available server-side
     apiSecret: "123",
-    // Keys within public are also exposed client-side
+    apiBaseUrl: process.env.NUXT_API_BASE_URL || "http://localhost:8001/api",
     public: {
-      apiBase: import.meta.env.NUXT_API_BASE_URL || "",
+      // Public runtime configuration only.
     },
   },
   $production: {
     routeRules: {
       "/**": { isr: true },
+      "/api/**": { cache: false },
     },
   },
   routeRules: {
+    "/api/**": { cache: false },
     // Set layout for specific route
     "/profile": { appLayout: "profile" },
     "/profile/wishList": { appLayout: "profile" },

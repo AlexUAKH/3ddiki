@@ -33,7 +33,7 @@ export class RadobotService {
     let downloaded = 0;
 
     while (!allDownloaded) {
-      const filename = `robot-${lessonNumber}_${String(downloaded + 1).padStart(3, '0')}.webp`;
+      const filename = `${String(downloaded + 1).padStart(3, '0')}.webp`;
       const url = new URL(filename, normalizedBaseUrl);
 
       try {
@@ -51,7 +51,7 @@ export class RadobotService {
           continue;
         }
 
-        zip.file(filename, response.data);
+        zip.file(`robot-${lessonNumber}_` + filename, response.data);
         downloaded++;
       } catch {
         // Missing images are skipped.

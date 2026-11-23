@@ -5,7 +5,7 @@ export default {
     cancel: "Скасувати",
     ok: "ok",
     register: "Реєстрація",
-    save: "Зберігти",
+    save: "Зберегти",
     back: "Back",
   },
   footer: {

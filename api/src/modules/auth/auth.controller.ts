@@ -6,10 +6,12 @@ import {
   Get,
   Post,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { type Request } from 'express';
+import { type Request, type Response } from 'express';
+import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -17,7 +19,10 @@ import { RefreshGuard } from './guards/refresh.auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private usersService: UsersService,
+  ) {}
 
   // Маршрут для входа (передаем email и password в body)
   @UseGuards(LocalAuthGuard)
@@ -52,11 +57,10 @@ export class AuthController {
     });
   }
 
-  // Пример ЗАЩИЩЕННОГО маршрута (доступен только с валидным JWT в Header)
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Req() req) {
-    return req.user; // Вернет данные из JwtStrategy.validate()
+  async getProfile(@Req() req) {
+    return this.usersService.getAdminUserProfile(req.user.userId);
   }
 
   @Post('resend-verification-email')
@@ -106,6 +110,96 @@ export class AuthController {
     }
 
     return this.authService.changePassword(token, email, password);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('client/login')
+  async clientLogin(
+    @Req() req,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const result = await this.authService.login(req.user, {
+      userAgent: req.headers['user-agent'],
+      ip: req.ip,
+    });
+
+    this.setClientAuthCookies(response, result);
+    return { user: result.user };
+  }
+
+  @UseGuards(RefreshGuard)
+  @Post('client/refresh')
+  async clientRefresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const user = req.user as any;
+    const tokens = await this.authService.refreshTokens(
+      user.sub,
+      user.refreshToken,
+      {
+        userAgent: req.headers['user-agent'],
+        ip: req.ip,
+      },
+    );
+
+    this.setClientAuthCookies(response, tokens);
+    return { ok: true };
+  }
+
+  @Post('client/logout')
+  async clientLogout(
+    @Req() req: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    await this.authService.logoutClient(req.cookies?.refresh_token);
+    this.clearClientAuthCookies(response);
+    return { message: 'You have successfully logged out' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('client/me')
+  getClientUser(@Req() req) {
+    return this.authService.getClientUser(req.user.userId);
+  }
+
+  // @UseGuards(JwtAuthGuard)
+  // @Get('client-profile')
+  // getClientUser(@Req() req) {
+  //   return this.authService.getClientUser(req.user.userId);
+  // }
+
+  private setClientAuthCookies(
+    response: Response,
+    tokens: { access_token: string; refresh_token: string },
+  ) {
+    const commonOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax' as const,
+      path: '/',
+    };
+
+    response.cookie('access_token', tokens.access_token, {
+      ...commonOptions,
+      maxAge: Number(process.env.JWT_EXPIRES_IN_MINUTES || 15) * 60 * 1000,
+    });
+    response.cookie('refresh_token', tokens.refresh_token, {
+      ...commonOptions,
+      maxAge: Number(process.env.JWT_REFRESH_DAYS || 7) * 24 * 60 * 60 * 1000,
+    });
+  }
+
+  private clearClientAuthCookies(response: Response) {
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax' as const,
+      path: '/',
+    };
+
+    response.clearCookie('access_token', options);
+    response.clearCookie('refresh_token', options);
   }
 }
 

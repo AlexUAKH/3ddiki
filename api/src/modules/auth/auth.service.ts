@@ -45,9 +45,9 @@ export class AuthService {
   }
 
   private ACCESS_TOKEN_EXPIRE_IN =
-    Number(process.env.JWT_EXPIRES_IN_MINUTES || 15) * 60;
+    Number(process.env.JWT_EXPIRES_IN_MINUTES || 15) * 60 * 1000;
   private REFRESH_TOKEN_EXPIRE_IN =
-    Number(process.env.JWT_REFRESH_DAYS || 7) * 24 * 60 * 60;
+    Number(process.env.JWT_REFRESH_DAYS || 7) * 24 * 60 * 60 * 1000;
 
   private async generateTokens(userId: string, email: string, role: string) {
     const [access_token, refresh_token] = await Promise.all([
@@ -83,12 +83,36 @@ export class AuthService {
       data: {
         userId: user.id,
         refreshToken: await bcrypt.hash(tokens.refresh_token, 10),
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // +7 days
+        expiresAt: new Date(Date.now() + this.REFRESH_TOKEN_EXPIRE_IN), // +7 days
         userAgent,
         ip,
       },
     });
     return { ...tokens, expire_at: this.ACCESS_TOKEN_EXPIRE_IN, user };
+  }
+
+  async getClientUser(userId: string) {
+    return await this.prisma.user.findUnique({
+      where: { id: userId },
+      omit: { password: true },
+    });
+  }
+
+  async logoutClient(refreshToken?: string) {
+    if (!refreshToken) return;
+
+    try {
+      const payload = await this.jwtService.verifyAsync<{ sub: string }>(
+        refreshToken,
+        {
+          secret: process.env.JWT_REFRESH_SECRET || 'REFRESH_SECRET',
+          ignoreExpiration: true,
+        },
+      );
+      await this.logout(payload.sub, refreshToken);
+    } catch {
+      // Always allow the client to clear an invalid or expired cookie.
+    }
   }
 
   /**
