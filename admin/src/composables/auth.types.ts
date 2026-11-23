@@ -14,7 +14,7 @@ export type AuthUser = {
   role: EUserRoles;
   isEmailVerified: boolean;
   stripeCustomerId: boolean;
-  // permissions?: any[];
+  permissions?: any[];
 };
 
 export type UserInfo = AuthUser & {
